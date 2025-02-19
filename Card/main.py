@@ -23,6 +23,9 @@ def main():
         elif i == 'field':
             display.display_field()
 
+        elif i == 'all':
+            display.display_all()
+
 if __name__ == '__main__':
     init()
     main()
