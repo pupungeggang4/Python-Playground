@@ -2,12 +2,26 @@ import card
 import var
 import data
 import game
+import display
 
 def init():
-    pass
+    game.game_init()
 
 def main():
-    pass
+    while True:
+        i = input('Enter Command: ')
+
+        if i == 'quit':
+            break
+
+        elif i == 'player':
+            display.display_player()
+
+        elif i == 'hand':
+            display.display_hand()
+
+        elif i == 'field':
+            display.display_field()
 
 if __name__ == '__main__':
     init()
