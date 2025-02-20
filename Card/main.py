@@ -1,4 +1,5 @@
 import json
+import platform
 import sys
 import os
 
@@ -12,7 +13,10 @@ def init():
 
 def main():
     while True:
-        os.system('clear')
+        if platform.system() == 'Windows':
+            os.system('cls')
+        else:
+            os.system('clear')
         var.field.render()
         var.player.render()
         i = input('Enter Command: ')
