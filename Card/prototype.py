@@ -1,3 +1,22 @@
+class Player():
+    hand = []
+    deck = []
+    energy = []
+
+    energy_turn = 1
+    power = 0
+    hardness = 0
+    energy_extra = 0
+    draw_extra = 0
+    hand_max = 8
+
+    def draw_card(self):
+        if len(self.deck) > 0 and len(self.hand) < self.hand_max:
+            self.hand.append(self.deck.pop())
+
+class Game():
+    turn = 0
+
 class Card():
     name = ''
     attack = 0
@@ -9,6 +28,10 @@ class Card():
         self.energy = data['energy']
         self.attack = data['stat'][0]
         self.hp = data['stat'][1]
+        self.play = data['play']
+
+class Field():
+    unit = []
 
 class FieldThing():
     pass
