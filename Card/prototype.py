@@ -12,29 +12,46 @@ class Field():
         ]
 
     def render(self):
-        pass
+        print('== Field ==')
+        for i in range(14):
+            unit = self.unit[i]
+            print('|', end='')
+            if type(unit) == Leader or type(unit) == Unit:
+                print(f'{unit.attack}/{unit.hp}'.ljust(20, ' '), end='')
+            else:
+                print(''.ljust(20, ' '), end='')
+            if i == 0 or i == 6 or i == 12 or i == 13:
+                print('|')
 
 class Player():
     hand = []
     deck = []
 
     def __init__(self):
-        self.hand = [Card(data.card[1]), Card(data.card[2])]
+        self.hand = [Card(data.card[1]), Card(data.card[2]), Card(data.card[3]), Card(data.card[4])]
 
     def render(self):
         print('== Player ==')
         print('== Hand ==')
         for i in range(len(self.hand)):
             self.hand[i].render()
+        print('== Deck ==')
+        for i in range(len(self.deck)):
+            self.deck[i].render()
 
 class FieldElement():
-    pass
+    attack = 0
+    hp = 0
 
 class Unit(FieldElement):
-    pass
+    def __init__(self, info):
+        self.attack = info['stat'][0]
+        self.hp = info['stat'][1]
 
 class Leader(FieldElement):
-    pass
+    def __init__(self):
+        self.attack = 0
+        self.hp = 30
 
 class Card():
     name = 'card'
