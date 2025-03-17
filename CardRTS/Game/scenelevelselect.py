@@ -4,6 +4,8 @@ from render import *
 from primitive import *
 from ui import UI
 
+import physics
+
 import res
 import var
 import const
