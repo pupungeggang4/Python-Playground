@@ -1,20 +1,28 @@
 import pygame
 
-import render as r
+from render import *
+from primitive import *
+from ui import UI
+
+import physics
 
 import res
 import var
 import const
-import primitive as p
-
-class Var():
-    a = p.Rect2D(100, 100, 100, 100)
 
 def loop():
     display()
 
 def display():
-    var.screen.fill((255, 255, 255))
-    r.render_rect(var.screen, (0, 255, 0), Var.a)
-    r.render_text(var.screen, res.font_neodgm_32, (0, 0, 0), 'Hello', [8, 8])
+    var.screen.fill(res.COLOR_WHITE)
+    var.screen.blit(res.font_neodgm_32.render('Card RTS', False, res.COLOR_BLACK), UI.Title.text_title)
+    draw_rect(res.COLOR_BLACK, UI.Title.button_start, 2)
+    var.screen.blit(res.font_neodgm_32.render('Start Game', False, res.COLOR_BLACK), UI.Title.text_start)
+    draw_rect(res.COLOR_BLACK, UI.Title.button_erase, 2)
+    var.screen.blit(res.font_neodgm_32.render('Erase Data', False, res.COLOR_BLACK), UI.Title.text_erase)
     pygame.display.flip()
+
+def mouse_up(pos, button):
+    if button == 1:
+        if physics.point_inside_rect_ui(pos, UI.Title.button_start):
+            var.scene = 'level_select'

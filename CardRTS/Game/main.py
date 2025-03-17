@@ -1,7 +1,7 @@
 import pygame
 import sys
 
-import primitive as p
+from primitive import *
 
 import res
 import var
@@ -31,6 +31,23 @@ def handle_input():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
+        if event.type == pygame.MOUSEBUTTONUP:
+            mouse = pygame.mouse.get_pos()
+            pos = Vector2D(mouse[0], mouse[1])
+            button = event.button
+
+            if var.scene == 'title':
+                scenetitle.mouse_up(pos, button)
+
+            if var.scene == 'level_select':
+                scenelevelselect.mouse_up(pos, button)
+
+            if var.scene == 'battle':
+                scenebattle.mouse_up(pos, button)
+
+        if event.type == pygame.KEYDOWN:
+            pass
 
 def handle_scene():
     if var.scene == 'title':
