@@ -1,6 +1,9 @@
 import pygame
 import sys
 
+import primitive as p
+
+import res
 import var
 import const
 
@@ -13,6 +16,9 @@ def init():
     var.screen = pygame.display.set_mode(var.window_size, pygame.SCALED)
     pygame.display.set_caption('Card RTS')
     var.clock = pygame.time.Clock()
+
+    pygame.font.init()
+    res.font_neodgm_32 = pygame.font.Font('Font/neodgm.ttf', 32)
 
 def main():
     while True:
