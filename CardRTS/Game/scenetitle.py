@@ -22,6 +22,12 @@ def display():
     var.screen.blit(res.font_neodgm_32.render('Erase Data', False, res.COLOR_BLACK), UI.Title.text_erase)
     pygame.display.flip()
 
+def key_down(key):
+    pass
+
+def key_up(key):
+    pass
+
 def mouse_up(pos, button):
     if button == 1:
         if physics.point_inside_rect_ui(pos, UI.Title.button_start):

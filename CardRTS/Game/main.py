@@ -40,14 +40,35 @@ def handle_input():
             if var.scene == 'title':
                 scenetitle.mouse_up(pos, button)
 
-            if var.scene == 'level_select':
+            elif var.scene == 'level_select':
                 scenelevelselect.mouse_up(pos, button)
 
-            if var.scene == 'battle':
+            elif var.scene == 'battle':
                 scenebattle.mouse_up(pos, button)
 
         if event.type == pygame.KEYDOWN:
-            pass
+            key = event.key
+
+            if var.scene == 'title':
+                scenetitle.key_down(key)
+
+            elif var.scene == 'level_select':
+                scenelevelselect.key_down(key)
+
+            elif var.scene == 'battle':
+                scenebattle.key_down(key)
+
+        if event.type == pygame.KEYUP:
+            key = event.key
+
+            if var.scene == 'title':
+                scenetitle.key_up(key)
+
+            elif var.scene == 'level_select':
+                scenelevelselect.key_up(key)
+
+            elif var.scene == 'battle':
+                scenebattle.key_up(key)
 
 def handle_scene():
     if var.scene == 'title':
