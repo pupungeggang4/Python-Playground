@@ -14,8 +14,8 @@ class UI():
 
     class Menu():
         rect = [320, 280, 640, 240]
-        text_paused = [364, 304]
+        text_paused = [344, 304]
         button_resume = [320, 360, 960, 80]
-        text_resume = [364, 384]
+        text_resume = [344, 384]
         button_exit = [320, 440, 960, 80]
-        text_exit = [364, 464]
+        text_exit = [344, 464]
