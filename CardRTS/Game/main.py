@@ -14,7 +14,7 @@ import scenebattle
 
 def init():
     pygame.init()
-    var.screen = pygame.display.set_mode(var.window_size, pygame.SCALED)
+    var.screen = pygame.display.set_mode(var.window_size, pygame.SCALED, vsync = 1)
     pygame.display.set_caption('Card RTS')
     var.clock = pygame.time.Clock()
 
