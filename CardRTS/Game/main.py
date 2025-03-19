@@ -6,11 +6,16 @@ from primitive import *
 import res
 import var
 import const
+import time
+import gamehandler
 
 import scenetitle
 import scenelevelselect
 import scenecharacterselect
 import scenebattle
+
+class Var():
+    time = 0
 
 def init():
     pygame.init()
@@ -20,6 +25,8 @@ def init():
 
     pygame.font.init()
     res.font_neodgm_32 = pygame.font.Font('Font/neodgm.ttf', 32)
+
+    var.game = gamehandler.GameHandler()
 
 def main():
     while True:

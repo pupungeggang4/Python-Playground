@@ -1,14 +1,13 @@
 import pygame
 
-from render import *
-from primitive import *
-from ui import UI
-
-import physics
-
 import res
 import var
 import const
+from ui import UI
+from primitive import *
+
+from render import *
+from physics import point_inside_rect_ui
 
 def loop():
     display()
@@ -31,11 +30,11 @@ def key_up(key):
 
 def mouse_up(pos, button):
     if button == 1:
-        if physics.point_inside_rect_ui(pos, UI.Level_Select.button_back):
+        if point_inside_rect_ui(pos, UI.Level_Select.button_back):
             var.scene = 'title'
             var.state = ''
 
         for i in range(6):
-            if physics.point_inside_rect_ui(pos, UI.Level_Select.button_level[i]):
+            if point_inside_rect_ui(pos, UI.Level_Select.button_level[i]):
                 var.scene = 'character_select'
                 var.state = ''

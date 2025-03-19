@@ -6,3 +6,8 @@ clock = None
 scene = 'title'
 state = ''
 menu = False
+
+game = None
+player = None
+field = None
+camera = None
