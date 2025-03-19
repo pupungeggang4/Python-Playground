@@ -10,12 +10,16 @@ import res
 import var
 import const
 
+class Var():
+    rect = [80, 80, 80, 80]
+
 def loop():
+    Var.rect[0] += 200 / var.FPS
     display()
 
 def display():
     var.screen.fill(res.COLOR_WHITE)
-    draw_rect(res.COLOR_BLACK, UI.Level_Select.button_back, 2)
+    draw_rect(res.COLOR_BLACK, Var.rect)
     pygame.display.flip()
 
 def key_down(key):

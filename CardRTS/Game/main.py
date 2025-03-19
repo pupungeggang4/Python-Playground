@@ -9,6 +9,7 @@ import const
 
 import scenetitle
 import scenelevelselect
+import scenecharacterselect
 import scenebattle
 
 def init():
@@ -43,6 +44,9 @@ def handle_input():
             elif var.scene == 'level_select':
                 scenelevelselect.mouse_up(pos, button)
 
+            elif var.scene == 'character_select':
+                scenecharacterselect.mouse_up(pos, button)
+
             elif var.scene == 'battle':
                 scenebattle.mouse_up(pos, button)
 
@@ -54,6 +58,9 @@ def handle_input():
 
             elif var.scene == 'level_select':
                 scenelevelselect.key_down(key)
+
+            elif var.scene == 'character_select':
+                scenecharacterselect.key_down(key)
 
             elif var.scene == 'battle':
                 scenebattle.key_down(key)
@@ -67,6 +74,9 @@ def handle_input():
             elif var.scene == 'level_select':
                 scenelevelselect.key_up(key)
 
+            elif var.scene == 'character_select':
+                scenecharacterselect.key_down(key)
+
             elif var.scene == 'battle':
                 scenebattle.key_up(key)
 
@@ -76,6 +86,9 @@ def handle_scene():
 
     elif var.scene == 'level_select':
         scenelevelselect.loop()
+
+    elif var.scene == 'character_select':
+        scenecharacterselect.loop()
 
     elif var.scene == 'battle':
         scenebattle.loop()

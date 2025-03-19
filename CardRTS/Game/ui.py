@@ -7,9 +7,23 @@ class UI():
         button_erase = [160, 240, 960, 80]
 
     class Level_Select():
+        text_title = [24, 24]
         button_back = [1160, 40, 80, 80]
+        button_level = [
+            [160, 160, 160, 160], [400, 160, 160, 160], [640, 160, 160, 160],
+            [160, 400, 160, 160], [400, 400, 160, 160], [640, 400, 160, 160]
+        ]
+
+    class Character_Select():
+        text_title = [24, 24]
+        button_back = [1160, 40, 80, 80]
+        button_character = [
+            [160, 160, 160, 160], [400, 160, 160, 160], [640, 160, 160, 160],
+            [160, 400, 160, 160], [400, 400, 160, 160], [640, 400, 160, 160]
+        ]
 
     class Battle():
+        text_title = [24, 24]
         button_menu = [1160, 40, 80, 80]
 
     class Menu():
