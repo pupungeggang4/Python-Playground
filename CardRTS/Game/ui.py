@@ -26,6 +26,12 @@ class UI():
         text_title = [24, 24]
         button_menu = [1160, 40, 80, 80]
 
+        class Upper():
+            pass
+
+        class Lower():
+            pass
+
     class Menu():
         rect = [320, 280, 640, 240]
         text_paused = [344, 304]
