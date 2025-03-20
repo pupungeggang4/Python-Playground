@@ -11,12 +11,17 @@ from render import *
 from physics import point_inside_rect_ui
 
 def loop():
-    var.game.handle_tick()
+    if var.menu == False:
+        if var.state == '':
+            var.game.handle_tick()
+
     display()
 
 def display():
     var.screen.fill(res.COLOR_WHITE)
     draw_rect(res.COLOR_BLACK, UI.Battle.button_menu, 2)
+    var.camera.adjust(var.player)
+    var.field.render()
     var.player.render()
 
     if var.menu == True:
@@ -25,7 +30,9 @@ def display():
     pygame.display.flip()
 
 def key_down(key):
-    pass
+    if var.menu == False:
+        if var.state == '':
+            pass
 
 def key_up(key):
     pass
