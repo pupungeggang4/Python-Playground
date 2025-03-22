@@ -30,8 +30,8 @@ class UI():
             pass
 
         class Lower():
-            base_attack = []
-            hand = []
+            base_attack = [40, 680, 80, 80]
+            hand = [120, 680, 640, 80]
 
     class Menu():
         rect = [320, 280, 640, 240]

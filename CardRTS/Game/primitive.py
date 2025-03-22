@@ -5,6 +5,21 @@ class Vector2D():
         self.x = x
         self.y = y
 
+    @staticmethod
+    def add(vec1, vec2):
+        return Vector2D(vec1.x + vec2.x, vec1.y + vec2.y)
+
+    @staticmethod
+    def sub(vec1, vec2):
+        return Vector2D(vec1.x - vec2.x, vec1.y - vec2.y)
+
+    def magnitude(self):
+        return math.sqrt(self.x ** 2 + self.y ** 2)
+    
+    def normalized(self):
+        m = self.magnitude()
+        return Vector2D(self.x / m, self.y / m)
+
     def distance(self, vec):
         return math.sqrt((vec.x - self.x) ** 2 + (vec.y - self.y) ** 2)
     

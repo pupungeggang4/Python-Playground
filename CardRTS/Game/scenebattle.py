@@ -24,6 +24,10 @@ def display():
     var.field.render()
     var.player.render()
 
+    var.screen.blit(res.font_neodgm_32.render(f'{int(var.player.rect.position.x)},{int(var.player.rect.position.y)}', False, res.COLOR_BLACK), [4, 4])
+
+    render_battle_ui()
+
     if var.menu == True:
         render_menu()
         
@@ -51,3 +55,8 @@ def mouse_up(pos, button):
                 var.menu = False
                 var.scene = 'title'
                 var.state = ''
+
+    elif button == 3:
+        if var.menu == False:
+            if var.state == '':
+                var.game.handle_right_click(pos)

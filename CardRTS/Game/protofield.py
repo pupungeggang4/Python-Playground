@@ -20,5 +20,5 @@ class Camera():
         self.position = Vector2D(0, 0)
 
     def adjust(self, target):
-        self.position.x = target.rect.position.x - 640
-        self.position.y = target.rect.position.y - 400
+        self.position.x = target.rect.position.x
+        self.position.y = target.rect.position.y
