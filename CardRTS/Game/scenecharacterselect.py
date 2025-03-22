@@ -39,5 +39,5 @@ def mouse_up(pos, button):
             if point_inside_rect_ui(pos, UI.Character_Select.button_character[i]):
                 var.scene = 'battle'
                 var.state = ''
-                break
                 #var.state = 'start'
+                break
