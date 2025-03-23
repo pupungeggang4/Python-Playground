@@ -4,6 +4,7 @@ import sys
 
 import numpy as np
 import moderngl
+from OpenGL.GL import *
 import pygame
 
 pygame.init()
@@ -12,6 +13,7 @@ pygame.display.gl_set_attribute(pygame.GL_CONTEXT_MINOR_VERSION, 1)
 pygame.display.gl_set_attribute(pygame.GL_CONTEXT_PROFILE_MASK, pygame.GL_CONTEXT_PROFILE_CORE)
 pygame.display.gl_set_attribute(pygame.GL_CONTEXT_FORWARD_COMPATIBLE_FLAG, True)
 pygame.display.set_mode((800, 800), flags=pygame.OPENGL | pygame.DOUBLEBUF, vsync=True)
+print(glGetString(GL_VERSION))
 
 class Scene:
     def __init__(self):
