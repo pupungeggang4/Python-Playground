@@ -1,4 +1,9 @@
+from ui import UI
 import resource as res
 
+from primitive import *
+from prototype import *
 from gamehandler import *
-import scenemain
+
+import scenetitle
+import scenegame
