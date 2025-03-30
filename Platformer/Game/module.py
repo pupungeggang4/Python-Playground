@@ -1,2 +1,4 @@
+import resource as res
+
 from gamehandler import *
-from gameinstance import *
+import scenemain
