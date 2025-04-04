@@ -9,12 +9,16 @@ class Game():
 
     scene = 'title'
     state = ''
+    menu = False
+
+    player = m.Player()
 
     save = []
 
     def __init__(self):
         pygame.init()
         pygame.font.init()
+        m.res.font_neodgm_32 = pygame.font.Font('Font/neodgm.ttf', 32)
         self.screen = pygame.display.set_mode(self.resolution, pygame.SCALED)
         self.clock = pygame.time.Clock()
         self.load_data()
@@ -27,16 +31,28 @@ class Game():
 
     def handle_scene(self):
         if self.scene == 'title':
-            m.scenetitle.loop()
+            m.scenetitle.loop(self)
 
-        if self.scene == 'game':
-            m.scenegame.loop()
+        elif self.scene == 'game':
+            m.scenegame.loop(self)
 
     def handle_input(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
+            if event.type == pygame.KEYDOWN:
+                key = event.key
+
+                if self.scene == 'title':
+                    m.scenetitle.key_down(self, key)
+
+                elif self.scene == 'game':
+                    m.scenegame.key_down(self, key)
+
+            if event.type == pygame.KEYUP:
+                pass
 
     def save_data(self):
         f = open('save.txt', 'w')
