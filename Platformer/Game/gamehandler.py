@@ -10,8 +10,10 @@ class Game():
     scene = 'title'
     state = ''
     menu = False
+    key_pressed = {'left': False, 'right': False}
 
     player = m.Player()
+    camera = m.Camera2D()
 
     save = []
 
@@ -44,6 +46,10 @@ class Game():
 
             if event.type == pygame.KEYDOWN:
                 key = event.key
+                if key == pygame.K_a:
+                    self.key_pressed['left'] = True
+                if key == pygame.K_d:
+                    self.key_pressed['right'] = True
 
                 if self.scene == 'title':
                     m.scenetitle.key_down(self, key)
@@ -52,7 +58,14 @@ class Game():
                     m.scenegame.key_down(self, key)
 
             if event.type == pygame.KEYUP:
-                pass
+                key = event.key
+                if key == pygame.K_a:
+                    self.key_pressed['left'] = False
+                if key == pygame.K_d:
+                    self.key_pressed['right'] = False
+
+                if self.scene == 'game':
+                    m.scenegame.key_up(self, key)
 
     def save_data(self):
         f = open('save.txt', 'w')

@@ -4,4 +4,4 @@ class UI():
         text_start = [24, 744]
 
     class Game():
-        pass
+        text_start = [24, 744]
