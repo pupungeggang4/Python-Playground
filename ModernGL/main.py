@@ -43,8 +43,8 @@ class Scene:
         self.b = [0, 0]
 
     def render(self):
-        self.b[0] += 0.002
-        self.b[1] += 0.002
+        self.b[0] += 0.005
+        self.b[1] += 0.005
         self.a.value = self.b[0], self.b[1]
         self.ctx.clear()
         self.vao.render()
