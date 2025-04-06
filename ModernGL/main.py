@@ -22,8 +22,9 @@ class Scene:
             vertex_shader='''
                 #version 330
                 in vec2 in_vert;
+                uniform vec2 a;
                 void main() {
-                    gl_Position = vec4(in_vert, 0.0, 1.0);
+                    gl_Position = vec4(in_vert + a, 0.0, 1.0);
                 }
             ''',
             fragment_shader='''
@@ -35,17 +36,24 @@ class Scene:
             ''',
         )
 
-        self.vertices = np.array([-0.6, -0.6, 0.6, -0.6, 0.0, 0.6], dtype='f4')
+        self.vertices = np.array([-0.1, -0.1, 0.1, 0.1, 0.1, -0.1], dtype='f4')
         self.vbo = self.ctx.buffer(self.vertices)
         self.vao = self.ctx.simple_vertex_array(self.program, self.vbo, 'in_vert')
+        self.a = self.program['a']
+        self.b = [0, 0]
 
     def render(self):
+        self.b[0] += 0.002
+        self.b[1] += 0.002
+        self.a.value = self.b[0], self.b[1]
         self.ctx.clear()
         self.vao.render()
 
 scene = Scene()
+clock = pygame.time.Clock()
 
 while True:
+    clock.tick(60)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
