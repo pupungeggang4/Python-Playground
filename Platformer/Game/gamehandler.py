@@ -21,7 +21,7 @@ class Game():
         pygame.init()
         pygame.font.init()
         m.res.font_neodgm_32 = pygame.font.Font('Font/neodgm.ttf', 32)
-        self.screen = pygame.display.set_mode(self.resolution, pygame.SCALED)
+        self.screen = pygame.display.set_mode(self.resolution, pygame.SCALED, vsync = 1)
         self.clock = pygame.time.Clock()
         self.load_data()
 
