@@ -1,5 +1,10 @@
 import pygame, sys
 from script.res import *
+from script.field import *
+from script.fieldthing import *
+
+import script.scenetitle as scenetitle
+import script.scenefield as scenefield
 
 class Game():
     def __init__(self):
@@ -9,9 +14,20 @@ class Game():
         self.screen = pygame.display.set_mode([1280, 720])
         pygame.display.set_caption('Platformer Game')
 
-        self.a = 0
         self.fps = 60
         self.clock = pygame.time.Clock()
+        self.load_image()
+        self.load_font()
+
+        self.field = Field()
+        self.coin = Coin()
+
+    def load_image(self):
+        Image.Sprite.coin = pygame.image.load('image/spritecoin.png')
+
+    def load_font(self):
+        pygame.font.init()
+        Font.neodgm_32 = pygame.font.Font('font/neodgm.ttf', 32)
 
     def run(self):
         while True:
@@ -25,9 +41,22 @@ class Game():
                 pygame.quit()
                 sys.exit()
 
+            elif event.type == pygame.KEYDOWN:
+                key = event.key
+                if self.scene == 'title':
+                    scenetitle.key_down(self, key)
+                elif self.scene == 'field':
+                    scenefield.key_down(self, key)
+
+            elif event.type == pygame.KEYUP:
+                key = event.key
+                if self.scene == 'title':
+                    scenetitle.key_up(self, key)
+                elif self.scene == 'field':
+                    scenefield.key_up(self, key)
+
     def handle_scene(self):
-        self.screen.fill(Color.white)
-        pygame.draw.rect(self.screen, Color.black, [self.a, self.a, 80, 80])
-        self.a += 1
-        print(self.clock.get_fps())
-        pygame.display.flip()
+        if self.scene == 'title':
+            scenetitle.loop(self)
+        elif self.scene == 'field':
+            scenefield.loop(self)
