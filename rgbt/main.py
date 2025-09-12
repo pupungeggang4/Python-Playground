@@ -30,32 +30,31 @@ class Game():
             self.ui.blit(self.neodgm_32.render('Hello Pygame Mesh!', False, [255, 255, 255]), [24, 24])
             
             glEnable(GL_BLEND)
-            glDisable(GL_TEXTURE_2D)
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+            glClearColor(0.0, 0.0, 0.0, 1.0)
             glClear(GL_COLOR_BUFFER_BIT)
-            glBegin(GL_TRIANGLES)
-            glColor3f(1.0, 0.0, 0.0)
-            glVertex2f(0.0, 0.0)
-            glColor3f(0.0, 1.0, 0.0)
-            glVertex2f(1.0, 0.0)
-            glColor3f(0.0, 0.0, 1.0)
-            glVertex2f(1.0, 1.0)
-            glEnd()
+
+            glDisable(GL_TEXTURE_2D)
+            gv = [0.0, 0.0, 1.0, 0.0, 1.0, 1.0]
+            gc = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+            glVertexPointer(2, GL_FLOAT, 0, gv)
+            glColorPointer(3, GL_FLOAT, 0, gc)
+            glEnableClientState(GL_COLOR_ARRAY)
+            glEnableClientState(GL_VERTEX_ARRAY)
+            glDisableClientState(GL_TEXTURE_COORD_ARRAY)
+            glDrawArrays(GL_TRIANGLES, 0, 3)
 
             glEnable(GL_TEXTURE_2D)
             glBindTexture(GL_TEXTURE_2D, self.texture)
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, self.ui.get_width(), self.ui.get_height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, pygame.image.tobytes(self.ui, 'RGBA'))
-            glBegin(GL_QUADS)
-            glColor3f(1.0, 1.0, 1.0)
-            glTexCoord2f(0.0, 1.0)
-            glVertex2f(-1.0, -1.0)
-            glTexCoord2f(1.0, 1.0)
-            glVertex2f(1.0, -1.0)
-            glTexCoord2f(1.0, 0.0)
-            glVertex2f(1.0, 1.0)
-            glTexCoord2f(0.0, 0.0)
-            glVertex2f(-1.0, 1.0)
-            glEnd()
+            gv = [-1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0]
+            gt = [0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0]
+            glVertexPointer(2, GL_FLOAT, 0, gv)
+            glTexCoordPointer(2, GL_FLOAT, 0, gt)
+            glDisableClientState(GL_COLOR_ARRAY)
+            glEnableClientState(GL_VERTEX_ARRAY)
+            glEnableClientState(GL_TEXTURE_COORD_ARRAY)
+            glDrawArrays(GL_QUADS, 0, 4)
             pygame.display.flip()
 
 if __name__ == '__main__':
