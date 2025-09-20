@@ -15,7 +15,9 @@ def render(game):
     Render.render_text(game.renderer, Font.neodgm_32, 'Auto Card Battle', Color.black, UI.Title.text_title)
     Render.draw_image(game.renderer, Image.test, [500, 0])
     Render.stroke_rect(game.renderer, 2, UI.Title.button_start)
-    Render.stroke_rect(game.renderer, 2, UI.Title.button_erase)
+    Render.render_text(game.renderer, Font.neodgm_32, 'Start', Color.black, UI.Title.text_start)
+    Render.stroke_rect(game.renderer, 2, UI.Title.button_collection)
+    Render.render_text(game.renderer, Font.neodgm_32, 'Collection', Color.black, UI.Title.text_collection)
     game.renderer.present()
 
 def mouse_up(game, pos):
