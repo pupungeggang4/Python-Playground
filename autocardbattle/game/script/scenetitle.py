@@ -1,24 +1,24 @@
 import pygame, sys
-from pygame._sdl2 import video
 
 from script.UI import *
-from script.render import *
 from script.res import *
+
+from script.render import *
+from script.func import *
 
 def loop(game):
     render(game)
 
 def render(game):
-    game.renderer.draw_color = Color.white
-    game.renderer.clear()
-    game.renderer.draw_color = Color.black
-    Render.render_text(game.renderer, Font.neodgm_32, 'Auto Card Battle', Color.black, UI.Title.text_title)
-    Render.draw_image(game.renderer, Image.test, [500, 0])
-    Render.stroke_rect(game.renderer, 2, UI.Title.button_start)
-    Render.render_text(game.renderer, Font.neodgm_32, 'Start', Color.black, UI.Title.text_start)
-    Render.stroke_rect(game.renderer, 2, UI.Title.button_collection)
-    Render.render_text(game.renderer, Font.neodgm_32, 'Collection', Color.black, UI.Title.text_collection)
-    game.renderer.present()
+    game.screen.fill(Color.white)
+    game.screen.blit(Font.neodgm_32.render('Auto Card Battle', False, Color.black), UI.Title.text_title)
+    pygame.draw.rect(game.screen, Color.black, UI.Title.button_start, 2)
+    game.screen.blit(Font.neodgm_32.render('Start Game', False, Color.black), UI.Title.text_start)
+    pygame.draw.rect(game.screen, Color.black, UI.Title.button_collection, 2)
+    game.screen.blit(Font.neodgm_32.render('Collection', False, Color.black), UI.Title.text_collection)
+    pygame.display.flip()
 
-def mouse_up(game, pos):
-    pass
+def mouse_up(game, pos, button):
+    if button == 1:
+        if point_inside_rect_ui(pos, UI.Title.button_start):
+            game.scene = 'ready'

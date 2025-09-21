@@ -1,10 +1,10 @@
-import pygame, pygame._sdl2, sys
-from pygame._sdl2 import video
+import pygame, sys
 
 from script.res import *
 import script.scenetitle as scenetitle
 import script.sceneready as sceneready
 import script.scenebattle as scenebattle
+import script.scenecollection as scenecollection
 
 class Game():
     def __init__(self):
@@ -15,9 +15,7 @@ class Game():
         self.menu = False
 
         self.resolution = [1280, 720]
-        self.screen = pygame.display.set_mode(self.resolution, pygame.HIDDEN)
-        self.window = pygame._sdl2.video.Window(title = "Auto Card Battle", size = self.resolution)
-        self.renderer = pygame._sdl2.video.Renderer(self.window, accelerated = 1)
+        self.screen = pygame.display.set_mode(self.resolution, pygame.SCALED)
         self.clock = pygame.time.Clock()
         self.fps = 60
 
@@ -39,12 +37,16 @@ class Game():
 
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
+                button = event.button
+
                 if self.scene == 'title':
-                    scenetitle.mouse_up(self, pos)
+                    scenetitle.mouse_up(self, pos, button)
                 elif self.scene == 'ready':
-                    sceneready.mouse_up(self, pos)
+                    sceneready.mouse_up(self, pos, button)
                 elif self.scene == 'battle':
-                    scenebattle.mouse_up(self, pos)
+                    scenebattle.mouse_up(self, pos, button)
+                elif self.scene == 'collection':
+                    scenecollection.mouse_up(self, pos, button)
 
     def handle_scene(self):
         if self.scene == 'title':
