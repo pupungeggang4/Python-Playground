@@ -9,7 +9,8 @@ import script.scenecollection as scenecollection
 class Game():
     def __init__(self):
         pygame.init()
-        
+        self.selected_character = -1
+
         self.scene = 'title'
         self.state = ''
         self.menu = False

@@ -7,7 +7,15 @@ class UI:
         text_collection = [184, 264]
 
     class Ready:
-        pass
+        text_title = [24, 24]
+        button_back = [20, 1180, 80, 80]
+        button_start = [1100, 620, 160, 80]
+        text_start = [1124, 644]
 
     class Battle:
-        pass
+        text_title = [24, 24]
+        button_back = [20, 1180, 80, 80]
+
+    class Collection:
+        text_title = [24, 24]
+        button_back = [20, 1180, 80, 80]
