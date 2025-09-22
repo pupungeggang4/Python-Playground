@@ -22,3 +22,5 @@ def mouse_up(game, pos, button):
     if button == 1:
         if point_inside_rect_ui(pos, UI.Title.button_start):
             game.scene = 'ready'
+            game.state = ''
+            game.selected_character = -1

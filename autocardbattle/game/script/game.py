@@ -56,3 +56,5 @@ class Game():
             sceneready.loop(self)
         elif self.scene == 'battle':
             scenebattle.loop(self)
+        elif self.scene == 'collection':
+            scenecollection.loop(self)

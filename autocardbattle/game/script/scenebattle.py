@@ -10,7 +10,24 @@ def loop(game):
     render(game)
 
 def render(game):
-    pass
+    game.screen.fill(Color.white)
+    pygame.draw.rect(game.screen, Color.black, UI.Battle.button_menu, 2)
+
+    if game.menu == True:
+        Render.render_menu(game.screen)
+
+    pygame.display.flip()
 
 def mouse_up(game, pos, button):
-    pass
+    if button == 1:
+        if game.menu == False:
+            if point_inside_rect_ui(pos, UI.Battle.button_menu):
+                game.menu = True
+        elif game.menu == True:
+            if point_inside_rect_ui(pos, UI.Menu.button_resume):
+                game.menu = False
+
+            elif point_inside_rect_ui(pos, UI.Menu.button_exit):
+                game.menu = False
+                game.scene = 'title'
+                game.state = ''
