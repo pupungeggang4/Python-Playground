@@ -13,3 +13,15 @@ class Render():
         screen.blit(Font.neodgm_32.render('Resume', False, Color.black), UI.Menu.text_resume)
         pygame.draw.rect(screen, Color.black, UI.Menu.button_exit, 2)
         screen.blit(Font.neodgm_32.render('Exit', False, Color.black), UI.Menu.text_exit)
+
+    @staticmethod
+    def render_field(screen, game):
+        pass
+
+    @staticmethod
+    def render_crystal(screen, game):
+        pass
+
+    @staticmethod
+    def render_card(screen, game):
+        pass

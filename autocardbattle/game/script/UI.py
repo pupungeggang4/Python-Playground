@@ -19,6 +19,9 @@ class UI:
         text_title = [24, 24]
         button_menu = [1180, 20, 80, 80]
 
+    class Window:
+        rect = [160, 40, 960, 640]
+
     class Collection:
         text_title = [24, 24]
         button_back = [1180, 20, 80, 80]
