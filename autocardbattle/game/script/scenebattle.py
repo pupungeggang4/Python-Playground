@@ -13,6 +13,10 @@ def render(game):
     game.screen.fill(Color.white)
     pygame.draw.rect(game.screen, Color.black, UI.Battle.button_menu, 2)
 
+    Render.render_field(game.screen, game)
+    Render.render_card(game.screen, game)
+    Render.render_crystal(game.screen, game)
+
     if game.menu == True:
         Render.render_menu(game.screen)
 

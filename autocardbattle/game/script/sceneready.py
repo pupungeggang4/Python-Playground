@@ -14,7 +14,7 @@ def render(game):
     game.screen.blit(Font.neodgm_32.render('Select Character', False, Color.black), UI.Ready.text_title)
     pygame.draw.rect(game.screen, Color.black, UI.Ready.button_back, 2)
 
-    for i in range(4):
+    for i in range(6):
         pygame.draw.rect(game.screen, Color.black, UI.Ready.character[i], 4)
 
     if game.selected_character != -1:
@@ -30,7 +30,7 @@ def mouse_up(game, pos, button):
             game.scene = 'title'
             game.state = ''
 
-        for i in range(4):
+        for i in range(6):
             if point_inside_rect_ui(pos, UI.Ready.character[i]):
                 game.selected_character = i
 

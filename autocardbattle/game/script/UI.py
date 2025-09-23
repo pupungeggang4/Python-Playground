@@ -10,7 +10,7 @@ class UI:
         text_title = [24, 24]
         button_back = [1180, 20, 80, 80]
         character = [
-            [20, 160, 160, 160], [220, 160, 160, 160], [20, 360, 160, 160], [220, 360, 160, 160]
+            [20, 160, 160, 160], [220, 160, 160, 160], [420, 160, 160, 160], [20, 360, 160, 160], [220, 360, 160, 160], [420, 360, 160, 160]
         ]
         button_start = [1100, 620, 160, 80]
         text_start = [1124, 644]
@@ -18,9 +18,34 @@ class UI:
     class Battle:
         text_title = [24, 24]
         button_menu = [1180, 20, 80, 80]
+        field = [
+            [20, 110, 160, 160], [200, 20, 160, 160], [200, 200, 160, 160], [380, 20, 160, 160], [380, 200, 160, 160],
+            [1100, 110, 160, 160], [920, 20, 160, 160], [920, 200, 160, 160], [740, 20, 160, 160], [740, 200, 160, 160]
+        ]
+        button_proceed = [560, 280, 160, 80]
+        text_proceed = [584, 304]
+        
+        player_card_start = [400, 420]
+        player_card_interval = [-40, 0]
+        enemy_card_start = [680, 420]
+        enemy_card_interval = [40, 0]
+
+        player_crystal_box = [20, 420, 160, 280]
+        enemy_crystal_box = [1100, 420, 160, 280]
 
     class Window:
         rect = [160, 40, 960, 640]
+
+    class Card:
+        rect = [0, 0, 200, 280]
+        crystal_start = [0, 0]
+        crystal_text_start = [4, 4]
+        crystal_interval = [40, 0]
+        image = [60, 40, 80, 80]
+        text_name = [4, 124]
+        text_description = [4, 144, 0, 20]
+        text_attack = [4, 244]
+        text_hp = [164, 244]
 
     class Collection:
         text_title = [24, 24]

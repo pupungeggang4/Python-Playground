@@ -16,12 +16,23 @@ class Render():
 
     @staticmethod
     def render_field(screen, game):
-        pass
+        for i in range(10):
+            pygame.draw.rect(screen, Color.black, UI.Battle.field[i], 2)
+
+        pygame.draw.rect(screen, Color.black, UI.Battle.button_proceed, 2)
+        screen.blit(Font.neodgm_32.render('Proceed', False, Color.black), UI.Battle.text_proceed)
 
     @staticmethod
     def render_crystal(screen, game):
-        pass
+        pygame.draw.rect(screen, Color.black, UI.Battle.player_crystal_box, 2)
+        pygame.draw.rect(screen, Color.black, UI.Battle.enemy_crystal_box, 2)
 
     @staticmethod
     def render_card(screen, game):
-        pass
+        for i in range(3, -1, -1):
+            pos = [UI.Battle.player_card_start[0] + UI.Battle.player_card_interval[0] * i, UI.Battle.player_card_start[1]]
+            game.card.render(screen, game, pos)
+
+        for i in range(3, -1, -1):
+            pos = [UI.Battle.enemy_card_start[0] + UI.Battle.enemy_card_interval[0] * i, UI.Battle.enemy_card_start[1]]
+            game.card.render(screen, game, pos)
