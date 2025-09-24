@@ -58,3 +58,5 @@ class UI:
         text_resume = [344, 344]
         button_exit = [320, 400, 640, 80]
         text_exit = [344, 424]
+
+    crystal_size = [40, 40]
