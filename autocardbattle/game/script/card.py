@@ -33,4 +33,12 @@ class Card():
     def render(self, screen, game, pos):
         self.surface.fill(Color.white)
         pygame.draw.rect(self.surface, Color.black, UI.Card.rect, 2)
+
+        pygame.draw.rect(self.surface, [255, 255, 0], UI.Card.image)
+        self.surface.blit(Font.neodgm_16.render(self.name, False, Color.black), UI.Card.text_name)
+
+        if self.type == 'unit':
+            self.surface.blit(Font.neodgm_32.render(f'{self.stat[0]}', False, Color.black), UI.Card.text_attack)
+            self.surface.blit(Font.neodgm_32.render(f'{self.stat[1]}', False, Color.black), UI.Card.text_hp)
+
         screen.blit(self.surface, pos)

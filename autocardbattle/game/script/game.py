@@ -23,8 +23,15 @@ class Game():
         self.clock = pygame.time.Clock()
         self.fps = 60
 
+        self.load_font()
+        self.load_image()
+
+    def load_font(self):
         pygame.font.init()
         Font.neodgm_32 = pygame.font.Font('font/neodgm.ttf', 32)
+        Font.neodgm_16 = pygame.font.Font('font/neodgm.ttf', 16)
+
+    def load_image(self):
         Image.test = pygame.image.load('image/test.png')
 
     def run(self):
