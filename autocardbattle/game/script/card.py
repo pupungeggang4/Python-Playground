@@ -48,3 +48,15 @@ class Card():
             self.surface.blit(Font.neodgm_32.render(f'{self.stat[1]}', False, Color.black), UI.Card.text_hp)
 
         screen.blit(self.surface, pos)
+
+    def clone(self):
+        card = Card()
+        card.ID = self.ID
+        card.name = self.name
+        card.type = self.type
+        card.element = self.element
+        card.crystal = json.loads(json.dumps(self.crystal))
+        card.stat = json.loads(json.dumps(self.stat))
+        card.effect = json.loads(json.dumps(self.effect))
+        card.description = json.loads(json.dumps(self.description))
+        return card

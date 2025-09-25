@@ -2,6 +2,8 @@ import pygame, sys
 
 from script.res import *
 from script.card import *
+from script.adventure import *
+from script.battle import *
 import script.scenetitle as scenetitle
 import script.sceneready as sceneready
 import script.scenebattle as scenebattle
@@ -13,6 +15,9 @@ class Game():
         self.selected_character = -1
         self.card = Card()
         self.card.set_data(1)
+        self.battle = Battle()
+        self.adventure = Adventure()
+        self.player = Player()
 
         self.scene = 'title'
         self.state = ''

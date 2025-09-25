@@ -16,6 +16,7 @@ class Render():
 
     @staticmethod
     def render_field(screen, game):
+        battle = game.battle
         for i in range(10):
             pygame.draw.rect(screen, Color.black, UI.Battle.field[i], 2)
 
@@ -29,10 +30,12 @@ class Render():
 
     @staticmethod
     def render_card(screen, game):
-        for i in range(3, -1, -1):
-            pos = [UI.Battle.player_card_start[0] + UI.Battle.player_card_interval[0] * i, UI.Battle.player_card_start[1]]
-            game.card.render(screen, game, pos)
+        player_deck = game.battle.player.deck
+        for i in range(4, -1, -1):
+            if i < len(player_deck):
+                pos = [UI.Battle.player_card_start[0] + UI.Battle.player_card_interval[0] * i, UI.Battle.player_card_start[1]]
+                player_deck[i].render(screen, game, pos)
 
-        for i in range(3, -1, -1):
+        for i in range(4, -1, -1):
             pos = [UI.Battle.enemy_card_start[0] + UI.Battle.enemy_card_interval[0] * i, UI.Battle.enemy_card_start[1]]
             game.card.render(screen, game, pos)

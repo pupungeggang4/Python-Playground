@@ -3,6 +3,8 @@ import pygame, sys
 from script.UI import *
 from script.res import *
 
+from script.adventure import *
+
 from script.render import *
 from script.func import *
 
@@ -38,3 +40,12 @@ def mouse_up(game, pos, button):
             if game.selected_character != -1:
                 game.scene = 'battle'
                 game.state = ''
+                game.menu = False
+
+                ID = game.selected_character + 1
+                game.adventure.start_adventure()
+                game.player.create_player(ID)
+
+                game.battle.start_battle(game)
+                for i in range(len(game.battle.player.deck)):
+                    print(game.battle.player.deck[i].ID)
