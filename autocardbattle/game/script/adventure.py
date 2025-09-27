@@ -12,6 +12,7 @@ class Player():
         self.equipment = []
 
     def create_player(self, ID):
+        self.hp = 20
         self.deck = []
         self.crystal_deck = []
 

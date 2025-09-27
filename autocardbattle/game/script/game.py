@@ -24,7 +24,7 @@ class Game():
         self.menu = False
 
         self.resolution = [1280, 720]
-        self.screen = pygame.display.set_mode(self.resolution, pygame.SCALED)
+        self.screen = pygame.display.set_mode(self.resolution, pygame.SCALED | pygame.RESIZABLE)
         self.clock = pygame.time.Clock()
         self.fps = 60
 

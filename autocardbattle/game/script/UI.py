@@ -10,8 +10,10 @@ class UI:
         text_title = [24, 24]
         button_back = [1180, 20, 80, 80]
         character = [
-            [20, 160, 160, 160], [220, 160, 160, 160], [420, 160, 160, 160], [20, 360, 160, 160], [220, 360, 160, 160], [420, 360, 160, 160]
+            [20, 140, 160, 160], [220, 140, 160, 160], [420, 140, 160, 160], [20, 340, 160, 160], [220, 340, 160, 160], [420, 340, 160, 160], [20, 540, 160, 160]
         ]
+        description_box = [700, 140, 560, 360]
+        description_text = [704, 144, 0, 40]
         button_start = [1100, 620, 160, 80]
         text_start = [1124, 644]
 
@@ -25,6 +27,8 @@ class UI:
         unit_size = [160, 160]
         button_proceed = [560, 280, 160, 80]
         text_proceed = [584, 304]
+        button_play = [560, 20, 80, 80]
+        button_pause = [640, 20, 80, 80]
         
         player_card_start = [400, 420]
         player_card_interval = [-40, 0]
@@ -47,6 +51,12 @@ class UI:
         text_description = [4, 144, 0, 20]
         text_attack = [4, 244]
         text_hp = [164, 244]
+
+    class Unit:
+        rect = [0, 0, 160, 160]
+        size = [160, 160]
+        text_attack = [4, 124]
+        text_hp = [124, 124]
 
     class Collection:
         text_title = [24, 24]

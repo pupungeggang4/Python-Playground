@@ -18,8 +18,12 @@ class Render():
     def render_field(screen, game):
         battle = game.battle
         for i in range(10):
+            if game.battle.field[i] != None:
+                game.battle.field[i].render(game.screen, game, UI.Battle.field[i])
             pygame.draw.rect(screen, Color.black, UI.Battle.field[i], 2)
 
+        pygame.draw.rect(screen, Color.black, UI.Battle.button_play, 2)
+        pygame.draw.rect(screen, Color.black, UI.Battle.button_pause, 2)
         pygame.draw.rect(screen, Color.black, UI.Battle.button_proceed, 2)
         screen.blit(Font.neodgm_32.render('Proceed', False, Color.black), UI.Battle.text_proceed)
 
