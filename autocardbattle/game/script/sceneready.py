@@ -21,6 +21,10 @@ def render(game):
 
     if game.selected_character != -1:
         pygame.draw.rect(game.screen, Color.green, UI.Ready.character[game.selected_character], 4)
+        description = Data.character_d[game.selected_character + 1]
+        for i in range(len(description)):
+            pos = [UI.Ready.description_text[0], UI.Ready.description_text[1] + UI.Ready.description_text[3] * i]
+            game.screen.blit(Font.neodgm_32.render(description[i], 'False', Color.black), pos)
 
     pygame.draw.rect(game.screen, Color.black, UI.Ready.description_box, 2)
     pygame.draw.rect(game.screen, Color.black, UI.Ready.button_start, 2)
@@ -40,10 +44,9 @@ def mouse_up(game, pos, button):
         if point_inside_rect_ui(pos, UI.Ready.button_start):
             if game.selected_character != -1:
                 game.scene = 'battle'
-                game.state = ''
+                game.state = 'reward'
                 game.menu = False
 
                 ID = game.selected_character + 1
                 game.adventure.start_adventure()
                 game.player.create_player(ID)
-                game.battle.start_battle(game)

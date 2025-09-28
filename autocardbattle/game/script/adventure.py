@@ -38,6 +38,10 @@ class Adventure():
             ['boss', 'boss', 'boss']
         ]
         self.round = 0
+        self.reward = [Card(), Card(), Card()]
+        self.reward[0].set_data(1)
+        self.reward[1].set_data(2)
+        self.reward[2].set_data(3)
 
     def start_adventure(self):
         self.round = 0

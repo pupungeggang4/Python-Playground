@@ -50,13 +50,13 @@ class Data():
         7: {'deck': [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3], 'crystal': [1, 1, 1, 1, 1, 1, 8, 8]}
     }
     character_d = {
-        1: [],
-        2: [],
-        3: [],
-        4: [],
-        5: [],
-        6: [],
-        7: []
+        1: ['Fire Character', 'Gain more energy.'],
+        2: ['Water Character', 'Do random things.'],
+        3: ['Wind Character', 'Play mode card.'],
+        4: ['Earth Character', 'Gain defense.'],
+        5: ['Light Character', 'Heal units.'],
+        6: ['Dark Character', 'Gain power.'],
+        7: ['All Character', 'Use all cards.']
     }
     enemy = {
         1: {'deck': [1, 1, 1, 1, 1, 1, 1, 1], 'crystal': [1, 1, 1, 1, 1, 1, 1, 1], 'hp': 15}

@@ -16,7 +16,11 @@ class Render():
 
     @staticmethod
     def render_field(screen, game):
-        battle = game.battle
+        screen.blit(Font.neodgm_32.render(f'Turn : {game.battle.turn}', False, Color.black), UI.Battle.text_turn_num)
+        if game.battle.turn_who == 0:
+            screen.blit(Font.neodgm_32.render('Your turn', False, Color.black), UI.Battle.text_whose_turn)
+        else:
+            screen.blit(Font.neodgm_32.render('Enemy turn', False, Color.black), UI.Battle.text_whose_turn)
         for i in range(10):
             if game.battle.field[i] != None:
                 game.battle.field[i].render(game.screen, game, UI.Battle.field[i])
@@ -28,6 +32,18 @@ class Render():
         screen.blit(Font.neodgm_32.render('Proceed', False, Color.black), UI.Battle.text_proceed)
 
     @staticmethod
+    def render_reward_window(screen, game):
+        pygame.draw.rect(screen, Color.white, UI.Window.rect)
+        pygame.draw.rect(screen, Color.black, UI.Window.rect, 2)
+        
+        screen.blit(Font.neodgm_32.render('Select Reward', False, Color.black), UI.Window.text_title)
+
+        for i in range(3):
+            game.adventure.reward[i].render(screen, game, UI.Window.reward[i])
+        pygame.draw.rect(screen, Color.black, UI.Window.button_confirm, 2)
+        screen.blit(Font.neodgm_32.render('Confirm', False, Color.black), UI.Window.text_confirm)
+
+    @staticmethod
     def render_crystal(screen, game):
         pygame.draw.rect(screen, Color.black, UI.Battle.player_crystal_box, 2)
         pygame.draw.rect(screen, Color.black, UI.Battle.enemy_crystal_box, 2)
@@ -35,11 +51,14 @@ class Render():
     @staticmethod
     def render_card(screen, game):
         player_deck = game.battle.player.deck
+        enemy_deck = game.battle.enemy.deck
+
         for i in range(4, -1, -1):
             if i < len(player_deck):
                 pos = [UI.Battle.player_card_start[0] + UI.Battle.player_card_interval[0] * i, UI.Battle.player_card_start[1]]
                 player_deck[i].render(screen, game, pos)
 
         for i in range(4, -1, -1):
-            pos = [UI.Battle.enemy_card_start[0] + UI.Battle.enemy_card_interval[0] * i, UI.Battle.enemy_card_start[1]]
-            game.card.render(screen, game, pos)
+            if i < len(enemy_deck):
+                pos = [UI.Battle.enemy_card_start[0] + UI.Battle.enemy_card_interval[0] * i, UI.Battle.enemy_card_start[1]]
+                enemy_deck[i].render(screen, game, pos)
