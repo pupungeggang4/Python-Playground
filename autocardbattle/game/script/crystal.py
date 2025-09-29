@@ -24,7 +24,8 @@ class Crystal():
         self.description = data_d
 
     def render(self, surface, game, pos):
-        self.surface.fill(Color.black)
+        self.surface.fill(Color.transparent)
+        self.surface.blit(Image.crystal[self.ID], [0, 0])
         surface.blit(self.surface, pos)
 
     def clone(self):

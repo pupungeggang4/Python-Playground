@@ -32,6 +32,21 @@ class Render():
         screen.blit(Font.neodgm_32.render('Proceed', False, Color.black), UI.Battle.text_proceed)
 
     @staticmethod
+    def render_crystal(screen, game):
+        pygame.draw.rect(screen, Color.black, UI.Battle.player_crystal_box, 2)
+        for i in range(len(game.battle.player.crystal_hand)):
+            row = i // 4
+            col = i % 4
+            pos = [UI.Battle.player_crystal_start[0] + UI.Battle.player_crystal_interval[0] * col, UI.Battle.player_crystal_start[1] + UI.Battle.player_crystal_interval[1] * row]
+            game.battle.player.crystal_hand[i].render(screen, game, pos)
+        pygame.draw.rect(screen, Color.black, UI.Battle.enemy_crystal_box, 2)
+        for i in range(len(game.battle.enemy.crystal_hand)):
+            row = i // 4
+            col = i % 4
+            pos = [UI.Battle.enemy_crystal_start[0] + UI.Battle.enemy_crystal_interval[0] * col, UI.Battle.enemy_crystal_start[1] + UI.Battle.enemy_crystal_interval[1] * row]
+            game.battle.enemy.crystal_hand[i].render(screen, game, pos)
+
+    @staticmethod
     def render_reward_window(screen, game):
         pygame.draw.rect(screen, Color.white, UI.Window.rect)
         pygame.draw.rect(screen, Color.black, UI.Window.rect, 2)
@@ -42,11 +57,6 @@ class Render():
             game.adventure.reward[i].render(screen, game, UI.Window.reward[i])
         pygame.draw.rect(screen, Color.black, UI.Window.button_confirm, 2)
         screen.blit(Font.neodgm_32.render('Confirm', False, Color.black), UI.Window.text_confirm)
-
-    @staticmethod
-    def render_crystal(screen, game):
-        pygame.draw.rect(screen, Color.black, UI.Battle.player_crystal_box, 2)
-        pygame.draw.rect(screen, Color.black, UI.Battle.enemy_crystal_box, 2)
 
     @staticmethod
     def render_card(screen, game):

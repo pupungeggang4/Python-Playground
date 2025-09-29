@@ -18,7 +18,8 @@ class UI:
         text_start = [1124, 644]
 
     class Battle:
-        text_title = [24, 24]
+        text_turn = [24, 24]
+        text_turn_who = [24, 64]
         button_menu = [1180, 20, 80, 80]
         text_turn_num = [24, 24]
         text_whose_turn = [24, 64]
@@ -38,7 +39,11 @@ class UI:
         enemy_card_interval = [40, 0]
 
         player_crystal_box = [20, 420, 160, 280]
+        player_crystal_start = [20, 420]
+        player_crystal_interval = [40, 40]
         enemy_crystal_box = [1100, 420, 160, 280]
+        enemy_crystal_start = [1100, 420]
+        enemy_crystal_interval = [40, 40]
 
     class Window:
         rect = [160, 40, 960, 640]
@@ -52,8 +57,8 @@ class UI:
     class Card:
         rect = [0, 0, 200, 280]
         crystal_start = [0, 0]
-        crystal_text_start = [4, 4]
-        crystal_interval = [40, 0]
+        crystal_text_start = [44, 4]
+        crystal_interval = [60, 0]
         image = [60, 40, 80, 80]
         text_name = [4, 124]
         text_description = [4, 144, 0, 20]

@@ -31,7 +31,9 @@ def mouse_up(game, pos, button):
             if point_inside_rect_ui(pos, UI.Battle.button_menu):
                 game.menu = True
 
-            if game.state == 'reward':
+            if game.state == '':
+                mouse_up_normal(game, pos, button)
+            elif game.state == 'reward':
                 mouse_up_reward(game, pos, button)
         elif game.menu == True:
             if point_inside_rect_ui(pos, UI.Menu.button_resume):
@@ -41,6 +43,11 @@ def mouse_up(game, pos, button):
                 game.menu = False
                 game.scene = 'title'
                 game.state = ''
+
+def mouse_up_normal(game, pos, button):
+    if point_inside_rect_ui(pos, UI.Battle.button_proceed):
+        if game.battle.paused == True:
+            game.battle.proceed(game)
 
 def mouse_up_reward(game, pos, button):
     if point_inside_rect_ui(pos, UI.Window.button_confirm):

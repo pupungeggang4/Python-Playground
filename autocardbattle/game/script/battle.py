@@ -14,6 +14,8 @@ class Battle():
         self.enemy = BattlePlayer()
         self.turn = 0
         self.turn_who = 0
+        self.turn_phase = 'start'
+        self.paused = True
 
     def start_battle(self, game):
         self.turn = 0
@@ -30,40 +32,71 @@ class Battle():
         unit_e.set_unit_from_enemy(1)
         self.field[5] = unit_e
 
+    def proceed(self, game):
+        if self.turn_phase == 'start':
+            if self.turn_who == 0:
+                self.player.turn_start()
+                self.turn += 1
+            else:
+                self.enemy.turn_start()
+            self.turn_phase = 'play'
+        elif self.turn_phase == 'play':
+            self.turn_phase = 'battle'
+        elif self.turn_phase == 'battle':
+            self.turn_phase = 'end'
+        elif self.turn_phase == 'end':
+            if self.turn_who == 0:
+                self.player.turn_end()
+                self.turn_who = 1
+            else:
+                self.enemy.turn_end()
+                self.turn_who = 0
+            self.turn_phase = 'start'
+
 class BattlePlayer():
     def __init__(self):
         self.crystal_num = 0
         self.crystal_deck = []
+        self.crystal_hand = []
         self.deck = []
+        self.attack = 0
+        self.hardness = 0
+        self.leadership = 0
+        self.acceler = 0
+        self.extra_crystal = 0
 
     def start_battle_player(self, player):
-        self.crystal_num
+        self.crystal_num = 0
         self.deck = []
         self.crystal_deck = []
-
-        deck_list = []
-        crystal_list = []
+        self.crystal_hand = []
+        self.attack = 0
+        self.hardness = 0
+        self.acceler = 0
+        self.extra_crystal = 0
 
         for i in range(len(player.deck)):
-            deck_list.append(player.deck[i].clone())
+            self.deck.append(player.deck[i].clone())
         
         for i in range(len(player.crystal_deck)):
-            crystal_list.append(player.crystal_deck[i].clone())
+            self.crystal_deck.append(player.crystal_deck[i].clone())
 
-        while len(deck_list) > 0:
-            i = random.randint(0, len(deck_list) - 1)
-            self.deck.append(deck_list.pop(i))
-
-        while len(crystal_list) > 0:
-            i = random.randint(0, len(crystal_list) - 1)
-            self.crystal_deck.append(crystal_list.pop(i))
+        random.shuffle(self.deck)
+        random.shuffle(self.crystal_deck)
 
     def start_battle_enemy(self, ID):
+        self.crystal_num = 0
+        self.attack = 0
+        self.hardness = 0
+        self.acceler = 0
+        self.extra_crystal = 0
+
         data_deck = json.loads(json.dumps(Data.enemy[ID]['deck']))
         data_crystal = json.loads(json.dumps(Data.enemy[ID]['crystal']))
 
         self.deck = []
         self.crystal_deck = []
+        self.crystal_hand = []
 
         for i in range(len(data_deck)):
             card = Card()
@@ -74,3 +107,25 @@ class BattlePlayer():
             crystal = Crystal()
             crystal.set_data(data_crystal[i])
             self.crystal_deck.append(crystal)
+
+        random.shuffle(self.deck)
+        random.shuffle(self.crystal_deck)
+
+    def turn_start(self):
+        if self.crystal_num < 8:
+            self.crystal_num += 1
+        self.draw_crystal(self.crystal_num + self.extra_crystal)
+
+    def play_card(self):
+        pass
+
+    def battle(self):
+        pass
+
+    def turn_end(self):
+        pass
+
+    def draw_crystal(self, num):
+        for i in range(num):
+            if len(self.crystal_deck) > 0:
+                self.crystal_hand.append(self.crystal_deck.pop(0))

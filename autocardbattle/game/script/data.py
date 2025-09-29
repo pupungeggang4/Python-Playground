@@ -1,8 +1,8 @@
 class Data():
     card = {
-        1: {'ID': 1, 'name': 'Simple 1', 'type': 'unit', 'element': 'normal', 'crystal': [['any', 1]], 'stat': [1, 2]},
-        2: {'ID': 2, 'name': 'Simple 2', 'type': 'unit', 'element': 'normal', 'crystal': [['any', 2]], 'stat': [2, 3]},
-        3: {'ID': 3, 'name': 'Simple 3', 'type': 'unit', 'element': 'normal', 'crystal': [['any', 3]], 'stat': [3, 4]},
+        1: {'ID': 1, 'name': 'Simple 1', 'type': 'unit', 'element': 'normal', 'crystal': [[1, 1]], 'stat': [1, 2]},
+        2: {'ID': 2, 'name': 'Simple 2', 'type': 'unit', 'element': 'normal', 'crystal': [[1, 2]], 'stat': [2, 3]},
+        3: {'ID': 3, 'name': 'Simple 3', 'type': 'unit', 'element': 'normal', 'crystal': [[1, 3]], 'stat': [3, 4]},
     }
     card_e = {
         1: ['summon', []],

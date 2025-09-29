@@ -37,7 +37,17 @@ class Game():
         Font.neodgm_16 = pygame.font.Font('font/neodgm.ttf', 16)
 
     def load_image(self):
-        Image.test = pygame.image.load('image/test.png')
+        Image.crystal = {}
+        Image.crystal = {
+            1: pygame.image.load('image/crystalnormal.png'),
+            2: pygame.image.load('image/crystalfire.png'),
+            3: pygame.image.load('image/crystalwater.png'),
+            4: pygame.image.load('image/crystalwind.png'),
+            5: pygame.image.load('image/crystalearth.png'),
+            6: pygame.image.load('image/crystallight.png'),
+            7: pygame.image.load('image/crystaldark.png'),
+            8: pygame.image.load('image/crystalrainbow.png')
+        }
 
     def run(self):
         while True:

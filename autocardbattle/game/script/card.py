@@ -35,10 +35,10 @@ class Card():
         pygame.draw.rect(self.surface, Color.black, UI.Card.rect, 2)
 
         for i in range(len(self.crystal)):
-            rect_crystal = [UI.Card.crystal_start[0] + UI.Card.crystal_interval[0] * i, UI.Card.crystal_start[1], UI.crystal_size[0], UI.crystal_size[1]]
-            pos_crystal = [UI.Card.crystal_text_start[0] + UI.Card.crystal_interval[0] * i, UI.Card.crystal_text_start[1]]
-            pygame.draw.rect(self.surface, Color.black, rect_crystal, 2)
-            self.surface.blit(Font.neodgm_32.render(f'{self.crystal[i][1]}', False, Color.black), pos_crystal)
+            pos_crystal = [UI.Card.crystal_start[0] + UI.Card.crystal_interval[0] * i, UI.Card.crystal_start[1], UI.crystal_size[0], UI.crystal_size[1]]
+            pos_crystal_text = [UI.Card.crystal_text_start[0] + UI.Card.crystal_interval[0] * i, UI.Card.crystal_text_start[1]]
+            self.surface.blit(Image.crystal[self.crystal[i][0]], pos_crystal)
+            self.surface.blit(Font.neodgm_32.render(f'{self.crystal[i][1]}', False, Color.black), pos_crystal_text)
 
         pygame.draw.rect(self.surface, [255, 255, 0], UI.Card.image)
         self.surface.blit(Font.neodgm_16.render(self.name, False, Color.black), UI.Card.text_name)
