@@ -14,7 +14,7 @@ def loop(game):
 def render(game):
     game.screen.fill(Color.white)
     game.screen.blit(Font.neodgm_32.render('Select Character', False, Color.black), UI.Ready.text_title)
-    pygame.draw.rect(game.screen, Color.black, UI.Ready.button_back, 2)
+    game.screen.blit(Image.button['menu'], UI.Ready.button_back)
 
     for i in range(7):
         pygame.draw.rect(game.screen, Color.black, UI.Ready.character[i], 4)

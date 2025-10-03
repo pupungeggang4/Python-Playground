@@ -26,8 +26,9 @@ class Render():
                 game.battle.field[i].render(game.screen, game, UI.Battle.field[i])
             pygame.draw.rect(screen, Color.black, UI.Battle.field[i], 2)
 
-        pygame.draw.rect(screen, Color.black, UI.Battle.button_play, 2)
-        pygame.draw.rect(screen, Color.black, UI.Battle.button_pause, 2)
+        screen.blit(Image.button['play'], UI.Battle.button_play)
+        screen.blit(Image.button['pause'], UI.Battle.button_pause)
+        screen.blit(Image.button['menu'], UI.Battle.button_menu)
         pygame.draw.rect(screen, Color.black, UI.Battle.button_proceed, 2)
         screen.blit(Font.neodgm_32.render('Proceed', False, Color.black), UI.Battle.text_proceed)
 

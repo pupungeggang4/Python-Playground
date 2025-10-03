@@ -8,10 +8,13 @@ from script.func import *
 
 def loop(game):
     render(game)
+    if game.menu == False:
+        if game.state == '':
+            game.battle.handle_tick(game)
 
 def render(game):
     game.screen.fill(Color.white)
-    pygame.draw.rect(game.screen, Color.black, UI.Battle.button_menu, 2)
+    game.screen.blit(Image.button['menu'], UI.Battle.button_menu)
 
     Render.render_field(game.screen, game)
     Render.render_card(game.screen, game)
@@ -48,8 +51,21 @@ def mouse_up_normal(game, pos, button):
     if point_inside_rect_ui(pos, UI.Battle.button_proceed):
         if game.battle.paused == True:
             game.battle.proceed(game)
+    elif point_inside_rect_ui(pos, UI.Battle.button_play):
+        game.battle.paused = False
+    elif point_inside_rect_ui(pos, UI.Battle.button_pause):
+        game.battle.paused = True
 
 def mouse_up_reward(game, pos, button):
+    for i in range(3):
+        if point_inside_rect_ui(pos, UI.Window.reward[i]):
+            game.adventure.reward_selected = i
+
     if point_inside_rect_ui(pos, UI.Window.button_confirm):
+        if game.adventure.reward_selected != -1:
+            if game.adventure.reward_type == 'card':
+                card = game.adventure.reward[game.adventure.reward_selected].clone()
+                game.player.deck.append(card)
+
         game.state = ''
         game.battle.start_battle(game)

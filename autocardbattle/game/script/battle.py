@@ -15,7 +15,16 @@ class Battle():
         self.turn = 0
         self.turn_who = 0
         self.turn_phase = 'start'
+        self.proceed_time = 0.5
         self.paused = True
+
+    def handle_tick(self, game):
+        if self.paused == False:
+            if self.proceed_time < 0:
+                self.proceed(game)
+                self.proceed_time = 0.5
+            else:
+                self.proceed_time -= 1 / game.fps
 
     def start_battle(self, game):
         self.turn = 0

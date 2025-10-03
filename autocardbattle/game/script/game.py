@@ -37,7 +37,6 @@ class Game():
         Font.neodgm_16 = pygame.font.Font('font/neodgm.ttf', 16)
 
     def load_image(self):
-        Image.crystal = {}
         Image.crystal = {
             1: pygame.image.load('image/crystalnormal.png'),
             2: pygame.image.load('image/crystalfire.png'),
@@ -47,6 +46,11 @@ class Game():
             6: pygame.image.load('image/crystallight.png'),
             7: pygame.image.load('image/crystaldark.png'),
             8: pygame.image.load('image/crystalrainbow.png')
+        }
+        Image.button = {
+            'play': pygame.image.load('image/buttonplay.png'),
+            'pause': pygame.image.load('image/buttonpause.png'),
+            'menu': pygame.image.load('image/buttonmenu.png')
         }
 
     def run(self):
