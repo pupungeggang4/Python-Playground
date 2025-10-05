@@ -44,7 +44,7 @@ def mouse_up(game, pos, button):
         if point_inside_rect_ui(pos, UI.Ready.button_start):
             if game.selected_character != -1:
                 game.scene = 'battle'
-                game.state = 'reward'
+                game.state = 'next'
                 game.menu = False
 
                 ID = game.selected_character + 1

@@ -11,23 +11,27 @@ class Card():
         self.type = 'unit'
         self.element = ''
         self.crystal = []
+        self.crystal_list = []
         self.stat = []
         self.effect = []
+        self.played = []
         self.description = []
 
         self.surface = pygame.surface.Surface([UI.Card.rect[2], UI.Card.rect[3]], pygame.SRCALPHA)
 
     def set_data(self, ID):
         data = json.loads(json.dumps(Data.card[ID]))
-        data_e = json.loads(json.dumps(Data.card_d[ID]))
-        data_d = json.loads(json.dumps(Data.card_e[ID]))
+        data_d = json.loads(json.dumps(Data.card_d[ID]))
+        data_p = json.loads(json.dumps(Data.card_p[ID]))
         self.ID = ID
         self.name = data['name']
         self.type = data['type']
         self.element = data['element']
         self.crystal = data['crystal']
+        self.crystal_list = data['crystal_list']
         self.stat = data['stat']
-        self.effect = data_e
+        self.effect = data['effect']
+        self.played = data_p
         self.description = data_d
 
     def render(self, screen, game, pos):
@@ -56,7 +60,9 @@ class Card():
         card.type = self.type
         card.element = self.element
         card.crystal = json.loads(json.dumps(self.crystal))
+        card.crystal_list = json.loads(json.dumps(self.crystal_list))
         card.stat = json.loads(json.dumps(self.stat))
         card.effect = json.loads(json.dumps(self.effect))
+        card.played = json.loads(json.dumps(self.played))
         card.description = json.loads(json.dumps(self.description))
         return card

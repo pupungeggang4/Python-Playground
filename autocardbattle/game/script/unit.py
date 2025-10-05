@@ -11,6 +11,7 @@ class Unit():
         self.hp = 0
         self.hp_max = 0
         self.effect = []
+        self.attack_num = 0
 
         self.surface = pygame.surface.Surface(UI.Unit.size, pygame.SRCALPHA)
 
@@ -34,6 +35,13 @@ class Unit():
         self.hp = Data.enemy[ID]['hp']
         self.hp_max = Data.enemy[ID]['hp']
         self.effect = []
+
+    def set_unit_from_card(self, card):
+        self.ID = card.ID
+        self.attack = card.stat[0]
+        self.hp = card.stat[1]
+        self.hp_max = card.stat[1]
+        self.effect = json.loads(json.dumps(card.effect))
 
     def render(self, surface, game, pos):
         self.surface.fill(Color.transparent)

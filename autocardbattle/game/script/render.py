@@ -60,6 +60,18 @@ class Render():
         screen.blit(Font.neodgm_32.render('Confirm', False, Color.black), UI.Window.text_confirm)
 
     @staticmethod
+    def render_next_window(screen, game):
+        pygame.draw.rect(screen, Color.white, UI.Window.rect)
+        pygame.draw.rect(screen, Color.black, UI.Window.rect, 2)
+
+        screen.blit(Font.neodgm_32.render('Select Next', False, Color.black), UI.Window.text_title)
+
+        for i in range(3):
+            pygame.draw.rect(screen, Color.black, UI.Window.next_cell[i], 2)
+        pygame.draw.rect(screen, Color.black, UI.Window.button_confirm, 2)
+        screen.blit(Font.neodgm_32.render('Confirm', False, Color.black), UI.Window.text_confirm)
+
+    @staticmethod
     def render_card(screen, game):
         player_deck = game.battle.player.deck
         enemy_deck = game.battle.enemy.deck

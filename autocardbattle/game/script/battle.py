@@ -17,6 +17,7 @@ class Battle():
         self.turn_phase = 'start'
         self.proceed_time = 0.5
         self.paused = True
+        self.action_queue = []
 
     def handle_tick(self, game):
         if self.paused == False:
@@ -42,25 +43,38 @@ class Battle():
         self.field[5] = unit_e
 
     def proceed(self, game):
-        if self.turn_phase == 'start':
-            if self.turn_who == 0:
-                self.player.turn_start()
-                self.turn += 1
-            else:
-                self.enemy.turn_start()
-            self.turn_phase = 'play'
-        elif self.turn_phase == 'play':
-            self.turn_phase = 'battle'
-        elif self.turn_phase == 'battle':
-            self.turn_phase = 'end'
-        elif self.turn_phase == 'end':
-            if self.turn_who == 0:
-                self.player.turn_end()
-                self.turn_who = 1
-            else:
-                self.enemy.turn_end()
-                self.turn_who = 0
-            self.turn_phase = 'start'
+        if len(self.action_queue) <= 0:
+            if self.turn_phase == 'start':
+                if self.turn_who == 0:
+                    self.player.turn_start(self)
+                    self.turn += 1
+                else:
+                    self.enemy.turn_start(self)
+                self.turn_phase = 'play'
+            elif self.turn_phase == 'play':
+                if self.turn_who == 0:
+                    self.player.play_card_try(self)
+                else:
+                    self.enemy.play_card_try(self)
+            elif self.turn_phase == 'battle':
+                self.turn_phase = 'end'
+            elif self.turn_phase == 'end':
+                if self.turn_who == 0:
+                    self.player.turn_end()
+                    self.turn_who = 1
+                else:
+                    self.enemy.turn_end()
+                    self.turn_who = 0
+                self.turn_phase = 'start'
+        else:
+            self.do_action()
+
+    def do_action(self):
+        front = self.action_queue[0]
+        if front[0] == 'summon':
+            self.field[front[2]] = front[1]
+        if len(self.action_queue) > 0:
+            self.action_queue.pop(0)
 
 class BattlePlayer():
     def __init__(self):
@@ -73,6 +87,12 @@ class BattlePlayer():
         self.leadership = 0
         self.acceler = 0
         self.extra_crystal = 0
+        self.my_character = []
+        self.my_field = []
+        self.my_hero = 0
+        self.your_character = []
+        self.your_field = []
+        self.your_hero = 0
 
     def start_battle_player(self, player):
         self.crystal_num = 0
@@ -83,6 +103,12 @@ class BattlePlayer():
         self.hardness = 0
         self.acceler = 0
         self.extra_crystal = 0
+        self.my_character = [0, 1, 2, 3, 4]
+        self.my_field = [1, 2, 3, 4]
+        self.my_hero = 0
+        self.your_character = [5, 6, 7, 8, 9]
+        self.your_field = [6, 7, 8, 9]
+        self.your_hero = 5
 
         for i in range(len(player.deck)):
             self.deck.append(player.deck[i].clone())
@@ -95,17 +121,22 @@ class BattlePlayer():
 
     def start_battle_enemy(self, ID):
         self.crystal_num = 0
+        self.deck = []
+        self.crystal_deck = []
+        self.crystal_hand = []
         self.attack = 0
         self.hardness = 0
         self.acceler = 0
         self.extra_crystal = 0
+        self.my_character = [5, 6, 7, 8, 9]
+        self.my_field = [6, 7, 8, 9]
+        self.my_hero = 5
+        self.your_character = [0, 1, 2, 3, 4]
+        self.your_field = [1, 2, 3, 4]
+        self.your_hero = 0
 
         data_deck = json.loads(json.dumps(Data.enemy[ID]['deck']))
         data_crystal = json.loads(json.dumps(Data.enemy[ID]['crystal']))
-
-        self.deck = []
-        self.crystal_deck = []
-        self.crystal_hand = []
 
         for i in range(len(data_deck)):
             card = Card()
@@ -120,13 +151,122 @@ class BattlePlayer():
         random.shuffle(self.deck)
         random.shuffle(self.crystal_deck)
 
-    def turn_start(self):
+    def turn_start(self, battle):
         if self.crystal_num < 8:
             self.crystal_num += 1
         self.draw_crystal(self.crystal_num + self.extra_crystal)
 
-    def play_card(self):
-        pass
+        for i in range(len(self.my_field)):
+            if battle.field[self.my_field[i]] != None:
+                battle.field[self.my_field[i]].attack_num = 1
+
+    def play_card_try(self, battle):
+        if len(self.deck) > 0:
+            top = self.deck[0]
+            if self.check_playable(top):
+                if self.play_card(top, battle):
+                    pay_list = self.make_pay_list(top)
+                    for i in range(len(pay_list)):
+                        self.crystal_deck.append(self.crystal_hand.pop(pay_list[i]))
+                self.deck.pop(0)
+            else:
+                battle.turn_phase = 'battle'
+        else:
+            battle.turn_phase = 'battle'
+
+        if self.acceler > 0:
+            self.acceler -= 1
+        else:
+            battle.turn_phase = 'battle'
+
+    def play_card(self, card, battle):
+        played = json.loads(json.dumps(card.played))
+        
+        while len(played) > 0:
+            front = played[0]
+            if front[0] == 'summon':
+                for i in range(len(self.my_field)):
+                    if battle.field[self.my_field[i]] == None:
+                        unit = Unit()
+                        unit.set_unit_from_card(card)
+                        battle.action_queue.append(['summon', unit, self.my_field[i]])
+                        break
+
+                    if i == len(self.my_field) - 1:
+                        return False
+            played.pop(0)
+        
+        return True
+
+    def check_playable(self, card):
+        crystal_list = json.loads(json.dumps(card.crystal_list))
+        crystal_list.sort()
+
+        if len(crystal_list) <= 0:
+            return True
+
+        for i in range(len(self.crystal_hand)):
+            if self.crystal_hand[i].element == 1:
+                if crystal_list[0] == 1:
+                    crystal_list.pop(0)
+                    if len(crystal_list) <= 0:
+                        return True
+                    
+        for i in range(len(self.crystal_hand)):
+            if self.crystal_hand[i].element >= 2 and self.crystal_hand[i].element <= 7:
+                if crystal_list[0] == self.crystal_hand[i].element or crystal_list[0] == 1:
+                    crystal_list.pop(0)
+                    if len(crystal_list) <= 0:
+                        return True
+                    
+        for i in range(len(self.crystal_hand)):
+            if self.crystal_hand[i].element == 8:
+                crystal_list.pop(0)
+                if len(crystal_list) <= 0:
+                    return True
+
+        return False
+
+    def make_pay_list(self, card):
+        crystal_list = json.loads(json.dumps(card.crystal_list))
+        crystal_list.sort()
+        pay_list = []
+
+        if len(crystal_list) <= 0:
+            return []
+
+        for i in range(len(self.crystal_hand)):
+            if self.crystal_hand[i].element == 1:
+                if crystal_list[0] == 1:
+                    crystal_list.pop(0)
+                    pay_list.append(i)
+                    if len(crystal_list) <= 0:
+                        pay_list.sort()
+                        pay_list.reverse()
+                        return pay_list
+                    
+        for i in range(len(self.crystal_hand)):
+            if self.crystal_hand[i].element >= 2 and self.crystal_hand[i].element <= 7:
+                if crystal_list[0] == self.crystal_hand[i].element or crystal_list[0] == 1:
+                    crystal_list.pop(0)
+                    pay_list.append(i)
+                    if len(crystal_list) <= 0:
+                        pay_list.sort()
+                        pay_list.reverse()
+                        return pay_list
+                    
+        for i in range(len(self.crystal_hand)):
+            if self.crystal_hand[i].element == 8:
+                crystal_list.pop(0)
+                pay_list.append(i)
+                if len(crystal_list) <= 0:
+                    pay_list.sort()
+                    pay_list.reverse()
+                    return pay_list
+
+        pay_list.sort()
+        pay_list.reverse()
+        return pay_list
 
     def battle(self):
         pass

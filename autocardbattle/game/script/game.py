@@ -65,6 +65,9 @@ class Game():
                 pygame.quit()
                 sys.exit()
 
+            #if event.type == pygame.KEYDOWN:
+                #print(self.battle.player.check_playable(self.battle.player.deck[0]))
+
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
                 button = event.button
