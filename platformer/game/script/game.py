@@ -33,7 +33,7 @@ class Game():
             self.handle_scene()
 
             glClear(GL_COLOR_BUFFER_BIT)
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, self.surface.width, self.surface.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, ctypes.c_void_p(self.surface._pixels_address))
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, self.resolution[0], self.resolution[1], 0, GL_RGBA, GL_UNSIGNED_BYTE, ctypes.c_void_p(self.surface._pixels_address))
             glBegin(GL_QUADS)
             glTexCoord2f(0.0, 1.0)
             glVertex2f(-1.0, -1.0)
