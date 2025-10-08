@@ -9,9 +9,10 @@ class Game():
         self.scene = 'title'
         self.state = ''
         self.menu = False
+        self.window_size = [1280, 720]
         self.resolution = [1280, 720]
 
-        self.screen = pygame.display.set_mode(self.resolution, pygame.OPENGL)
+        self.screen = pygame.display.set_mode(self.window_size, pygame.OPENGL | pygame.SCALED)
         self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
         self.fps = 60
         self.clock = pygame.time.Clock()
@@ -44,7 +45,8 @@ class Game():
             glVertex2f(-1.0, 1.0)
             glEnd()
 
-            pygame.display.flip()
+            glFlush()
+            #pygame.display.flip()
 
     def handle_input(self):
         if self.scene == 'title':
