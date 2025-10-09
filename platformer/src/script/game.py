@@ -4,7 +4,7 @@ from OpenGL.GLU import *
 
 from script.res import *
 import script.scenetitle as scenetitle
-import script.scenegame as scenegame
+import script.scenefield as scenefield
 
 class Game():
     def __init__(self):
@@ -65,27 +65,27 @@ class Game():
                 if self.scene == 'title':
                     scenetitle.mouse_up(self, pos, button)
                 elif self.scene == 'game':
-                    scenegame.mouse_up(self, pos, button)
+                    scenefield.mouse_up(self, pos, button)
 
             elif event.type == pygame.KEYDOWN:
                 key = event.key
                 if self.scene == 'title':
                     scenetitle.key_down(self, key)
                 elif self.scene == 'game':
-                    scenegame.key_down(self, key)
+                    scenefield.key_down(self, key)
 
             elif event.type == pygame.KEYUP:
                 key = event.key
                 if self.scene == 'title':
                     scenetitle.key_up(self, key)
                 elif self.scene == 'game':
-                    scenegame.key_up(self, key)
+                    scenefield.key_up(self, key)
 
     def handle_scene(self):
         if self.scene == 'title':
             scenetitle.loop(self)
         elif self.scene == 'game':
-            scenegame.loop(self)
+            scenefield.loop(self)
 
     def render_window(self):
         glClear(GL_COLOR_BUFFER_BIT)
