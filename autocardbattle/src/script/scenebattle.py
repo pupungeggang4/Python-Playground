@@ -13,22 +13,20 @@ def loop(game):
             game.battle.handle_tick(game)
 
 def render(game):
-    game.screen.fill(Color.white)
-    game.screen.blit(Image.button['menu'], UI.Battle.button_menu)
+    game.surface.fill(Color.white)
+    game.surface.blit(Image.button['menu'], UI.Battle.button_menu)
 
-    Render.render_field(game.screen, game)
-    Render.render_card(game.screen, game)
-    Render.render_crystal(game.screen, game)
+    Render.render_field(game.surface, game)
+    Render.render_card(game.surface, game)
+    Render.render_crystal(game.surface, game)
 
     if game.state == 'reward':
-        Render.render_reward_window(game.screen, game)
+        Render.render_reward_window(game.surface, game)
     if game.state == 'next':
-        Render.render_next_window(game.screen, game)
+        Render.render_next_window(game.surface, game)
 
     if game.menu == True:
-        Render.render_menu(game.screen)
-
-    pygame.display.flip()
+        Render.render_menu(game.surface)
 
 def mouse_up(game, pos, button):
     if button == 1:

@@ -11,12 +11,18 @@ class Game():
 
         self.resolution = [1280, 720]
         self.fps = 60
-        self.clock = pygame.time.Clock()
+        self.scale = 1
 
-        self.window = pygame.display.set_mode(self.resolution, pygame.SCALED | pygame.OPENGL)
+        pygame.init()
+        monitor = pygame.display.Info()
+        if monitor.current_w > 2560:
+            self.scale = 2
+        if monitor.current_w > 2000:
+            self.scale = 1.5
+        self.window = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.OPENGL)
         pygame.display.set_caption('Roguelike Game')
         self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
-
+        self.clock = pygame.time.Clock()
         self.GL_init()
 
     def GL_init(self):

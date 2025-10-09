@@ -10,10 +10,9 @@ def loop(game):
     render(game)
 
 def render(game):
-    game.screen.fill(Color.white)
-    game.screen.blit(Font.neodgm_32.render('Collection', False, Color.black), UI.Collection.text_title)
-    pygame.draw.rect(game.screen, Color.black, UI.Collection.button_back)
-    pygame.display.flip()
+    game.surface.fill(Color.white)
+    game.surface.blit(Font.neodgm_32.render('Collection', False, Color.black), UI.Collection.text_title)
+    pygame.draw.rect(game.surface, Color.black, UI.Collection.button_back)
 
 def mouse_up(game, pos, button):
     if button == 1:

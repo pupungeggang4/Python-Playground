@@ -12,24 +12,23 @@ def loop(game):
     render(game)
 
 def render(game):
-    game.screen.fill(Color.white)
-    game.screen.blit(Font.neodgm_32.render('Select Character', False, Color.black), UI.Ready.text_title)
-    game.screen.blit(Image.button['menu'], UI.Ready.button_back)
+    game.surface.fill(Color.white)
+    game.surface.blit(Font.neodgm_32.render('Select Character', False, Color.black), UI.Ready.text_title)
+    game.surface.blit(Image.button['menu'], UI.Ready.button_back)
 
     for i in range(7):
-        pygame.draw.rect(game.screen, Color.black, UI.Ready.character[i], 4)
+        pygame.draw.rect(game.surface, Color.black, UI.Ready.character[i], 4)
 
     if game.selected_character != -1:
-        pygame.draw.rect(game.screen, Color.green, UI.Ready.character[game.selected_character], 4)
+        pygame.draw.rect(game.surface, Color.green, UI.Ready.character[game.selected_character], 4)
         description = Data.character_d[game.selected_character + 1]
         for i in range(len(description)):
             pos = [UI.Ready.description_text[0], UI.Ready.description_text[1] + UI.Ready.description_text[3] * i]
-            game.screen.blit(Font.neodgm_32.render(description[i], 'False', Color.black), pos)
+            game.surface.blit(Font.neodgm_32.render(description[i], 'False', Color.black), pos)
 
-    pygame.draw.rect(game.screen, Color.black, UI.Ready.description_box, 2)
-    pygame.draw.rect(game.screen, Color.black, UI.Ready.button_start, 2)
-    game.screen.blit(Font.neodgm_32.render('Start', False, Color.black), UI.Ready.text_start)
-    pygame.display.flip()
+    pygame.draw.rect(game.surface, Color.black, UI.Ready.description_box, 2)
+    pygame.draw.rect(game.surface, Color.black, UI.Ready.button_start, 2)
+    game.surface.blit(Font.neodgm_32.render('Start', False, Color.black), UI.Ready.text_start)
 
 def mouse_up(game, pos, button):
     if button == 1:
