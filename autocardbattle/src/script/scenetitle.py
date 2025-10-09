@@ -16,6 +16,8 @@ def render(game):
     game.surface.blit(Font.neodgm_32.render('Start Game', False, Color.black), UI.Title.text_start)
     pygame.draw.rect(game.surface, Color.black, UI.Title.button_collection, 2)
     game.surface.blit(Font.neodgm_32.render('Collection', False, Color.black), UI.Title.text_collection)
+    pygame.draw.rect(game.surface, Color.black, UI.Title.button_quit, 2)
+    game.surface.blit(Font.neodgm_32.render('Quit', False, Color.black), UI.Title.text_quit)
 
 def mouse_up(game, pos, button):
     if button == 1:
@@ -23,3 +25,6 @@ def mouse_up(game, pos, button):
             game.scene = 'ready'
             game.state = ''
             game.selected_character = -1
+        elif point_inside_rect_ui(pos, UI.Title.button_quit):
+            pygame.quit()
+            sys.exit()

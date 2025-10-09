@@ -7,6 +7,8 @@ class UI:
         text_collection = [184, 264]
         button_erase = [160, 320, 960, 80]
         text_erase = [184, 344]
+        button_quit = [160, 400, 960, 80]
+        text_quit = [184, 424]
 
     class Field:
         button_menu = [20, 1180, 80, 80]

@@ -5,6 +5,8 @@ class UI:
         text_start = [184, 184]
         button_collection = [160, 240, 960, 80]
         text_collection = [184, 264]
+        button_quit = [160, 320, 960, 80]
+        text_quit = [184, 344]
 
     class Ready:
         text_title = [24, 24]
