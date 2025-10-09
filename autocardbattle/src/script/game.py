@@ -35,7 +35,7 @@ class Game():
             self.scale = 1.5
         self.resolution = [1280, 720]
         self.screen = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.OPENGL)
-        self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
+        self.surface = pygame.surface.Surface(self.resolution)
         self.clock = pygame.time.Clock()
         self.fps = 60
 
@@ -114,7 +114,7 @@ class Game():
 
     def render_display(self):
         glClear(GL_COLOR_BUFFER_BIT)
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, self.resolution[0], self.resolution[1], 0, GL_RGBA, GL_UNSIGNED_BYTE, ctypes.c_void_p(self.surface._pixels_address))
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, self.resolution[0], self.resolution[1], 0, GL_BGRA, GL_UNSIGNED_BYTE, ctypes.c_void_p(self.surface._pixels_address))
         glVertexPointer(2, GL_FLOAT, 0, self.v_coord)
         glTexCoordPointer(2, GL_FLOAT, 0, self.t_coord)
         glEnableClientState(GL_VERTEX_ARRAY)

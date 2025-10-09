@@ -57,6 +57,10 @@ class Battle():
                 else:
                     self.enemy.play_card_try(self)
             elif self.turn_phase == 'battle':
+                if self.turn_who == 0:
+                    self.player.make_battle_list(self)
+                else:
+                    self.enemy.make_battle_list(self)
                 self.turn_phase = 'end'
             elif self.turn_phase == 'end':
                 if self.turn_who == 0:
@@ -73,8 +77,37 @@ class Battle():
         front = self.action_queue[0]
         if front[0] == 'summon':
             self.field[front[2]] = front[1]
+        elif front[0] == 'attack_random':
+            your_field = []
+            attack_list = []
+            if front[1] > 0 and front[1] < 5:
+                your_field = [5, 6, 7, 8, 9]
+            elif front[1] > 5:
+                your_field = [0, 1, 2, 3, 4]
+            for i in range(len(your_field)):
+                if self.field[your_field[i]] != None:
+                    attack_list.append(your_field[i])
+            index = random.randint(0, len(attack_list) - 1)
+            self.fight_unit(front[1], attack_list[index])
+
         if len(self.action_queue) > 0:
             self.action_queue.pop(0)
+
+        for i in range(1, 5):
+            if self.field[i] != None:
+                if self.field[i].hp <= 0:
+                    self.field[i] = None
+
+        for i in range(6, 10):
+            if self.field[i] != None:
+                if self.field[i].hp <= 0:
+                    self.field[i] = None
+
+    def fight_unit(self, i1, i2):
+        if self.field[i1] != None and self.field[i2] != None:
+            self.field[i1].hp -= self.field[i2].attack
+            self.field[i2].hp -= self.field[i1].attack
+            print(f'unit{i1} attacked unit{i2}')
 
 class BattlePlayer():
     def __init__(self):
@@ -268,8 +301,12 @@ class BattlePlayer():
         pay_list.reverse()
         return pay_list
 
-    def battle(self):
-        pass
+    def make_battle_list(self, battle):
+        for i in range(len(self.my_field)):
+            unit = battle.field[self.my_field[i]]
+            if unit != None:
+                for j in range(unit.attack_num):
+                    battle.action_queue.append(['attack_random', self.my_field[i]])
 
     def turn_end(self):
         pass
