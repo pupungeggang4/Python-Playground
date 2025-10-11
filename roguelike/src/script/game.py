@@ -1,13 +1,21 @@
 import pygame, sys, ctypes
 from OpenGL.GL import *
 
+from script.res import *
+from script.locale import *
 import script.scenetitle as scenetitle
+import script.village as village
+import script.battle as battle
 
 class Game():
     def __init__(self):
         self.scene = 'title'
         self.state = ''
         self.menu = False
+        self.lang = 'en'
+        self.locale = Locale.data[self.lang]
+
+        self.selected_title = 0
 
         self.resolution = [1280, 720]
         self.fps = 60
@@ -23,7 +31,17 @@ class Game():
         pygame.display.set_caption('Roguelike Game')
         self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
         self.clock = pygame.time.Clock()
+
+        self.load_font()
+        self.load_image()
         self.GL_init()
+
+    def load_font(self):
+        pygame.font.init()
+        Font.neodgm_32 = pygame.font.Font('font/neodgm.ttf', 32)
+
+    def load_image(self):
+        Image.arrow = pygame.image.load('image/arrow.png')
 
     def GL_init(self):
         glClearColor(0.0, 0.0, 0.0, 1.0)
@@ -50,13 +68,27 @@ class Game():
                 pygame.quit()
                 sys.exit()
 
+            if event.type == pygame.KEYDOWN:
+                key = event.key
+
+                if self.scene == 'title':
+                    scenetitle.key_down(self, key)
+                elif self.scene == 'village':
+                    scenevillage.key_down(self, key)
+                elif self.scene == 'battle':
+                    scenebattle.key_down(self, key)
+
     def handle_scene(self):
         if self.scene == 'title':
             scenetitle.loop(self)
+        elif self.scene == 'village':
+            scenevillage.loop(self)
+        elif self.scene == 'battle':
+            scenebattle.loop(self)
 
     def render_GL(self):
         glClear(GL_COLOR_BUFFER_BIT)
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, self.resolution[0], self.resolution[1], 0, GL_RGBA, GL_UNSIGNED_BYTE, ctypes.c_void_p(self.surface._pixels_address))
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, self.resolution[0], self.resolution[1], 0, GL_BGRA, GL_UNSIGNED_BYTE, ctypes.c_void_p(self.surface._pixels_address))
         glVertexPointer(2, GL_FLOAT, 0, self.v_coord)
         glTexCoordPointer(2, GL_FLOAT, 0, self.t_coord)
         glEnableClientState(GL_TEXTURE_COORD_ARRAY)
