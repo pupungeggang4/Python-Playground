@@ -23,7 +23,7 @@ class Game():
 
         if self.monitor.current_w > 2560:
             self.scale = 2
-        elif self.monitor_current_w > 2000:
+        elif self.monitor.current_w > 2000:
             self.scale = 1.5
         else:
             self.scale = 1
