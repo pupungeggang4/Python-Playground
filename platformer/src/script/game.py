@@ -4,6 +4,7 @@ from OpenGL.GL import *
 from script.res import *
 from script.locale import *
 import script.scenetitle as scenetitle
+import script.scenefield as scenefield
 
 class Game():
     def __init__(self):
@@ -14,6 +15,7 @@ class Game():
         self.lang = 'en'
         self.locale = Locale.data[self.lang]
         self.selected_title = 0
+        self.selected_menu = 0
 
         self.monitor = pygame.display.Info()
         self.scale = 1
@@ -72,10 +74,14 @@ class Game():
                 key = event.key
                 if self.scene == 'title':
                     scenetitle.key_down(self, key)
+                elif self.scene == 'field':
+                    scenefield.key_down(self, key)
 
     def handle_scene(self):
         if self.scene == 'title':
             scenetitle.loop(self)
+        elif self.scene == 'field':
+            scenefield.loop(self)
 
     def GL_render(self):
         glClear(GL_COLOR_BUFFER_BIT)

@@ -10,3 +10,16 @@ class UI():
         button_exit = [160, 400, 960, 80]
         text_exit = [184, 424]
         arrow = [[80, 160], [80, 240], [80, 320], [80, 400]]
+
+    class Field():
+        pass
+
+    class Menu():
+        rect = [320, 240, 640, 240]
+        text_paused = [344, 264]
+        button_resume = [320, 320, 640, 80]
+        text_resume = [344, 344]
+        button_exit = [320, 400, 640, 80]
+        text_exit = [344, 424]
+        arrow = [[240, 320], [240, 400]]
+
