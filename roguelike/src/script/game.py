@@ -37,7 +37,7 @@ class Game():
             self.scale = 2
         if monitor.current_w > 2000:
             self.scale = 1.5
-        self.window = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.OPENGL)
+        self.surface = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.OPENGL, vsync=1)
         pygame.display.set_caption('Roguelike Game')
         self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
         self.clock = pygame.time.Clock()
@@ -68,6 +68,7 @@ class Game():
             self.clock.tick(self.fps)
             self.handle_input()
             self.handle_scene()
+            #pygame.display.flip()
             self.render_GL()
 
     def handle_input(self):
