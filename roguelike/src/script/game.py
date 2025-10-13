@@ -18,6 +18,9 @@ class Game():
         self.locale = Locale.data[self.lang]
 
         self.selected_title = 0
+        self.selected_menu_village = 0
+        self.selected_menu_battle = 0
+        self.selected_battle_confirm = 0
 
         self.resolution = [1280, 720]
         self.fps = 60
@@ -29,7 +32,7 @@ class Game():
             self.scale = 2
         if monitor.current_w > 2000:
             self.scale = 1.5
-        self.window = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.OPENGL, vsync=1)
+        self.window = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.OPENGL | pygame.DOUBLEBUF, vsync=1)
         pygame.display.set_caption('Roguelike Game')
         self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
         self.clock = pygame.time.Clock()
@@ -68,8 +71,8 @@ class Game():
             self.clock.tick(self.fps)
             self.handle_input()
             self.handle_scene()
-            #pygame.display.flip()
             self.render_GL()
+            pygame.display.flip()
 
     def handle_input(self):
         for event in pygame.event.get():
@@ -124,4 +127,3 @@ class Game():
         glEnableClientState(GL_TEXTURE_COORD_ARRAY)
         glEnableClientState(GL_VERTEX_ARRAY)
         glDrawArrays(GL_QUADS, 0, 4)
-        glFlush()

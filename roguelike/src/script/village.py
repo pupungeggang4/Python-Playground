@@ -1,4 +1,5 @@
 import pygame, sys, json
+
 from script.ui import *
 from script.res import *
 from script.shape import *
@@ -8,16 +9,21 @@ class Village():
     def __init__(self):
         self.player = VillagePlayer()
         self.camera = Rect2(0, 0, 1280, 720)
-        self.thing = [VillagePortal(), VillagePortal()]
-        self.thing[0].rect = Rect2(0, -400, 80, 80)
+        self.portal_shop = VillagePortal()
+        self.portal_battle = VillagePortal()
 
     def handle_tick(self, game):
         self.player.handle_tick(self, game)
+        self.adjust_camera()
 
+    def adjust_camera(self):
+        self.camera.pos.x = self.player.rect.pos.x
+        self.camera.pos.y = self.player.rect.pos.y
+    
     def render(self, surface, game):
+        self.portal_shop.render(surface, self, game)
+        self.portal_battle.render(surface, self, game)
         self.player.render(surface, self, game)
-        for i in range(len(self.thing)):
-            self.thing[i].render(surface, self, game)
 
 class VillagePlayer():
     def __init__(self):
@@ -37,6 +43,13 @@ class VillagePlayer():
             self.rect.pos.y -= self.speed / game.fps
         if game.key_pressed['down'] == True:
             self.rect.pos.y += self.speed / game.fps
+
+    def handle_interact(self, game):
+        if Vec2.distance(self.rect, game.village.portal_shop.rect) < 80:
+            pass
+        elif Vec2.distance(self.rect, game.village.portal_battle.rect) < 80:
+            game.state = 'battle_confirm'
+            game.selected_battle_confirm = 0
 
     def render(self, surface, village, game):
         self.surface.fill(Color.black)
