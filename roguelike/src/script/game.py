@@ -3,12 +3,22 @@ from OpenGL.GL import *
 
 from script.res import *
 from script.locale import *
+from script.village import *
+
 import script.scenetitle as scenetitle
-import script.village as village
-import script.battle as battle
+import script.scenevillage as scenevillage
+import script.scenebattle as scenebattle
 
 class Game():
     def __init__(self):
+        self.load_font()
+        self.load_image()
+        
+        self.village = Village()
+        self.key_pressed = {
+            'up': False, 'left': False, 'down': False, 'right': False
+        }
+
         self.scene = 'title'
         self.state = ''
         self.menu = False
@@ -31,9 +41,6 @@ class Game():
         pygame.display.set_caption('Roguelike Game')
         self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
         self.clock = pygame.time.Clock()
-
-        self.load_font()
-        self.load_image()
         self.GL_init()
 
     def load_font(self):
@@ -42,6 +49,7 @@ class Game():
 
     def load_image(self):
         Image.arrow = pygame.image.load('image/arrow.png')
+        Image.portal = pygame.image.load('image/portal.png')
 
     def GL_init(self):
         glClearColor(0.0, 0.0, 0.0, 1.0)
@@ -71,12 +79,33 @@ class Game():
             if event.type == pygame.KEYDOWN:
                 key = event.key
 
+                if key == pygame.K_UP:
+                    self.key_pressed['up'] = True
+                if key == pygame.K_LEFT:
+                    self.key_pressed['left'] = True
+                if key == pygame.K_DOWN:
+                    self.key_pressed['down'] = True
+                if key == pygame.K_RIGHT:
+                    self.key_pressed['right'] = True
+
                 if self.scene == 'title':
                     scenetitle.key_down(self, key)
                 elif self.scene == 'village':
                     scenevillage.key_down(self, key)
                 elif self.scene == 'battle':
                     scenebattle.key_down(self, key)
+
+            if event.type == pygame.KEYUP:
+                key = event.key
+
+                if key == pygame.K_UP:
+                    self.key_pressed['up'] = False
+                if key == pygame.K_LEFT:
+                    self.key_pressed['left'] = False
+                if key == pygame.K_DOWN:
+                    self.key_pressed['down'] = False
+                if key == pygame.K_RIGHT:
+                    self.key_pressed['right'] = False
 
     def handle_scene(self):
         if self.scene == 'title':
