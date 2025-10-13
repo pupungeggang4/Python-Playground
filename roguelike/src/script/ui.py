@@ -17,16 +17,22 @@ class UI():
         pass
 
     class Menu_Village():
-        rect = [320, 240, 640, 240]
-        text_paused = [344, 264]
-        button_resume = [320, 320, 640, 80]
-        text_resume = [344, 344]
-        button_exit = [320, 400, 640, 80]
-        text_exit = [344, 424]
-        arrow = [[240, 320], [240, 400]]
+        rect = [320, 200, 640, 320]
+        text_paused = [344, 224]
+        button_resume = [320, 280, 640, 80]
+        text_resume = [344, 304]
+        button_exit = [320, 360, 640, 80]
+        text_exit = [344, 384]
+        button_quit = [320, 440, 640, 80]
+        text_quit = [344, 464]
+        arrow = [[240, 280], [240, 360], [240, 440]]
 
-    class Window_Battle():
-        pass
+    class Window_Battle_Confirm():
+        rect = [320, 200, 640, 240]
+        text_title = [344, 224]
+        arrow = [[360, 320], [680, 320]]
+        text_yes = [464, 344]
+        text_no = [784, 344]
 
     class Menu_Battle():
         pass

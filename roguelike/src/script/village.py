@@ -11,6 +11,8 @@ class Village():
         self.camera = Rect2(0, 0, 1280, 720)
         self.portal_shop = VillagePortal()
         self.portal_battle = VillagePortal()
+        self.portal_shop.rect.pos = Vec2(400, 0)
+        self.portal_battle.rect.pos = Vec2(0, -400)
 
     def handle_tick(self, game):
         self.player.handle_tick(self, game)
@@ -45,9 +47,9 @@ class VillagePlayer():
             self.rect.pos.y += self.speed / game.fps
 
     def handle_interact(self, game):
-        if Vec2.distance(self.rect, game.village.portal_shop.rect) < 80:
+        if Vec2.distance(self.rect.pos, game.village.portal_shop.rect.pos) < 80:
             pass
-        elif Vec2.distance(self.rect, game.village.portal_battle.rect) < 80:
+        elif Vec2.distance(self.rect.pos, game.village.portal_battle.rect.pos) < 80:
             game.state = 'battle_confirm'
             game.selected_battle_confirm = 0
 

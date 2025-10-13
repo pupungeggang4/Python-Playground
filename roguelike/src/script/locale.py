@@ -7,6 +7,14 @@ class Locale():
             'erase_data': 'Erase Data',
             'lang': 'English',
             'exit': 'Exit',
+
+            'paused': 'Paused',
+            'resume': 'Resume',
+            'exit_to_title': 'Exit to title',
+
+            'start_battle': 'Start Adventure?',
+            'yes': 'Yes',
+            'no': 'No',
         },
 
         'ko': {
@@ -16,5 +24,13 @@ class Locale():
             'erase_data': '데이터 지우기',
             'lang': '한국어',
             'exit': '끝내기',
+
+            'paused': '일시정지됨',
+            'resume': '계속하기',
+            'exit_to_title': '시작 화면으로 나가기',
+
+            'start_battle': '모험을 시작할까요?',
+            'yes': '예',
+            'no': '아니오'
         }
     }

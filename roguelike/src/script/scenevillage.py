@@ -13,29 +13,47 @@ def loop(game):
 def render(game):
     game.surface.fill(Color.white)
     game.village.render(game.surface, game)
+    
+    if game.state == 'battle_confirm':
+        Render.render_battle_confirm(game.surface, game)
+
+    if game.menu == True:
+        Render.render_menu_village(game.surface, game)
 
 def key_down(game, key):
     if game.menu == False:
-        if key == pygame.K_ESCAPE or pygame.K_q:
+        if key == pygame.K_ESCAPE or key == pygame.K_q:
             game.menu = True
             game.selected_menu_village = 0
 
         if game.state == '':
-            if key == pygame.K_x or pygame.K_e:
+            if key == pygame.K_x or key == pygame.K_e:
                 game.village.player.handle_interact(game)
         elif game.state == 'battle_confirm':
             if key == pygame.K_LEFT or key == pygame.K_RIGHT:
                 game.selected_battle_confirm = 1 - game.selected_battle_confirm
             if key == pygame.K_RETURN:
                 if game.selected_battle_confirm == 0:
+                    game.scene = 'battle'
                     game.state = ''
                 else:
-                    game.scene = 'battle'
                     game.state = ''
 
     elif game.menu == True:
-        if key == pygame.K_ESCAPE or pygame.K_q:
+        if key == pygame.K_ESCAPE or key == pygame.K_q:
             game.menu = False
 
         if key == pygame.K_UP:
-            game.selected_menu_village = (game.selected_menu_village + 1)
+            game.selected_menu_village = (game.selected_menu_village + 2) % 3
+        if key == pygame.K_DOWN:
+            game.selected_menu_village = (game.selected_menu_village + 1) % 3
+        if key == pygame.K_RETURN:
+            if game.selected_menu_village == 0:
+                game.menu = False
+            elif game.selected_menu_village == 1:
+                game.menu = False
+                game.scene = 'title'
+                game.state = ''
+            elif game.selected_menu_village == 2:
+                pygame.quit()
+                sys.exit()

@@ -4,6 +4,8 @@ from script.ui import *
 from script.res import *
 from script.locale import *
 
+from script.village import *
+
 def loop(game):
     render(game)
 
@@ -33,6 +35,7 @@ def key_down(game, key):
         if game.selected_title == 0:
             game.scene = 'village'
             game.state = ''
+            game.village = Village()
         elif game.selected_title == 1:
             game.scene = 'collection'
             game.state = ''
