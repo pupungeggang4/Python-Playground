@@ -11,14 +11,6 @@ import script.scenebattle as scenebattle
 
 class Game():
     def __init__(self):
-        self.load_font()
-        self.load_image()
-        
-        self.village = Village()
-        self.key_pressed = {
-            'up': False, 'left': False, 'down': False, 'right': False
-        }
-
         self.scene = 'title'
         self.state = ''
         self.menu = False
@@ -41,15 +33,23 @@ class Game():
         pygame.display.set_caption('Roguelike Game')
         self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
         self.clock = pygame.time.Clock()
+
+        self.load_image()
+        self.load_font()
         self.GL_init()
+
+        self.village = Village()
+        self.key_pressed = {
+            'up': False, 'left': False, 'down': False, 'right': False
+        }
 
     def load_font(self):
         pygame.font.init()
         Font.neodgm_32 = pygame.font.Font('font/neodgm.ttf', 32)
 
     def load_image(self):
-        Image.arrow = pygame.image.load('image/arrow.png')
-        Image.portal = pygame.image.load('image/portal.png')
+        Image.arrow = pygame.image.load('image/arrow.png').convert_alpha()
+        Image.portal = pygame.image.load('image/portal.png').convert_alpha()
 
     def GL_init(self):
         glClearColor(0.0, 0.0, 0.0, 1.0)
