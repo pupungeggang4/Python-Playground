@@ -30,7 +30,7 @@ class Game():
         else:
             self.scale = 1
 
-        self.window = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.OPENGL)
+        self.window = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.OPENGL | pygame.DOUBLEBUF, vsync=1)
         pygame.display.set_caption('Platformer Game')
         self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
 

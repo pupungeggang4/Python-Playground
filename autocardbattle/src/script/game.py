@@ -23,9 +23,7 @@ class Game():
         self.state = ''
         self.menu = False
 
-        self.scale = 1
-        self.v_coord = [-1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0]
-        self.t_coord = [0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0]
+        self.scale = 1 
 
         pygame.init()
         monitor = pygame.display.Info()
@@ -34,7 +32,7 @@ class Game():
         elif monitor.current_w > 2000:
             self.scale = 1.5
         self.resolution = [1280, 720]
-        self.screen = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.OPENGL)
+        self.screen = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.OPENGL | pygame.DOUBLEBUF, vsync=1)
         self.surface = pygame.surface.Surface(self.resolution)
         self.clock = pygame.time.Clock()
         self.fps = 60
@@ -66,6 +64,8 @@ class Game():
         }
 
     def GL_Init(self):
+        self.v_coord = [-1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0]
+        self.t_coord = [0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0]
         glClearColor(0.0, 0.0, 0.0, 1.0)
         glEnable(GL_TEXTURE_2D)
         self.texture = glGenTextures(1)
