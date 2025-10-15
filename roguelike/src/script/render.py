@@ -27,6 +27,21 @@ class Render():
         surface.blit(Image.arrow, UI.Menu_Village.arrow[game.selected_menu_village])
 
     @staticmethod
+    def render_menu_battle(surface, game):
+        pygame.draw.rect(surface, Color.white, UI.Menu_Battle.rect)
+        pygame.draw.rect(surface, Color.black, UI.Menu_Battle.rect, 2)
+        surface.blit(Font.neodgm_32.render(game.locale['paused'], False, Color.black), UI.Menu_Battle.text_paused)
+        pygame.draw.rect(surface, Color.black, UI.Menu_Battle.button_resume, 2)
+        surface.blit(Font.neodgm_32.render(game.locale['resume'], False, Color.black), UI.Menu_Battle.text_resume)
+        pygame.draw.rect(surface, Color.black, UI.Menu_Battle.button_surrender, 2)
+        surface.blit(Font.neodgm_32.render(game.locale['surrender'], False, Color.black), UI.Menu_Battle.text_surrender)
+        pygame.draw.rect(surface, Color.black, UI.Menu_Battle.button_exit, 2)
+        surface.blit(Font.neodgm_32.render(game.locale['exit_to_title'], False, Color.black), UI.Menu_Battle.text_exit)
+        pygame.draw.rect(surface, Color.black, UI.Menu_Battle.button_quit, 2)
+        surface.blit(Font.neodgm_32.render(game.locale['exit'], False, Color.black), UI.Menu_Battle.text_quit)
+        surface.blit(Image.arrow, UI.Menu_Battle.arrow[game.selected_menu_battle])
+
+    @staticmethod
     def render_battle_confirm(surface, game):
         pygame.draw.rect(surface, Color.white, UI.Window_Battle_Confirm.rect)
         pygame.draw.rect(surface, Color.black, UI.Window_Battle_Confirm.rect, 2)

@@ -11,6 +11,7 @@ class Locale():
             'paused': 'Paused',
             'resume': 'Resume',
             'exit_to_title': 'Exit to title',
+            'surrender': 'Surrender',
 
             'start_battle': 'Start Adventure?',
             'yes': 'Yes',
@@ -28,6 +29,7 @@ class Locale():
             'paused': '일시정지됨',
             'resume': '계속하기',
             'exit_to_title': '시작 화면으로 나가기',
+            'surrender': '항복',
 
             'start_battle': '모험을 시작할까요?',
             'yes': '예',

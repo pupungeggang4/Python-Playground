@@ -10,5 +10,32 @@ def loop(game):
 def render(game):
     game.surface.fill(Color.white)
 
+    if game.menu == True:
+        Render.render_menu_battle(game.surface, game)
+
 def key_down(game, key):
-    pass
+    if game.menu == False:
+        if key == pygame.K_ESCAPE or key == pygame.K_q:
+            game.menu = True
+            game.selected_menu_battle = 0
+    else:
+        if key == pygame.K_ESCAPE or key == pygame.K_q:
+            game.menu = False
+        if key == pygame.K_UP:
+            game.selected_menu_battle = (game.selected_menu_battle + 3) % 4
+        if key == pygame.K_DOWN:
+            game.selected_menu_battle = (game.selected_menu_battle + 1) % 4
+        if key == pygame.K_RETURN:
+            if game.selected_menu_battle == 0:
+                game.menu = False
+            elif game.selected_menu_battle == 1:
+                game.menu = False
+                game.scene = 'village'
+                game.state = ''
+            elif game.selected_menu_battle == 2:
+                game.menu = False
+                game.scene = 'title'
+                game.state = ''
+            elif game.selected_menu_battle == 3:
+                pygame.quit()
+                sys.exit()
