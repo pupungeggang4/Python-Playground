@@ -67,7 +67,28 @@ class Render():
         surface.blit(Font.neodgm_32.render('Select Next', False, Color.black), UI.Window.text_title)
 
         for i in range(3):
+            cell = game.adventure.layout[game.adventure.floor][i]
+            if cell == 'battle':
+                surface.blit(Image.button['battle'], UI.Window.next_cell[i])
+                surface.blit(Font.neodgm_32.render('Battle', False, Color.black), UI.Window.next_cell_text[i])
+            if cell == 'elite':
+                surface.blit(Image.button['elite'], UI.Window.next_cell[i])
+                surface.blit(Font.neodgm_32.render('Elite', False, Color.black), UI.Window.next_cell_text[i])
+            if cell == 'boss':
+                surface.blit(Image.button['boss'], UI.Window.next_cell[i])
+                surface.blit(Font.neodgm_32.render('Boss', False, Color.black), UI.Window.next_cell_text[i])
+            if cell == 'shop':
+                surface.blit(Image.button['shop'], UI.Window.next_cell[i])
+                surface.blit(Font.neodgm_32.render('Shop', False, Color.black), UI.Window.next_cell_text[i])
+            if cell == 'event':
+                surface.blit(Image.button['event'], UI.Window.next_cell[i])
+                surface.blit(Font.neodgm_32.render('Event', False, Color.black), UI.Window.next_cell_text[i])
+
             pygame.draw.rect(surface, Color.black, UI.Window.next_cell[i], 2)
+
+        if game.adventure.next_selected != -1:
+            surface.blit(Image.select_frame_long, UI.Window.next_cell[game.adventure.next_selected])
+
         pygame.draw.rect(surface, Color.black, UI.Window.button_confirm, 2)
         surface.blit(Font.neodgm_32.render('Confirm', False, Color.black), UI.Window.text_confirm)
 

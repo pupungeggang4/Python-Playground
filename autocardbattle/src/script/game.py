@@ -23,7 +23,7 @@ class Game():
         self.state = ''
         self.menu = False
 
-        self.scale = 1 
+        self.scale = 1
 
         pygame.init()
         monitor = pygame.display.Info()
@@ -47,6 +47,18 @@ class Game():
         Font.neodgm_16 = pygame.font.Font('font/neodgm.ttf', 16)
 
     def load_image(self):
+        Image.select_frame_160 = pygame.image.load('image/selectframe160.png')
+        Image.select_frame_200 = pygame.image.load('image/selectframe200.png')
+        Image.select_frame_long =  pygame.image.load('image/selectframelong.png')
+        Image.icon = {
+            0: pygame.image.load('image/iconfire.png'),
+            1: pygame.image.load('image/iconwater.png'),
+            2: pygame.image.load('image/iconwind.png'),
+            3: pygame.image.load('image/iconearth.png'),
+            4: pygame.image.load('image/iconlight.png'),
+            5: pygame.image.load('image/icondark.png'),
+            6: pygame.image.load('image/iconall.png')
+        }
         Image.crystal = {
             1: pygame.image.load('image/crystalnormal.png'),
             2: pygame.image.load('image/crystalfire.png'),
@@ -60,7 +72,12 @@ class Game():
         Image.button = {
             'play': pygame.image.load('image/buttonplay.png'),
             'pause': pygame.image.load('image/buttonpause.png'),
-            'menu': pygame.image.load('image/buttonmenu.png')
+            'menu': pygame.image.load('image/buttonmenu.png'),
+            'battle': pygame.image.load('image/buttonbattle.png'),
+            'elite': pygame.image.load('image/buttonelite.png'),
+            'boss': pygame.image.load('image/buttonboss.png'),
+            'shop': pygame.image.load('image/buttonshop.png'),
+            'event': pygame.image.load('image/buttonevent.png'),
         }
 
     def GL_Init(self):
@@ -81,6 +98,7 @@ class Game():
             self.handle_input()
             self.handle_scene()
             self.render_display()
+            pygame.display.flip()
 
     def handle_input(self):
         for event in pygame.event.get():
@@ -120,4 +138,3 @@ class Game():
         glEnableClientState(GL_VERTEX_ARRAY)
         glEnableClientState(GL_TEXTURE_COORD_ARRAY)
         glDrawArrays(GL_QUADS, 0, 4)
-        glFlush()

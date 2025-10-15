@@ -17,10 +17,11 @@ def render(game):
     game.surface.blit(Image.button['menu'], UI.Ready.button_back)
 
     for i in range(7):
+        game.surface.blit(Image.icon[i], UI.Ready.character[i])
         pygame.draw.rect(game.surface, Color.black, UI.Ready.character[i], 4)
 
     if game.selected_character != -1:
-        pygame.draw.rect(game.surface, Color.green, UI.Ready.character[game.selected_character], 4)
+        game.surface.blit(Image.select_frame_160, UI.Ready.character[game.selected_character])
         description = Data.character_d[game.selected_character + 1]
         for i in range(len(description)):
             pos = [UI.Ready.description_text[0], UI.Ready.description_text[1] + UI.Ready.description_text[3] * i]

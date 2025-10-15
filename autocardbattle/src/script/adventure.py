@@ -32,9 +32,9 @@ class Adventure():
     def __init__(self):
         self.layout = [
             ['battle', 'battle', 'battle'],
-            ['shop', 'shop', 'shop'],
-            ['battle', 'battle', 'battle'],
-            ['shop', 'shop', 'shop'],
+            ['battle', 'shop', 'event'],
+            ['battle', 'elite', 'battle'],
+            ['battle', 'shop', 'event'],
             ['boss', 'boss', 'boss']
         ]
         self.floor = 0
