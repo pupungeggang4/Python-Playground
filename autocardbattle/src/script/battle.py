@@ -111,7 +111,6 @@ class Battle():
         if self.field[i1] != None and self.field[i2] != None:
             self.field[i1].hp -= self.field[i2].attack
             self.field[i2].hp -= self.field[i1].attack
-            print(f'unit{i1} attacked unit{i2}')
 
 class BattlePlayer():
     def __init__(self):

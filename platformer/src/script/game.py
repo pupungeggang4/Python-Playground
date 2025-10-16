@@ -63,6 +63,7 @@ class Game():
             self.handle_input()
             self.handle_scene()
             self.GL_render()
+            pygame.display.flip()
 
     def handle_input(self):
         for event in pygame.event.get():
@@ -91,4 +92,3 @@ class Game():
         glEnableClientState(GL_VERTEX_ARRAY)
         glEnableClientState(GL_TEXTURE_COORD_ARRAY)
         glDrawArrays(GL_QUADS, 0, 4)
-        glFlush()
