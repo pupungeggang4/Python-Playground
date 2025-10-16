@@ -56,8 +56,23 @@ class Render():
 
         for i in range(3):
             game.adventure.reward[i].render(surface, game, UI.Window.reward[i])
+
+        if game.adventure.reward_selected != -1:
+            surface.blit(Image.select_frame_long, UI.Window.reward[game.adventure.reward_selected])
+            
         pygame.draw.rect(surface, Color.black, UI.Window.button_confirm, 2)
         surface.blit(Font.neodgm_32.render('Confirm', False, Color.black), UI.Window.text_confirm)
+
+    @staticmethod
+    def render_end_window(surface, game):
+        pygame.draw.rect(surface, Color.white, UI.Window_End.rect)
+        pygame.draw.rect(surface, Color.black, UI.Window_End.rect, 2)
+        if game.state == 'win':
+            surface.blit(Font.neodgm_32.render('You Win!', False, Color.black), UI.Window_End.text_title)
+        if game.state == 'lose':
+            surface.blit(Font.neodgm_32.render('You Lose!', False, Color.black), UI.Window_End.text_title)
+        pygame.draw.rect(surface, Color.black, UI.Window_End.button_ok, 2)
+        surface.blit(Font.neodgm_32.render('OK', False, Color.black), UI.Window_End.text_ok)
 
     @staticmethod
     def render_next_window(surface, game):

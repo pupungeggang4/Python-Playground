@@ -6,6 +6,8 @@ from script.res import *
 from script.render import *
 from script.func import *
 
+from script.card import *
+
 def loop(game):
     render(game)
     if game.menu == False:
@@ -24,6 +26,8 @@ def render(game):
         Render.render_reward_window(game.surface, game)
     if game.state == 'next':
         Render.render_next_window(game.surface, game)
+    if game.state == 'win' or game.state == 'lose':
+        Render.render_end_window(game.surface, game)
 
     if game.menu == True:
         Render.render_menu(game.surface)
@@ -40,6 +44,11 @@ def mouse_up(game, pos, button):
                 mouse_up_reward(game, pos, button)
             elif game.state == 'next':
                 mouse_up_next(game, pos, button)
+            elif game.state == 'lose':
+                mouse_up_lose(game, pos, button)
+            elif game.state == 'win':
+                mouse_up_win(game, pos, button)
+
         elif game.menu == True:
             if point_inside_rect_ui(pos, UI.Menu.button_resume):
                 game.menu = False
@@ -48,7 +57,6 @@ def mouse_up(game, pos, button):
                 game.menu = False
                 game.scene = 'title'
                 game.state = ''
-                game.battle.__init__()
 
 def mouse_up_normal(game, pos, button):
     if point_inside_rect_ui(pos, UI.Battle.button_proceed):
@@ -69,6 +77,9 @@ def mouse_up_reward(game, pos, button):
             if game.adventure.reward_type == 'card':
                 card = game.adventure.reward[game.adventure.reward_selected].clone()
                 game.player.deck.append(card)
+        game.state = 'next'
+        game.adventure.floor += 1
+        game.adventure.next_selected = -1
 
 def mouse_up_next(game, pos, button):
     for i in range(3):
@@ -80,3 +91,19 @@ def mouse_up_next(game, pos, button):
             if game.adventure.layout[game.adventure.floor][game.adventure.next_selected] == 'battle':
                 game.state = ''
                 game.battle.start_battle(game)
+
+def mouse_up_lose(game, pos, button):
+    if point_inside_rect_ui(pos, UI.Window_End.button_ok):
+        game.scene = 'title'
+        game.state = ''
+
+def mouse_up_win(game, pos, button):
+    if point_inside_rect_ui(pos, UI.Window_End.button_ok):
+        if game.adventure.floor >= len(game.adventure.layout) - 1:
+            game.scene = 'title'
+            game.state = ''
+        else:
+            game.state = 'reward'
+            game.adventure.reward_type = 'card'
+            game.adventure.reward_selected = -1
+            #game.adventure.reward = [Card(), Card(), Card()]

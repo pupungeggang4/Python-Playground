@@ -62,6 +62,12 @@ class UI:
         button_confirm = [560, 560, 160, 80]
         text_confirm = [584, 584]
 
+    class Window_End:
+        rect = [320, 240, 640, 240]
+        text_title = [344, 264]
+        button_ok = [780, 380, 160, 80]
+        text_ok = [804, 404]
+
     class Card:
         rect = [0, 0, 200, 280]
         crystal_start = [0, 0]
@@ -75,6 +81,7 @@ class UI:
 
     class Unit:
         rect = [0, 0, 160, 160]
+        image = [40, 40]
         size = [160, 160]
         text_attack = [4, 124]
         text_hp = [124, 124]

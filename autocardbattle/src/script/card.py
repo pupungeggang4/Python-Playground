@@ -44,7 +44,7 @@ class Card():
             self.surface.blit(Image.crystal[self.crystal[i][0]], pos_crystal)
             self.surface.blit(Font.neodgm_32.render(f'{self.crystal[i][1]}', False, Color.black), pos_crystal_text)
 
-        pygame.draw.rect(self.surface, [255, 255, 0], UI.Card.image)
+        self.surface.blit(Image.card[self.ID], UI.Card.image)
         self.surface.blit(Font.neodgm_16.render(self.name, False, Color.black), UI.Card.text_name)
 
         if self.type == 'unit':

@@ -35,7 +35,7 @@ def key_down(game, key):
             if key == pygame.K_RETURN:
                 if game.selected_battle_confirm == 0:
                     game.scene = 'battle'
-                    game.state = ''
+                    game.state = 'adventure_start'
                 else:
                     game.state = ''
 

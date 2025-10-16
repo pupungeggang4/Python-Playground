@@ -46,3 +46,11 @@ class UI():
         arrow = [[360, 320], [680, 320]]
         text_yes = [464, 344]
         text_no = [784, 344]
+
+    class Window():
+        rect = [160, 40, 960, 640]
+        text_title = [184, 64]
+        button_reward = [[200, 120, 200, 280], [540, 120, 200, 280], [880, 120, 200, 280]]
+        text_reward = [[204, 324], [544, 324], [884, 324]]
+        button_confirm = [560, 160, 580, 80]
+        text_confirm = [584, 184]

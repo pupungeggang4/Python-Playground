@@ -5,6 +5,7 @@ from script.crystal import *
 
 class Player():
     def __init__(self):
+        self.ID = 0
         self.hp = 0
         self.hp_max = 0
         self.deck = []
@@ -12,6 +13,7 @@ class Player():
         self.equipment = []
 
     def create_player(self, ID):
+        self.ID = ID
         self.hp = 20
         self.deck = []
         self.crystal_deck = []
@@ -41,9 +43,9 @@ class Adventure():
         self.reward_type = 'card'
         self.reward_selected = -1
         self.reward = [Card(), Card(), Card()]
-        self.reward[0].set_data(1)
-        self.reward[1].set_data(2)
-        self.reward[2].set_data(3)
+        self.reward[0].set_data(101)
+        self.reward[1].set_data(102)
+        self.reward[2].set_data(103)
         self.next_selected = -1
 
     def start_adventure(self):

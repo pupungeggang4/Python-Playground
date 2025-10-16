@@ -7,6 +7,7 @@ from script.adventure import *
 
 from script.render import *
 from script.func import *
+from script.battle import *
 
 def loop(game):
     render(game)
@@ -22,7 +23,7 @@ def render(game):
 
     if game.selected_character != -1:
         game.surface.blit(Image.select_frame_160, UI.Ready.character[game.selected_character])
-        description = Data.character_d[game.selected_character + 1]
+        description = Data.character_d[game.selected_character + 1001]
         for i in range(len(description)):
             pos = [UI.Ready.description_text[0], UI.Ready.description_text[1] + UI.Ready.description_text[3] * i]
             game.surface.blit(Font.neodgm_32.render(description[i], 'False', Color.black), pos)
@@ -47,6 +48,7 @@ def mouse_up(game, pos, button):
                 game.state = 'next'
                 game.menu = False
 
-                ID = game.selected_character + 1
+                ID = game.selected_character + 1001
                 game.adventure.start_adventure()
                 game.player.create_player(ID)
+                game.battle = Battle()

@@ -21,12 +21,14 @@ class Game():
         self.selected_menu_village = 0
         self.selected_menu_battle = 0
         self.selected_battle_confirm = 0
+        self.selected_adventure_start = 0
 
         self.resolution = [1280, 720]
         self.fps = 60
         self.scale = 1
 
         pygame.init()
+        pygame.font.init()
         monitor = pygame.display.Info()
         if monitor.current_w > 2560:
             self.scale = 2
@@ -37,22 +39,14 @@ class Game():
         self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
         self.clock = pygame.time.Clock()
 
-        self.load_image()
-        self.load_font()
+        load_image()
+        load_font()
         self.GL_init()
 
         self.village = Village()
         self.key_pressed = {
             'up': False, 'left': False, 'down': False, 'right': False
         }
-
-    def load_font(self):
-        pygame.font.init()
-        Font.neodgm_32 = pygame.font.Font('font/neodgm.ttf', 32)
-
-    def load_image(self):
-        Image.arrow = pygame.image.load('image/arrow.png').convert_alpha()
-        Image.portal = pygame.image.load('image/portal.png').convert_alpha()
 
     def GL_init(self):
         glClearColor(0.0, 0.0, 0.0, 1.0)

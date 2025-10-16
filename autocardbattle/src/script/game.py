@@ -26,6 +26,7 @@ class Game():
         self.scale = 1
 
         pygame.init()
+        pygame.font.init()
         monitor = pygame.display.Info()
         if monitor.current_w > 2560:
             self.scale = 2.0
@@ -37,48 +38,9 @@ class Game():
         self.clock = pygame.time.Clock()
         self.fps = 60
 
-        self.load_font()
-        self.load_image()
+        load_font()
+        load_image()
         self.GL_Init()
-
-    def load_font(self):
-        pygame.font.init()
-        Font.neodgm_32 = pygame.font.Font('font/neodgm.ttf', 32)
-        Font.neodgm_16 = pygame.font.Font('font/neodgm.ttf', 16)
-
-    def load_image(self):
-        Image.select_frame_160 = pygame.image.load('image/selectframe160.png')
-        Image.select_frame_200 = pygame.image.load('image/selectframe200.png')
-        Image.select_frame_long =  pygame.image.load('image/selectframelong.png')
-        Image.icon = {
-            0: pygame.image.load('image/iconfire.png'),
-            1: pygame.image.load('image/iconwater.png'),
-            2: pygame.image.load('image/iconwind.png'),
-            3: pygame.image.load('image/iconearth.png'),
-            4: pygame.image.load('image/iconlight.png'),
-            5: pygame.image.load('image/icondark.png'),
-            6: pygame.image.load('image/iconall.png')
-        }
-        Image.crystal = {
-            1: pygame.image.load('image/crystalnormal.png'),
-            2: pygame.image.load('image/crystalfire.png'),
-            3: pygame.image.load('image/crystalwater.png'),
-            4: pygame.image.load('image/crystalwind.png'),
-            5: pygame.image.load('image/crystalearth.png'),
-            6: pygame.image.load('image/crystallight.png'),
-            7: pygame.image.load('image/crystaldark.png'),
-            8: pygame.image.load('image/crystalrainbow.png')
-        }
-        Image.button = {
-            'play': pygame.image.load('image/buttonplay.png'),
-            'pause': pygame.image.load('image/buttonpause.png'),
-            'menu': pygame.image.load('image/buttonmenu.png'),
-            'battle': pygame.image.load('image/buttonbattle.png'),
-            'elite': pygame.image.load('image/buttonelite.png'),
-            'boss': pygame.image.load('image/buttonboss.png'),
-            'shop': pygame.image.load('image/buttonshop.png'),
-            'event': pygame.image.load('image/buttonevent.png'),
-        }
 
     def GL_Init(self):
         self.v_coord = [-1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0]

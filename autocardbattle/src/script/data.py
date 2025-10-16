@@ -1,18 +1,18 @@
 class Data():
     card = {
-        1: {'ID': 1, 'name': 'Simple 1', 'type': 'unit', 'element': 'normal', 'crystal': [[1, 1]], 'crystal_list': [1], 'stat': [1, 2], 'effect': []},
-        2: {'ID': 2, 'name': 'Simple 2', 'type': 'unit', 'element': 'normal', 'crystal': [[1, 2]], 'crystal_list': [1, 1], 'stat': [2, 3], 'effect': []},
-        3: {'ID': 3, 'name': 'Simple 3', 'type': 'unit', 'element': 'normal', 'crystal': [[1, 3]], 'crystal_list': [1, 1, 1], 'stat': [3, 4], 'effect': []},
+        101: {'ID': 1, 'name': 'Simple 1', 'type': 'unit', 'element': 'normal', 'crystal': [[1, 1]], 'crystal_list': [1], 'stat': [1, 2], 'effect': []},
+        102: {'ID': 2, 'name': 'Simple 2', 'type': 'unit', 'element': 'normal', 'crystal': [[1, 2]], 'crystal_list': [1, 1], 'stat': [2, 3], 'effect': []},
+        103: {'ID': 3, 'name': 'Simple 3', 'type': 'unit', 'element': 'normal', 'crystal': [[1, 3]], 'crystal_list': [1, 1, 1], 'stat': [3, 4], 'effect': []},
     }
     card_p = {
-        1: [['summon']],
-        2: [['summon']],
-        3: [['summon']]
+        101: [['summon']],
+        102: [['summon']],
+        103: [['summon']]
     }
     card_d = {
-        1: [],
-        2: [],
-        3: []
+        101: [],
+        102: [],
+        103: []
     }
     crystal = {
         1: {'ID': 1, 'name': 'normal crystal', 'element': 1, 'effect': []},
@@ -41,23 +41,41 @@ class Data():
 
     }
     character = {
-        1: {'deck': [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3], 'crystal': [1, 1, 1, 1, 2, 2, 2, 2]},
-        2: {'deck': [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3], 'crystal': [1, 1, 1, 1, 3, 3, 3, 3]},
-        3: {'deck': [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3], 'crystal': [1, 1, 1, 1, 4, 4, 4, 4]},
-        4: {'deck': [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3], 'crystal': [1, 1, 1, 1, 5, 5, 5, 5]},
-        5: {'deck': [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3], 'crystal': [1, 1, 1, 1, 6, 6, 6, 6]},
-        6: {'deck': [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3], 'crystal': [1, 1, 1, 1, 7, 7, 7, 7]},
-        7: {'deck': [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3], 'crystal': [1, 1, 1, 1, 1, 1, 8, 8]}
+        1001: {'deck': [101, 101, 101, 101, 102, 102, 102, 102, 103, 103, 103, 103], 'crystal': [1, 1, 1, 1, 2, 2, 2, 2]},
+        1002: {'deck': [101, 101, 101, 101, 102, 102, 102, 102, 103, 103, 103, 103], 'crystal': [1, 1, 1, 1, 3, 3, 3, 3]},
+        1003: {'deck': [101, 101, 101, 101, 102, 102, 102, 102, 103, 103, 103, 103], 'crystal': [1, 1, 1, 1, 4, 4, 4, 4]},
+        1004: {'deck': [101, 101, 101, 101, 102, 102, 102, 102, 103, 103, 103, 103], 'crystal': [1, 1, 1, 1, 5, 5, 5, 5]},
+        1005: {'deck': [101, 101, 101, 101, 102, 102, 102, 102, 103, 103, 103, 103], 'crystal': [1, 1, 1, 1, 6, 6, 6, 6]},
+        1006: {'deck': [101, 101, 101, 101, 102, 102, 102, 102, 103, 103, 103, 103], 'crystal': [1, 1, 1, 1, 7, 7, 7, 7]},
+        1007: {'deck': [101, 101, 101, 101, 102, 102, 102, 102, 103, 103, 103, 103], 'crystal': [1, 1, 1, 1, 1, 1, 8, 8]}
     }
     character_d = {
-        1: ['Fire Character', 'Gain more energy.'],
-        2: ['Water Character', 'Do random things.'],
-        3: ['Wind Character', 'Play mode card.'],
-        4: ['Earth Character', 'Gain defense.'],
-        5: ['Light Character', 'Heal units.'],
-        6: ['Dark Character', 'Gain power.'],
-        7: ['All Character', 'Use all cards.']
+        1001: ['Fire Character', 'Gain more energy.'],
+        1002: ['Water Character', 'Do random things.'],
+        1003: ['Wind Character', 'Play mode card.'],
+        1004: ['Earth Character', 'Gain defense.'],
+        1005: ['Light Character', 'Heal units.'],
+        1006: ['Dark Character', 'Gain power.'],
+        1007: ['All Character', 'Use all cards.']
     }
     enemy = {
-        1: {'deck': [1, 1, 1, 1, 1, 1, 1, 1], 'crystal': [1, 1, 1, 1, 1, 1, 1, 1], 'hp': 15}
+        1001: {'deck': [101, 101, 101, 101, 101, 101, 101, 101], 'crystal': [1, 1, 1, 1, 1, 1, 1, 1], 'hp': 15}
+    }
+    reward_pool = {
+        1001: [],
+        1002: [],
+        1003: [],
+        1004: [],
+        1005: [],
+        1006: [],
+        1007: [],
+    }
+    enemy_pool = {
+
+    }
+    elite_pool = {
+
+    }
+    boss_pool = {
+
     }

@@ -34,12 +34,12 @@ class Battle():
             None, None, None, None, None, None, None, None, None, None
         ]
         self.player.start_battle_player(game.player)
-        self.enemy.start_battle_enemy(1)
+        self.enemy.start_battle_enemy(1001)
         unit_p = Unit()
         unit_p.set_unit_from_player(game.player)
         self.field[0] = unit_p
         unit_e = Unit()
-        unit_e.set_unit_from_enemy(1)
+        unit_e.set_unit_from_enemy(1001)
         self.field[5] = unit_e
 
     def proceed(self, game):
@@ -72,6 +72,10 @@ class Battle():
                 self.turn_phase = 'start'
         else:
             self.do_action()
+            if self.field[0].hp <= 0:
+                game.state = 'lose'
+            elif self.field[5].hp <= 0:
+                game.state = 'win'
 
     def do_action(self):
         front = self.action_queue[0]
@@ -111,6 +115,7 @@ class Battle():
 
 class BattlePlayer():
     def __init__(self):
+        self.ID = 0
         self.crystal_num = 0
         self.crystal_deck = []
         self.crystal_hand = []
@@ -128,6 +133,7 @@ class BattlePlayer():
         self.your_hero = 0
 
     def start_battle_player(self, player):
+        self.ID = player.ID
         self.crystal_num = 0
         self.deck = []
         self.crystal_deck = []
@@ -153,6 +159,7 @@ class BattlePlayer():
         random.shuffle(self.crystal_deck)
 
     def start_battle_enemy(self, ID):
+        self.ID = ID
         self.crystal_num = 0
         self.deck = []
         self.crystal_deck = []
