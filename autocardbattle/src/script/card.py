@@ -47,6 +47,10 @@ class Card():
         self.surface.blit(Image.card[self.ID], UI.Card.image)
         self.surface.blit(Font.neodgm_16.render(self.name, False, Color.black), UI.Card.text_name)
 
+        for i in range(len(self.description)):
+            pos_d = [UI.Card.text_description[0], UI.Card.text_description[1] + UI.Card.text_description[3] * i]
+            self.surface.blit(Font.neodgm_16.render(self.description[i], False, Color.black), pos_d)
+
         if self.type == 'unit':
             self.surface.blit(Font.neodgm_32.render(f'{self.stat[0]}', False, Color.black), UI.Card.text_attack)
             self.surface.blit(Font.neodgm_32.render(f'{self.stat[1]}', False, Color.black), UI.Card.text_hp)

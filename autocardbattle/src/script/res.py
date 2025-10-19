@@ -1,6 +1,6 @@
 import pygame
 
-card = [101, 102, 103, 201]
+card = [801, 802, 803, 101, 401]
 
 class Color():
     transparent = [0, 0, 0, 0]

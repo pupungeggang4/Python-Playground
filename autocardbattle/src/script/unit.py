@@ -12,6 +12,7 @@ class Unit():
         self.hp_max = 0
         self.effect = []
         self.attack_num = 0
+        self.armor = 0
 
         self.surface = pygame.surface.Surface(UI.Unit.size, pygame.SRCALPHA)
 
@@ -43,9 +44,18 @@ class Unit():
         self.hp_max = card.stat[1]
         self.effect = json.loads(json.dumps(card.effect))
 
+    def take_damage(self, dmg):
+        if self.armor >= dmg:
+            self.armor -= dmg
+        else:
+            self.hp -= (dmg - self.armor)
+            self.armor = 0
+
     def render(self, surface, game, pos):
         self.surface.fill(Color.transparent)
         self.surface.blit(Image.unit[self.ID], UI.Unit.image)
+        if self.armor > 0:
+            self.surface.blit(Font.neodgm_32.render(str(self.armor), False, Color.black), UI.Unit.text_armor)
         self.surface.blit(Font.neodgm_32.render(str(self.attack), False, Color.black), UI.Unit.text_attack)
         self.surface.blit(Font.neodgm_32.render(str(self.hp), False, Color.black), UI.Unit.text_hp)
         surface.blit(self.surface, pos)

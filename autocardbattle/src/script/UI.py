@@ -84,6 +84,7 @@ class UI:
         image = [40, 40]
         size = [160, 160]
         text_attack = [4, 124]
+        text_armor = [124, 84]
         text_hp = [124, 124]
 
     class Collection:

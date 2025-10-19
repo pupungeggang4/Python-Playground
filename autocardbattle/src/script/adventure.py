@@ -43,9 +43,9 @@ class Adventure():
         self.reward_type = 'card'
         self.reward_selected = -1
         self.reward = [Card(), Card(), Card()]
-        self.reward[0].set_data(101)
-        self.reward[1].set_data(102)
-        self.reward[2].set_data(103)
+        self.reward[0].set_data(801)
+        self.reward[1].set_data(802)
+        self.reward[2].set_data(803)
         self.next_selected = -1
 
     def start_adventure(self):

@@ -93,6 +93,8 @@ class Battle():
                     attack_list.append(your_field[i])
             index = random.randint(0, len(attack_list) - 1)
             self.fight_unit(front[1], attack_list[index])
+        elif front[0] == 'armor':
+            self.field[front[2]].armor += front[1]
 
         if len(self.action_queue) > 0:
             self.action_queue.pop(0)
@@ -109,8 +111,8 @@ class Battle():
 
     def fight_unit(self, i1, i2):
         if self.field[i1] != None and self.field[i2] != None:
-            self.field[i1].hp -= self.field[i2].attack
-            self.field[i2].hp -= self.field[i1].attack
+            self.field[i1].take_damage(self.field[i2].attack)
+            self.field[i2].take_damage(self.field[i1].attack)
 
 class BattlePlayer():
     def __init__(self):
@@ -233,6 +235,8 @@ class BattlePlayer():
 
                     if i == len(self.my_field) - 1:
                         return False
+            if front[0] == 'armor':
+                battle.action_queue.append(['armor', front[1], self.my_hero])
             played.pop(0)
         
         return True
