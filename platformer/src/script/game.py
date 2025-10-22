@@ -3,6 +3,7 @@ from OpenGL.GL import *
 
 from script.res import *
 from script.locale import *
+from script.field import *
 import script.scenetitle as scenetitle
 import script.scenefield as scenefield
 
@@ -16,6 +17,8 @@ class Game():
         self.locale = Locale.data[self.lang]
         self.selected_title = 0
         self.selected_menu = 0
+
+        self.field = Field()
 
         self.monitor = pygame.display.Info()
         self.scale = 1
@@ -34,12 +37,9 @@ class Game():
         pygame.display.set_caption('Platformer Game')
         self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
 
-        self.load_image()
+        load_image()
         self.load_font()
         self.GL_init()
-
-    def load_image(self):
-        Image.arrow = pygame.image.load('image/arrow.png')
 
     def load_font(self):
         pygame.font.init()

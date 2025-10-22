@@ -11,6 +11,8 @@ def loop(game):
 def render(game):
     game.surface.fill(Color.white)
 
+    game.field.render(game)
+
     if game.menu == True:
         Render.render_menu(game.surface, game)
 

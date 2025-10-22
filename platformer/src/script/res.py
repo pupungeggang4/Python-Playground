@@ -1,3 +1,5 @@
+import pygame, sys
+
 class Color():
     transparent = [0, 0, 0, 0]
     black = [0, 0, 0]
@@ -7,4 +9,8 @@ class Font():
     pass
 
 class Image():
-    pass
+    sprite = {}
+
+def load_image():
+    Image.arrow = pygame.image.load('image/arrow.png')
+    Image.sprite['coin'] = pygame.image.load('image/sprite/spritecoin.png')

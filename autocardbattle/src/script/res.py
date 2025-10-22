@@ -1,7 +1,5 @@
 import pygame
 
-card = [801, 802, 803, 101, 401]
-
 class Color():
     transparent = [0, 0, 0, 0]
     black = [0, 0, 0, 255]
@@ -34,17 +32,17 @@ def load_image():
         3: pygame.image.load('image/iconearth.png'),
         4: pygame.image.load('image/iconlight.png'),
         5: pygame.image.load('image/icondark.png'),
-        6: pygame.image.load('image/iconall.png')
+        6: pygame.image.load('image/iconall.png'),
     }
     Image.crystal = {
-        1: pygame.image.load('image/crystalnormal.png'),
-        2: pygame.image.load('image/crystalfire.png'),
-        3: pygame.image.load('image/crystalwater.png'),
-        4: pygame.image.load('image/crystalwind.png'),
-        5: pygame.image.load('image/crystalearth.png'),
-        6: pygame.image.load('image/crystallight.png'),
-        7: pygame.image.load('image/crystaldark.png'),
-        8: pygame.image.load('image/crystalrainbow.png')
+        1: pygame.image.load('image/crystalfire.png'),
+        2: pygame.image.load('image/crystalwater.png'),
+        3: pygame.image.load('image/crystalwind.png'),
+        4: pygame.image.load('image/crystalearth.png'),
+        5: pygame.image.load('image/crystallight.png'),
+        6: pygame.image.load('image/crystaldark.png'),
+        7: pygame.image.load('image/crystalrainbow.png'),
+        8: pygame.image.load('image/crystalnormal.png'),
     }
     Image.button = {
         'play': pygame.image.load('image/buttonplay.png'),
@@ -60,10 +58,17 @@ def load_image():
     Image.card = {}
     Image.unit = {}
 
-    for i in card:
-        Image.card[i] = pygame.image.load(f'image/card/card{str(i).zfill(3)}.png').convert_alpha()
-    for i in card:
-        Image.unit[i] = pygame.image.load(f'image/card/card{str(i).zfill(3)}.png').convert_alpha()
+    for i in range(1, 1000):
+        try:
+            Image.card[i] = pygame.image.load(f'image/card/card{str(i).zfill(3)}.png').convert_alpha()
+        except:
+            pass
+
+    for i in range(1, 1000):
+        try:
+            Image.unit[i] = pygame.image.load(f'image/card/card{str(i).zfill(3)}.png').convert_alpha()
+        except:
+            pass
 
     Image.unit[1001] = pygame.image.load(f'image/hero/hero1001.png').convert_alpha()
     Image.unit[1002] = pygame.image.load(f'image/hero/hero1001.png').convert_alpha()

@@ -93,8 +93,19 @@ class Battle():
                     attack_list.append(your_field[i])
             index = random.randint(0, len(attack_list) - 1)
             self.fight_unit(front[1], attack_list[index])
-        elif front[0] == 'armor':
+        elif front[0] == 'gain_armor':
             self.field[front[2]].armor += front[1]
+        elif front[0] == 'dmg':
+            if self.field[front[2]] != None:
+                self.field[front[2]].take_damage(front[1])
+        elif front[0] == 'dmg_random':
+            dmg_list = []
+            for i in range(len(front[2])):
+                if self.field[front[2][i]] != None:
+                    dmg_list.append(front[2][i])
+            index = random.randint(0, len(dmg_list) - 1)
+            if self.field[dmg_list[index]] != None:
+                self.field[dmg_list[index]].take_damage(front[1])
 
         if len(self.action_queue) > 0:
             self.action_queue.pop(0)
@@ -210,13 +221,12 @@ class BattlePlayer():
                     for i in range(len(pay_list)):
                         self.crystal_deck.append(self.crystal_hand.pop(pay_list[i]))
                 self.deck.pop(0)
+                if self.acceler <= 0:
+                    battle.turn_phase = 'battle'
+                else:
+                    self.acceler -= 1
             else:
                 battle.turn_phase = 'battle'
-        else:
-            battle.turn_phase = 'battle'
-
-        if self.acceler > 0:
-            self.acceler -= 1
         else:
             battle.turn_phase = 'battle'
 
@@ -235,8 +245,14 @@ class BattlePlayer():
 
                     if i == len(self.my_field) - 1:
                         return False
-            if front[0] == 'armor':
-                battle.action_queue.append(['armor', front[1], self.my_hero])
+            if front[0] == 'gain_armor':
+                battle.action_queue.append(['gain_armor', front[1] + self.hardness, self.my_hero])
+            if front[0] == 'dmg_hero':
+                battle.action_queue.append(['dmg', front[1] + self.attack, self.your_hero])
+            if front[0] == 'dmg_random':
+                battle.action_queue.append(['dmg_random', front[1] + self.attack, self.your_character])
+            if front[0] == 'gain_acceler':
+                self.acceler += front[1]
             played.pop(0)
         
         return True
@@ -249,21 +265,25 @@ class BattlePlayer():
             return True
 
         for i in range(len(self.crystal_hand)):
-            if self.crystal_hand[i].element == 1:
-                if crystal_list[0] == 1:
-                    crystal_list.pop(0)
-                    if len(crystal_list) <= 0:
-                        return True
-                    
-        for i in range(len(self.crystal_hand)):
-            if self.crystal_hand[i].element >= 2 and self.crystal_hand[i].element <= 7:
-                if crystal_list[0] == self.crystal_hand[i].element or crystal_list[0] == 1:
-                    crystal_list.pop(0)
-                    if len(crystal_list) <= 0:
-                        return True
-                    
-        for i in range(len(self.crystal_hand)):
             if self.crystal_hand[i].element == 8:
+                for j in range(len(crystal_list)):
+                    if crystal_list[j] == 8:
+                        crystal_list.pop(j)
+                        if len(crystal_list) <= 0:
+                            return True
+                        break
+                    
+        for i in range(len(self.crystal_hand)):
+            if self.crystal_hand[i].element >= 1 and self.crystal_hand[i].element <= 6:
+                for j in range(len(crystal_list)):
+                    if crystal_list[j] == self.crystal_hand[i].element or crystal_list[j] == 8:
+                        crystal_list.pop(j)
+                        if len(crystal_list) <= 0:
+                            return True
+                        break
+                    
+        for i in range(len(self.crystal_hand)):
+            if self.crystal_hand[i].element == 7:
                 crystal_list.pop(0)
                 if len(crystal_list) <= 0:
                     return True
@@ -279,33 +299,38 @@ class BattlePlayer():
             return []
 
         for i in range(len(self.crystal_hand)):
-            if self.crystal_hand[i].element == 1:
-                if crystal_list[0] == 1:
-                    crystal_list.pop(0)
-                    pay_list.append(i)
-                    if len(crystal_list) <= 0:
-                        pay_list.sort()
-                        pay_list.reverse()
-                        return pay_list
-                    
-        for i in range(len(self.crystal_hand)):
-            if self.crystal_hand[i].element >= 2 and self.crystal_hand[i].element <= 7:
-                if crystal_list[0] == self.crystal_hand[i].element or crystal_list[0] == 1:
-                    crystal_list.pop(0)
-                    pay_list.append(i)
-                    if len(crystal_list) <= 0:
-                        pay_list.sort()
-                        pay_list.reverse()
-                        return pay_list
-                    
-        for i in range(len(self.crystal_hand)):
             if self.crystal_hand[i].element == 8:
+                for j in range(len(crystal_list)):
+                    if crystal_list[j] == 8:
+                        crystal_list.pop(j)
+                        pay_list.append(i)
+                        if len(crystal_list) <= 0:
+                            pay_list.sort()
+                            pay_list.reverse()
+                            return pay_list
+                        break
+                    
+        for i in range(len(self.crystal_hand)):
+            if self.crystal_hand[i].element >= 1 and self.crystal_hand[i].element <= 6:
+                for j in range(len(crystal_list)):
+                    if crystal_list[j] == self.crystal_hand[i].element or crystal_list[j] == 8:
+                        crystal_list.pop(j)
+                        pay_list.append(i)
+                        if len(crystal_list) <= 0:
+                            pay_list.sort()
+                            pay_list.reverse()
+                            return pay_list
+                        break
+                    
+        for i in range(len(self.crystal_hand)):
+            if self.crystal_hand[i].element == 7:
                 crystal_list.pop(0)
                 pay_list.append(i)
                 if len(crystal_list) <= 0:
                     pay_list.sort()
                     pay_list.reverse()
                     return pay_list
+                break
 
         pay_list.sort()
         pay_list.reverse()
