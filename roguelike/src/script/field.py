@@ -16,13 +16,13 @@ class Field():
     def handle_tick(self, game):
         self.player.handle_tick(game)
 
-        for i in range(len(self.unit)):
+        for i in range(len(self.unit) - 1, -1, -1):
             self.unit[i].handle_tick(game)
 
-        for i in range(len(self.proj)):
+        for i in range(len(self.proj) - 1, -1, -1):
             self.proj[i].handle_tick(game)
 
-        for i in range(len(self.drop)):
+        for i in range(len(self.drop) - 1, -1, -1):
             self.drop[i].handle_tick(game)
 
     def render(self, game):
