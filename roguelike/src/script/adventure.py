@@ -10,6 +10,7 @@ class Adventure():
             ['boss', 'boss', 'boss']
         ]
         self.player = AdventurePlayer()
+        self.reward = []
 
     def start_adventure(self):
         self.floor = 0

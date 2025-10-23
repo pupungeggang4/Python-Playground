@@ -4,6 +4,7 @@ from OpenGL.GL import *
 from script.res import *
 from script.locale import *
 from script.village import *
+from script.field import *
 
 import script.scenetitle as scenetitle
 import script.scenevillage as scenevillage
@@ -11,6 +12,9 @@ import script.scenebattle as scenebattle
 
 class Game():
     def __init__(self):
+        pygame.init()
+        pygame.font.init()
+
         self.scene = 'title'
         self.state = ''
         self.menu = False
@@ -23,12 +27,12 @@ class Game():
         self.selected_battle_confirm = 0
         self.selected_adventure_start = 0
 
+        self.field = Field()
+
         self.resolution = [1280, 720]
         self.fps = 60
         self.scale = 1
 
-        pygame.init()
-        pygame.font.init()
         monitor = pygame.display.Info()
         if monitor.current_w > 2560:
             self.scale = 2

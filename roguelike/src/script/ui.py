@@ -14,7 +14,7 @@ class UI():
         arrow = [[80, 160], [80, 240], [80, 320], [80, 400], [80, 480]]
 
     class Village():
-        pass
+        text_control = [24, 664]
 
     class Menu_Village():
         rect = [320, 200, 640, 320]

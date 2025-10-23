@@ -1,0 +1,2 @@
+class DataD():
+    card = {}

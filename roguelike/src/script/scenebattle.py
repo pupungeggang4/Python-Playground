@@ -5,10 +5,15 @@ from script.res import *
 from script.render import *
 
 def loop(game):
+    if game.menu == False:
+        if game.state == '':
+            game.field.handle_tick(game)
     render(game)
 
 def render(game):
     game.surface.fill(Color.white)
+
+    game.field.render(game)
 
     if game.menu == True:
         Render.render_menu_battle(game.surface, game)
