@@ -15,17 +15,17 @@ class Village():
         self.portal_battle.rect.pos = Vec2(0, -400)
 
     def handle_tick(self, game):
-        self.player.handle_tick(self, game)
+        self.player.handle_tick(game)
         self.adjust_camera()
 
     def adjust_camera(self):
         self.camera.pos.x = self.player.rect.pos.x
         self.camera.pos.y = self.player.rect.pos.y
     
-    def render(self, surface, game):
-        self.portal_shop.render(surface, self, game)
-        self.portal_battle.render(surface, self, game)
-        self.player.render(surface, self, game)
+    def render(self, game):
+        self.portal_shop.render(game)
+        self.portal_battle.render(game)
+        self.player.render(game)
 
 class VillagePlayer():
     def __init__(self):
@@ -33,10 +33,10 @@ class VillagePlayer():
         self.speed = 320.0
         self.surface = pygame.surface.Surface([self.rect.size.x, self.rect.size.y], pygame.SRCALPHA)
 
-    def handle_tick(self, village, game):
-        self.move_player(village, game)
+    def handle_tick(self, game):
+        self.move_player(game)
 
-    def move_player(self, village, game):
+    def move_player(self, game):
         if game.key_pressed['left'] == True:
             self.rect.pos.x -= self.speed / game.fps
         if game.key_pressed['right'] == True:
@@ -53,7 +53,9 @@ class VillagePlayer():
             game.state = 'battle_confirm'
             game.selected_battle_confirm = 0
 
-    def render(self, surface, village, game):
+    def render(self, game):
+        surface = game.surface
+        village = game.village
         self.surface.fill(Color.black)
         Render.render_center_cam(surface, self.surface, self.rect, village.camera)
 
@@ -63,5 +65,7 @@ class VillagePortal():
         self.surface = pygame.surface.Surface([self.rect.size.x, self.rect.size.y], pygame.SRCALPHA)
         self.surface.blit(Image.portal, [0, 0])
 
-    def render(self, surface, village, game):
+    def render(self, game):
+        surface = game.surface
+        village = game.village
         Render.render_center_cam(surface, self.surface, self.rect, village.camera)

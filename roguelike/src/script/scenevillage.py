@@ -12,14 +12,14 @@ def loop(game):
 
 def render(game):
     game.surface.fill(Color.white)
-    game.village.render(game.surface, game)
+    game.village.render(game)
     game.surface.blit(Font.neodgm_32.render(game.locale['control'], False, Color.black), UI.Village.text_control)
     
     if game.state == 'battle_confirm':
-        Render.render_battle_confirm(game.surface, game)
+        Render.render_battle_confirm(game)
 
     if game.menu == True:
-        Render.render_menu_village(game.surface, game)
+        Render.render_menu_village(game)
 
 def key_down(game, key):
     if game.menu == False:
@@ -36,7 +36,8 @@ def key_down(game, key):
             if key == pygame.K_RETURN:
                 if game.selected_battle_confirm == 0:
                     game.scene = 'battle'
-                    game.state = ''
+                    game.state = 'adventure_start'
+                    game.selected_adventure_start = 0
                 else:
                     game.state = ''
 

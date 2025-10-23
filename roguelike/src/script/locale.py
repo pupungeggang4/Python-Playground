@@ -17,6 +17,8 @@ class Locale():
             'start_battle': 'Start Adventure?',
             'yes': 'Yes',
             'no': 'No',
+
+            'select_weapon': 'Select Weapon'
         },
 
         'ko': {
@@ -35,6 +37,8 @@ class Locale():
             'control': '[WASD] 이동 [Z] 대시 [X] 상호작용 [Esc] 메뉴',
             'start_battle': '모험을 시작할까요?',
             'yes': '예',
-            'no': '아니오'
+            'no': '아니오',
+
+            'select_weapon': '무기 선택'
         }
     }
