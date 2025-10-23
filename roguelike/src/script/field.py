@@ -8,7 +8,7 @@ from script.render import *
 class Field():
     def __init__(self):
         self.camera = Rect2(0, 0, 1280, 720)
-        self.player = Player()
+        self.player = FieldPlayer()
         self.unit = []
         self.proj = []
         self.drop = [Drop()]
@@ -85,7 +85,7 @@ class Unit():
     def render(self, game):
         pass
 
-class Player(Unit):
+class FieldPlayer(Unit):
     def __init__(self):
         super().__init__()
         self.rect = Rect2(0, 0, 80, 80)
