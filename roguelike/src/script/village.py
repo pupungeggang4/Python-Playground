@@ -56,7 +56,8 @@ class VillagePlayer():
     def render(self, game):
         surface = game.surface
         village = game.village
-        self.surface.fill(Color.black)
+        self.surface.fill(Color.transparent)
+        self.surface.blit(Image.player, [0, 0])
         Render.render_center_cam(surface, self.surface, self.rect, village.camera)
 
 class VillagePortal():

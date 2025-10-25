@@ -14,6 +14,8 @@ def render(game):
     game.surface.fill(Color.white)
     game.field.render(game)
 
+    Render.render_battle_ui_upper(game)
+
     if game.state == 'adventure_start':
         Render.render_adventure_start(game)
 
@@ -56,3 +58,4 @@ def handle_adventure_start(game, key):
         game.selected_adventure_start = (game.selected_adventure_start + 1) % 3
     if key == pygame.K_RETURN:
         game.state = ''
+        game.field.player.adventure_start()
