@@ -14,9 +14,11 @@ class UI():
         arrow = [[80, 160], [80, 240], [80, 320], [80, 400], [80, 480]]
 
     class Village():
+        button_menu = [1180, 20, 80, 80]
         text_control = [24, 664]
 
     class Battle():
+        button_menu = [1180, 20, 80, 80]
         icon_exp = [20, 60]
         text_exp = [64, 70]
         bar_exp = [20, 20, 1240, 20]

@@ -1,4 +1,5 @@
 class Locale():
+    lang_list = ['en', 'ko']
     data = {
         'en': {
             'game_name': 'Roguelike',
@@ -13,7 +14,7 @@ class Locale():
             'exit_to_title': 'Exit to title',
             'surrender': 'Surrender',
             
-            'control': '[WASD] Move [Z] Dash [X] Interact [Esc] Menu',
+            'control': '[WASD] Move [Space] Dash [E,Click] Interact [Esc] Menu',
             'start_battle': 'Start Adventure?',
             'yes': 'Yes',
             'no': 'No',
@@ -34,7 +35,7 @@ class Locale():
             'exit_to_title': '시작 화면으로 나가기',
             'surrender': '항복',
 
-            'control': '[WASD] 이동 [Z] 대시 [X] 상호작용 [Esc] 메뉴',
+            'control': '[WASD] 이동 [스페이스] 대시 [E,Click] 상호작용 [Esc] 메뉴',
             'start_battle': '모험을 시작할까요?',
             'yes': '예',
             'no': '아니오',

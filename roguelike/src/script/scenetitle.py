@@ -3,6 +3,7 @@ import pygame, sys
 from script.ui import *
 from script.res import *
 from script.locale import *
+from script.func import *
 
 from script.village import *
 
@@ -40,13 +41,28 @@ def key_down(game, key):
             game.scene = 'collection'
             game.state = ''
         elif game.selected_title == 2:
-            if game.lang == 'en':
-                game.lang = 'ko'
-            elif game.lang == 'ko':
-                game.lang = 'en'
-            game.locale = Locale.data[game.lang]
+            game.lang = (game.lang + 1) % len(Locale.lang_list)
+            game.locale = Locale.data[Locale.lang_list(game.lang)]
         elif game.selected_title == 3:
             pass
         elif game.selected_title == 4:
+            pygame.quit()
+            sys.exit()
+
+def mouse_up(game, pos, button):
+    if button == 1:
+        if point_inside_rect_ui(pos, UI.Title.button_start):
+            game.scene = 'village'
+            game.state = ''
+            game.village = Village()
+        elif point_inside_rect_ui(pos, UI.Title.button_collection):
+            game.scene = 'collection'
+            game.state = ''
+        elif point_inside_rect_ui(pos, UI.Title.button_lang):
+            game.lang = (game.lang + 1) % len(Locale.lang_list)
+            game.locale = Locale.data[Locale.lang_list(game.lang)]
+        elif point_inside_rect_ui(pos, UI.Title.button_erase):
+            pass
+        elif point_inside_rect_ui(pos, UI.Title.button_exit):
             pygame.quit()
             sys.exit()

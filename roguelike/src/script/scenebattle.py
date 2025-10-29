@@ -20,7 +20,7 @@ def render(game):
         Render.render_adventure_start(game)
 
     if game.menu == True:
-        Render.render_menu_battle(game.surface, game)
+        Render.render_menu_battle(game)
 
 def key_down(game, key):
     if game.menu == False:
@@ -32,9 +32,9 @@ def key_down(game, key):
     else:
         if key == pygame.K_ESCAPE or key == pygame.K_q:
             game.menu = False
-        if key == pygame.K_UP:
+        if key == pygame.K_w:
             game.selected_menu_battle = (game.selected_menu_battle + 3) % 4
-        if key == pygame.K_DOWN:
+        if key == pygame.K_s:
             game.selected_menu_battle = (game.selected_menu_battle + 1) % 4
         if key == pygame.K_RETURN:
             if game.selected_menu_battle == 0:
@@ -52,10 +52,14 @@ def key_down(game, key):
                 sys.exit()
 
 def handle_adventure_start(game, key):
-    if key == pygame.K_LEFT:
+    if key == pygame.K_a:
         game.selected_adventure_start = (game.selected_adventure_start + 2) % 3
-    if key == pygame.K_RIGHT:
+    if key == pygame.K_d:
         game.selected_adventure_start = (game.selected_adventure_start + 1) % 3
     if key == pygame.K_RETURN:
         game.state = ''
         game.field.player.adventure_start()
+
+def mouse_up(game, pos, button):
+    if button == 1:
+        pass

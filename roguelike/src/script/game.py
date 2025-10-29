@@ -18,8 +18,8 @@ class Game():
         self.scene = 'title'
         self.state = ''
         self.menu = False
-        self.lang = 'en'
-        self.locale = Locale.data[self.lang]
+        self.lang = 0
+        self.locale = Locale.data[Locale.lang_list[self.lang]]
 
         self.selected_title = 0
         self.selected_menu_village = 0
@@ -81,13 +81,13 @@ class Game():
             if event.type == pygame.KEYDOWN:
                 key = event.key
 
-                if key == pygame.K_UP:
+                if key == pygame.K_w:
                     self.key_pressed['up'] = True
-                if key == pygame.K_LEFT:
+                if key == pygame.K_a:
                     self.key_pressed['left'] = True
-                if key == pygame.K_DOWN:
+                if key == pygame.K_s:
                     self.key_pressed['down'] = True
-                if key == pygame.K_RIGHT:
+                if key == pygame.K_d:
                     self.key_pressed['right'] = True
 
                 if self.scene == 'title':
@@ -100,14 +100,27 @@ class Game():
             if event.type == pygame.KEYUP:
                 key = event.key
 
-                if key == pygame.K_UP:
+                if key == pygame.K_w:
                     self.key_pressed['up'] = False
-                if key == pygame.K_LEFT:
+                if key == pygame.K_a:
                     self.key_pressed['left'] = False
-                if key == pygame.K_DOWN:
+                if key == pygame.K_s:
                     self.key_pressed['down'] = False
-                if key == pygame.K_RIGHT:
+                if key == pygame.K_d:
                     self.key_pressed['right'] = False
+
+            if event.type == pygame.MOUSEBUTTONUP:
+                pos = list(pygame.mouse.get_pos())
+                pos[0] /= self.scale
+                pos[1] /= self.scale
+                button = event.button
+
+                if self.scene == 'title':
+                    scenetitle.mouse_up(self, pos, button)
+                elif self.scene == 'village':
+                    scenevillage.mouse_up(self, pos, button)
+                elif self.scene == 'battle':
+                    scenebattle.mouse_up(self, pos, button)
 
     def handle_scene(self):
         if self.scene == 'title':
