@@ -22,7 +22,7 @@ def render(game):
     pygame.draw.rect(game.surface, Color.black, UI.Title.button_erase, 2)
     game.surface.blit(Font.neodgm_32.render(game.locale['erase_data'], False, Color.black), UI.Title.text_erase)
     pygame.draw.rect(game.surface, Color.black, UI.Title.button_exit, 2)
-    game.surface.blit(Font.neodgm_32.render(game.locale['exit'], False, Color.black), UI.Title.text_exit)
+    game.surface.blit(Font.neodgm_32.render(game.locale['quit'], False, Color.black), UI.Title.text_exit)
     game.surface.blit(Image.arrow, UI.Title.arrow[game.selected_title])
 
 def key_down(game, key):

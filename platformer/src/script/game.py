@@ -29,14 +29,7 @@ class Game():
         self.fps = 60
         self.clock = pygame.time.Clock()
 
-        if self.monitor.current_w > 2560:
-            self.scale = 2
-        elif self.monitor.current_w > 2000:
-            self.scale = 1.5
-        else:
-            self.scale = 1
-
-        self.window = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.SCALED, vsync=1)
+        self.window = pygame.display.set_mode(self.resolution, pygame.SCALED, vsync=1)
         pygame.display.set_caption('Platformer Game')
         self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
 
@@ -61,12 +54,19 @@ class Game():
 
     def enable_hw_acceler(self):
         self.hw_acceler = True
+        if self.monitor.current_w > 2560:
+            self.scale = 2
+        elif self.monitor.current_w > 2000:
+            self.scale = 1.5
+        else:
+            self.scale = 1
         self.window = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.OPENGL | pygame.DOUBLEBUF, vsync=1)
         self.GL_init()
 
     def disable_hw_acceler(self):
         self.hw_acceler = False
-        self.window = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.SCALED, vsync=1)
+        self.scale = 1
+        self.window = pygame.display.set_mode(self.resolution, pygame.SCALED, vsync=1)
 
     def run(self):
         while True:
