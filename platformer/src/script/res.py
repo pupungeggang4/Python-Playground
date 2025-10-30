@@ -12,5 +12,7 @@ class Image():
     sprite = {}
 
 def load_image():
+    Image.player = pygame.image.load('image/player.png')
     Image.arrow = pygame.image.load('image/arrow.png')
+    Image.coin = pygame.image.load('image/coin.png')
     Image.sprite['coin'] = pygame.image.load('image/sprite/spritecoin.png')

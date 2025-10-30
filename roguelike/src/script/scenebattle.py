@@ -3,6 +3,7 @@ import pygame, sys
 from script.ui import *
 from script.res import *
 from script.render import *
+from script.func import *
 
 def loop(game):
     if game.menu == False:
@@ -12,23 +13,29 @@ def loop(game):
 
 def render(game):
     game.surface.fill(Color.white)
-
     game.field.render(game)
 
+    Render.render_battle_ui_upper(game)
+
+    if game.state == 'adventure_start':
+        Render.render_adventure_start(game)
+
     if game.menu == True:
-        Render.render_menu_battle(game.surface, game)
+        Render.render_menu_battle(game)
 
 def key_down(game, key):
     if game.menu == False:
         if key == pygame.K_ESCAPE or key == pygame.K_q:
             game.menu = True
             game.selected_menu_battle = 0
+        if game.state == 'adventure_start':
+            handle_adventure_start(game, key)
     else:
         if key == pygame.K_ESCAPE or key == pygame.K_q:
             game.menu = False
-        if key == pygame.K_UP:
+        if key == pygame.K_w:
             game.selected_menu_battle = (game.selected_menu_battle + 3) % 4
-        if key == pygame.K_DOWN:
+        if key == pygame.K_s:
             game.selected_menu_battle = (game.selected_menu_battle + 1) % 4
         if key == pygame.K_RETURN:
             if game.selected_menu_battle == 0:
@@ -42,5 +49,34 @@ def key_down(game, key):
                 game.scene = 'title'
                 game.state = ''
             elif game.selected_menu_battle == 3:
+                pygame.quit()
+                sys.exit()
+
+def handle_adventure_start(game, key):
+    if key == pygame.K_a:
+        game.selected_adventure_start = (game.selected_adventure_start + 2) % 3
+    if key == pygame.K_d:
+        game.selected_adventure_start = (game.selected_adventure_start + 1) % 3
+    if key == pygame.K_RETURN:
+        game.state = ''
+        game.field.player.adventure_start()
+
+def mouse_up(game, pos, button):
+    if button == 1:
+        if game.menu == False:
+            if point_inside_rect_ui(pos, UI.Battle.button_menu):
+                game.menu = True
+        elif game.menu == True:
+            if point_inside_rect_ui(pos, UI.Battle.button_menu) or point_inside_rect_ui(pos, UI.Menu_Battle.button_resume):
+                game.menu = False
+            elif point_inside_rect_ui(pos, UI.Menu_Battle.button_surrender):
+                game.menu = False
+                game.scene = 'village'
+                game.state = ''
+            elif point_inside_rect_ui(pos, UI.Menu_Battle.button_exit):
+                game.menu = False
+                game.scene = 'title'
+                game.state = ''
+            elif point_inside_rect_ui(pos, UI.Menu_Battle.button_quit):
                 pygame.quit()
                 sys.exit()

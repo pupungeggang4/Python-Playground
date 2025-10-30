@@ -2,22 +2,34 @@ import pygame, sys
 
 from script.shape import *
 from script.res import *
+from script.render import *
 
 class Field():
     def __init__(self):
+        self.camera = Rect2(0, 0, 1280, 720)
+        self.player = FieldPlayer()
         self.entity_list = [Coin()]
 
+    def handle_tick(self, game):
+        self.player.handle_tick(game)
+
     def render(self, game):
+        self.player.render(game)
         for i in range(len(self.entity_list)):
             self.entity_list[i].render(game)
 
 class Entity():
-    pass
+    def __init__(self):
+        self.rect = Rect2(0, 0, 80, 80)
+        self.surface = pygame.surface.Surface([self.rect.size.x, self.rect.size.y], pygame.SRCALPHA)
 
 class Wall(Entity):
     pass
 
 class Platform(Entity):
+    pass
+
+class Belt(Entity):
     pass
 
 class Coin(Entity):
@@ -38,6 +50,18 @@ class Coin(Entity):
         self.surface.blit(Image.sprite['coin'], [0, 0], self.frame_coord[self.frame_current])
         game.surface.blit(self.surface, [80, 80])
 
-class Player():
+class FieldPlayer(Entity):
     def __init__(self):
-        self.rect = Rect2(0, 0, 80, 80)
+        super().__init__()
+
+    def handle_tick(self, game):
+        if game.key_pressed['left'] == True:
+            self.rect.pos.x -= 320 / game.fps
+        if game.key_pressed['right'] == True:
+            self.rect.pos.x += 320 / game.fps
+
+    def render(self, game):
+        field = game.field
+        self.surface.fill(Color.transparent)
+        self.surface.blit(Image.player, [0, 0])
+        Render.render_center_cam(game.surface, self.surface, self.rect, field.camera)

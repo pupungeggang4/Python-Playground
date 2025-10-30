@@ -14,7 +14,22 @@ class UI():
         arrow = [[80, 160], [80, 240], [80, 320], [80, 400], [80, 480]]
 
     class Village():
+        button_menu = [1180, 20, 80, 80]
         text_control = [24, 664]
+
+    class Battle():
+        button_menu = [1180, 20, 80, 80]
+        icon_exp = [20, 60]
+        text_exp = [64, 70]
+        bar_exp = [20, 20, 1240, 20]
+        icon_gold = [20, 100]
+        text_gold = [64, 110]
+        icon_hp = [20, 140]
+        text_hp = [88, 150]
+        bar_hp = [80, 144, 140, 32]
+        icon_energy = [20, 180]
+        text_energy = [88, 190]
+        bar_energy = [80, 184, 140, 32]
 
     class Menu_Village():
         rect = [320, 200, 640, 320]
@@ -52,5 +67,7 @@ class UI():
         text_title = [184, 64]
         button_reward = [[200, 120, 200, 280], [540, 120, 200, 280], [880, 120, 200, 280]]
         text_reward = [[204, 324], [544, 324], [884, 324]]
+        button_weapon = [[200, 240, 200, 200], [540, 240, 200, 200], [880, 240, 200, 200]]
+        arrow_weapon = [[260, 120], [600, 120], [940, 120]]
         button_confirm = [560, 160, 580, 80]
         text_confirm = [584, 184]

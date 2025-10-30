@@ -11,18 +11,18 @@ class Field():
         self.player = FieldPlayer()
         self.unit = []
         self.proj = []
-        self.drop = [Drop()]
+        self.drop = [Drop(), Drop(), Drop(), Drop()]
 
     def handle_tick(self, game):
         self.player.handle_tick(game)
 
-        for i in range(len(self.unit)):
+        for i in range(len(self.unit) - 1, -1, -1):
             self.unit[i].handle_tick(game)
 
-        for i in range(len(self.proj)):
+        for i in range(len(self.proj) - 1, -1, -1):
             self.proj[i].handle_tick(game)
 
-        for i in range(len(self.drop)):
+        for i in range(len(self.drop) - 1, -1, -1):
             self.drop[i].handle_tick(game)
 
     def render(self, game):
@@ -39,13 +39,26 @@ class Field():
 
 class Drop():
     def __init__(self):
-        self.rect = Rect2(0, 0, 40, 40)
-        self.type = 'coin'
-        self.amount = ''
+        self.rect = Rect2(random.randint(120, 240), random.randint(-60, 60), 40, 40)
+        self.type = 'coin' if random.randint(1, 2) == 1 else 'exporb'
+        self.amount = 10
         self.surface = pygame.surface.Surface([40, 40], pygame.SRCALPHA)
 
+    def set_data(self, type, amount):
+        self.type = type
+        self.amount = amount
+
     def handle_tick(self, game):
-        pass
+        player = game.field.player
+        if Vec2.distance(self.rect.pos, player.rect.pos) < 60:
+            if self.type == 'coin':
+                player.gold += self.amount
+            elif self.type == 'exporb':
+                player.exp += self.amount
+                if player.exp >= player.exp_max:
+                    player.exp -= player.exp_max
+                    player.level += 1
+            game.field.drop.pop(game.field.drop.index(self))
 
     def render(self, game):
         self.surface.fill(Color.transparent)
@@ -71,7 +84,7 @@ class Unit():
         self.temp_pos = Vec2(0, 0)
         self.speed = 320.0
         self.hp = 0
-        self.hp_max = 0
+        self.hp_max = 1
         self.attack = 0
         self.attack_type = 0
         self.attack_cool = 0
@@ -88,9 +101,24 @@ class Unit():
 class FieldPlayer(Unit):
     def __init__(self):
         super().__init__()
+        self.level = 0
+        self.exp = 0
+        self.exp_max = 10
+        self.gold = 0
+        self.energy = 0
+        self.energy_max = 1
         self.rect = Rect2(0, 0, 80, 80)
         self.card = []
         self.surface = pygame.surface.Surface([80, 80], pygame.SRCALPHA)
+
+    def adventure_start(self):
+        self.hp = 120
+        self.hp_max = 120
+        self.level = 1
+        self.exp = 0
+        self.exp_max = 20
+        self.energy = 0
+        self.energy_max = 8
 
     def handle_tick(self, game):
         self.move(game)
