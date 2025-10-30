@@ -29,7 +29,7 @@ def key_down(game, key):
             game.selected_menu_village = 0
 
         if game.state == '':
-            if key == pygame.K_e:
+            if key == pygame.K_RETURN:
                 game.village.player.handle_interact(game)
         elif game.state == 'battle_confirm':
             if key == pygame.K_a or key == pygame.K_d:

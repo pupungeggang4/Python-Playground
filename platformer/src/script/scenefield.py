@@ -6,6 +6,9 @@ from script.locale import *
 from script.render import *
 
 def loop(game):
+    if game.menu == False:
+        if game.state == '':
+            game.field.handle_tick(game)
     render(game)
 
 def render(game):
@@ -25,9 +28,9 @@ def key_down(game, key):
         if key == pygame.K_RETURN or key == pygame.K_q:
             game.menu = False
         if key == pygame.K_UP:
-            game.selected_menu = (game.selected_menu + 1) % 2
+            game.selected_menu = (game.selected_menu + 2) % 3
         elif key == pygame.K_DOWN:
-            game.selected_menu = (game.selected_menu + 1) % 2
+            game.selected_menu = (game.selected_menu + 1) % 3
         elif key == pygame.K_RETURN:
             if game.selected_menu == 0:
                 game.menu = False
@@ -35,3 +38,6 @@ def key_down(game, key):
                 game.menu = False
                 game.scene = 'title'
                 game.state = ''
+            elif game.selected_menu == 2:
+                pygame.quit()
+                sys.exit()

@@ -3,6 +3,7 @@ import pygame, sys
 from script.ui import *
 from script.res import *
 from script.render import *
+from script.func import *
 
 def loop(game):
     if game.menu == False:
@@ -62,4 +63,20 @@ def handle_adventure_start(game, key):
 
 def mouse_up(game, pos, button):
     if button == 1:
-        pass
+        if game.menu == False:
+            if point_inside_rect_ui(pos, UI.Battle.button_menu):
+                game.menu = True
+        elif game.menu == True:
+            if point_inside_rect_ui(pos, UI.Battle.button_menu) or point_inside_rect_ui(pos, UI.Menu_Battle.button_resume):
+                game.menu = False
+            elif point_inside_rect_ui(pos, UI.Menu_Battle.button_surrender):
+                game.menu = False
+                game.scene = 'village'
+                game.state = ''
+            elif point_inside_rect_ui(pos, UI.Menu_Battle.button_exit):
+                game.menu = False
+                game.scene = 'title'
+                game.state = ''
+            elif point_inside_rect_ui(pos, UI.Menu_Battle.button_quit):
+                pygame.quit()
+                sys.exit()

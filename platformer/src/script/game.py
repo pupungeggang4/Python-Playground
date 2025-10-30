@@ -10,6 +10,7 @@ import script.scenefield as scenefield
 class Game():
     def __init__(self):
         pygame.init()
+        self.hw_acceler = False
         self.scene = 'title'
         self.state = ''
         self.menu = False
@@ -17,6 +18,8 @@ class Game():
         self.locale = Locale.data[self.lang]
         self.selected_title = 0
         self.selected_menu = 0
+
+        self.key_pressed = {'up': False, 'left': False, 'down': False, 'right': False}
 
         self.field = Field()
 
@@ -33,13 +36,12 @@ class Game():
         else:
             self.scale = 1
 
-        self.window = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.OPENGL | pygame.DOUBLEBUF, vsync=1)
+        self.window = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.SCALED, vsync=1)
         pygame.display.set_caption('Platformer Game')
         self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
 
         load_image()
         self.load_font()
-        self.GL_init()
 
     def load_font(self):
         pygame.font.init()
@@ -57,12 +59,25 @@ class Game():
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
         glClearColor(0.0, 0.0, 0.0, 1.0)
 
+    def enable_hw_acceler(self):
+        self.hw_acceler = True
+        self.window = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.OPENGL | pygame.DOUBLEBUF, vsync=1)
+        self.GL_init()
+
+    def disable_hw_acceler(self):
+        self.hw_acceler = False
+        self.window = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.SCALED, vsync=1)
+
     def run(self):
         while True:
             self.clock.tick(self.fps)
             self.handle_input()
             self.handle_scene()
-            self.GL_render()
+            
+            if self.hw_acceler == True:
+                self.GL_render()
+            else:
+                self.window.blit(self.surface, [0, 0])
             pygame.display.flip()
 
     def handle_input(self):
@@ -73,10 +88,32 @@ class Game():
 
             if event.type == pygame.KEYDOWN:
                 key = event.key
+
+                if key == pygame.K_UP:
+                    self.key_pressed['up'] = True
+                if key == pygame.K_LEFT:
+                    self.key_pressed['left'] = True
+                if key == pygame.K_DOWN:
+                    self.key_pressed['down'] = True
+                if key == pygame.K_RIGHT:
+                    self.key_pressed['right'] = True
+
                 if self.scene == 'title':
                     scenetitle.key_down(self, key)
                 elif self.scene == 'field':
                     scenefield.key_down(self, key)
+
+            if event.type == pygame.KEYUP:
+                key = event.key
+
+                if key == pygame.K_UP:
+                    self.key_pressed['up'] = False
+                if key == pygame.K_LEFT:
+                    self.key_pressed['left'] = False
+                if key == pygame.K_DOWN:
+                    self.key_pressed['down'] = False
+                if key == pygame.K_RIGHT:
+                    self.key_pressed['right'] = False
 
     def handle_scene(self):
         if self.scene == 'title':
