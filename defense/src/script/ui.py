@@ -1,0 +1,15 @@
+class UI():
+    class Title():
+        text_title = [20, 20]
+        button_start = [160, 160, 960, 80]
+        text_start = [180, 180]
+        button_tutorial = [160, 240, 960, 80]
+        text_tutorial = [180, 260]
+        button_lang = [160, 320, 960, 80]
+        text_lang = [180, 340]
+        button_hw = [160, 400, 960, 80]
+        text_hw = [180, 420]
+        button_erase = [160, 480, 960, 80]
+        text_erase = [180, 500]
+        button_quit = [160, 560, 960, 80]
+        text_quit = [180, 580]
