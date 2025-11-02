@@ -12,7 +12,7 @@ class Font():
     pass
 
 class Image():
-    pass
+    sprite = {}
 
 def load_font():
     Font.neodgm_32 = pygame.font.Font('font/neodgm.ttf', 32)
@@ -27,3 +27,8 @@ def load_image():
     Image.life = pygame.image.load('image/life.png').convert_alpha()
     Image.energy = pygame.image.load('image/energy.png').convert_alpha()
     Image.exporb = pygame.image.load('image/exporb.png').convert_alpha()
+    Image.projectile = pygame.image.load('image/projectile.png').convert_alpha()
+    Image.unit = pygame.image.load('image/unit.png').convert_alpha()
+    #Image.sprite['unit'] = []
+    #for i in range(4):
+        #Image.sprite['unit'].append(pygame.Surface.subsurface())

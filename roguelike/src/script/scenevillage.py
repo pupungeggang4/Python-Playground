@@ -68,6 +68,13 @@ def mouse_up(game, pos, button):
                 game.selected_menu_village = 0
             if game.state == '':
                 game.village.player.handle_interact(game)
+            elif game.state == 'battle_confirm':
+                if point_inside_rect_ui(pos, UI.Window_Battle_Confirm.button_yes):
+                    game.scene = 'battle'
+                    game.state = 'adventure_start'
+                    game.selected_adventure_start = 0
+                elif point_inside_rect_ui(pos, UI.Window_Battle_Confirm.button_no):
+                    game.state = ''
         elif game.menu == True:
             if point_inside_rect_ui(pos, UI.Menu_Village.button_resume) or point_inside_rect_ui(pos, UI.Village.button_menu):
                 game.menu = False

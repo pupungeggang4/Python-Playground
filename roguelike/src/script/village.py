@@ -29,8 +29,8 @@ class Village():
 
 class VillagePlayer():
     def __init__(self):
-        self.rect = Rect2(0, 0, 80, 80)
         self.speed = 320.0
+        self.rect = Rect2(0, 0, 80, 80)
         self.surface = pygame.surface.Surface([self.rect.size.x, self.rect.size.y], pygame.SRCALPHA)
 
     def handle_tick(self, game):
@@ -56,17 +56,13 @@ class VillagePlayer():
     def render(self, game):
         surface = game.surface
         village = game.village
-        self.surface.fill(Color.transparent)
-        self.surface.blit(Image.player, [0, 0])
-        Render.render_center_cam(surface, self.surface, self.rect, village.camera)
+        Render.render_center_cam(surface, Image.player, self.rect, village.camera)
 
 class VillagePortal():
     def __init__(self):
         self.rect = Rect2(0, 0, 80, 80)
-        self.surface = pygame.surface.Surface([self.rect.size.x, self.rect.size.y], pygame.SRCALPHA)
-        self.surface.blit(Image.portal, [0, 0])
 
     def render(self, game):
         surface = game.surface
         village = game.village
-        Render.render_center_cam(surface, self.surface, self.rect, village.camera)
+        Render.render_center_cam(surface, Image.portal, self.rect, village.camera)

@@ -19,7 +19,9 @@ class Render():
         pygame.draw.rect(surface, Color.white, UI.Window_Battle_Confirm.rect)
         pygame.draw.rect(surface, Color.black, UI.Window_Battle_Confirm.rect, 2)
         surface.blit(Font.neodgm_32.render(game.locale['start_battle'], False, Color.black), UI.Window_Battle_Confirm.text_title)
+        pygame.draw.rect(surface, Color.black, UI.Window_Battle_Confirm.button_yes, 2)
         surface.blit(Font.neodgm_32.render(game.locale['yes'], False, Color.black), UI.Window_Battle_Confirm.text_yes)
+        pygame.draw.rect(surface, Color.black, UI.Window_Battle_Confirm.button_no, 2)
         surface.blit(Font.neodgm_32.render(game.locale['no'], False, Color.black), UI.Window_Battle_Confirm.text_no)
         surface.blit(Image.arrow, UI.Window_Battle_Confirm.arrow[game.selected_battle_confirm])
 
@@ -32,13 +34,16 @@ class Render():
 
         for i in range(3):
             pygame.draw.rect(surface, Color.black, UI.Window.button_weapon[i], 2)
-        
         surface.blit(Image.arrow_down, UI.Window.arrow_weapon[game.selected_adventure_start])
+
+        pygame.draw.rect(surface, Color.black, UI.Window.button_ok, 2)
+        surface.blit(Font.neodgm_32.render(game.locale['ok'], False, Color.black), UI.Window.text_ok)
 
     @staticmethod
     def render_battle_ui_upper(game):
         surface = game.surface
         player = game.field.player
+        pygame.draw.rect(surface, Color.white, UI.Battle.bar_exp)
         exp_rect = [UI.Battle.bar_exp[0], UI.Battle.bar_exp[1], UI.Battle.bar_exp[2] * player.exp / max(player.exp_max, 1), UI.Battle.bar_exp[3]]
         pygame.draw.rect(surface, Color.blue, exp_rect)
         pygame.draw.rect(surface, Color.black, UI.Battle.bar_exp, 2)

@@ -42,7 +42,7 @@ def key_down(game, key):
             game.state = ''
         elif game.selected_title == 2:
             game.lang = (game.lang + 1) % len(Locale.lang_list)
-            game.locale = Locale.data[Locale.lang_list(game.lang)]
+            game.locale = Locale.data[Locale.lang_list[game.lang]]
         elif game.selected_title == 3:
             pass
         elif game.selected_title == 4:
@@ -60,7 +60,7 @@ def mouse_up(game, pos, button):
             game.state = ''
         elif point_inside_rect_ui(pos, UI.Title.button_lang):
             game.lang = (game.lang + 1) % len(Locale.lang_list)
-            game.locale = Locale.data[Locale.lang_list(game.lang)]
+            game.locale = Locale.data[Locale.lang_list[game.lang]]
         elif point_inside_rect_ui(pos, UI.Title.button_erase):
             pass
         elif point_inside_rect_ui(pos, UI.Title.button_exit):

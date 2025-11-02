@@ -9,8 +9,8 @@ class Field():
     def __init__(self):
         self.camera = Rect2(0, 0, 1280, 720)
         self.player = FieldPlayer()
-        self.unit = []
-        self.proj = []
+        self.unit = [Unit()]
+        self.proj = [Projectile()]
         self.drop = [Drop(), Drop(), Drop(), Drop()]
 
     def handle_tick(self, game):
@@ -42,7 +42,6 @@ class Drop():
         self.rect = Rect2(random.randint(120, 240), random.randint(-60, 60), 40, 40)
         self.type = 'coin' if random.randint(1, 2) == 1 else 'exporb'
         self.amount = 10
-        self.surface = pygame.surface.Surface([40, 40], pygame.SRCALPHA)
 
     def set_data(self, type, amount):
         self.type = type
@@ -61,42 +60,73 @@ class Drop():
             game.field.drop.pop(game.field.drop.index(self))
 
     def render(self, game):
-        self.surface.fill(Color.transparent)
         if self.type == 'coin':
-            self.surface.blit(Image.coin, [0, 0])
+            Render.render_center_cam(game.surface, Image.coin, self.rect, game.field.camera)
         elif self.type == 'exporb':
-            self.surface.blit(Image.exporb, [0, 0])
-        Render.render_center_cam(game.surface, self.surface, self.rect, game.field.camera)
+            Render.render_center_cam(game.surface, Image.exporb, self.rect, game.field.camera)
 
 class Projectile():
     def __init__(self):
-        pass
+        self.rect = Rect2(0, 0, 40, 40)
+        self.side = 0
+        self.speed = 640.0
+        self.damage = 5
+        self.life_time = 1
+        self.v_unit = Vec2(1.0, 0.0)
 
     def handle_tick(self, game):
-        pass
+        self.collide_check(game)
+        self.handle_life_time(game)
+        self.move(game)
+
+    def collide_check(self, game):
+        field = game.field
+        if self.side == 0:
+            for i in range(len(field.unit) - 1, -1, -1):
+                if Vec2.distance(field.unit[i].rect.pos, self.rect.pos) < 60:
+                    field.unit[i].hp -= self.damage
+                    field.proj.pop(field.proj.index(self))
+
+    def move(self, game):
+        self.rect.pos.x += self.speed * self.v_unit.x / game.fps
+        self.rect.pos.y += self.speed * self.v_unit.y / game.fps
+
+    def handle_life_time(self, game):
+        field = game.field
+        if self.life_time <= 0:
+            field.proj.pop(field.proj.index(self))
+        else:
+            self.life_time -= 1.0 / game.fps
 
     def render(self, game):
-        pass
+        Render.render_center_cam(game.surface, Image.projectile, self.rect, game.field.camera)
 
 class Unit():
     def __init__(self):
-        self.rect = Rect2(0, 0, 40, 40)
+        self.rect = Rect2(160, -80, 80, 80)
         self.temp_pos = Vec2(0, 0)
         self.speed = 320.0
-        self.hp = 0
-        self.hp_max = 1
+        self.hp = 60
+        self.hp_max = 60
         self.attack = 0
         self.attack_type = 0
         self.attack_cool = 0
-        self.state = []
+        self.state = 'attack'
         self.attack_target = 0
-        self.surface = pygame.surface.Surface([40, 40], pygame.SRCALPHA)
+
+        self.frames = 4; self.frame_current = 0; self.frame_interval = 0.2; self.frame_time = 0
+        self.frame_coord = [[0, 0], [80, 0], [160, 0], [240, 0]]
 
     def handle_tick(self, game):
-        pass
+        field = game.field
+        if self.hp <= 0:
+            field.unit.pop(field.unit.index(self))
 
     def render(self, game):
-        pass
+        self.frame_time += 1.0 / game.fps
+        self.frame_current = int(self.frame_time / self.frame_interval) % self.frames
+        surface = Image.unit.subsurface(pygame.Rect(self.frame_coord[self.frame_current][0], self.frame_coord[self.frame_current][1], self.rect.size.x, self.rect.size.y))
+        Render.render_center_cam(game.surface, surface, self.rect, game.field.camera)
 
 class FieldPlayer(Unit):
     def __init__(self):
@@ -107,9 +137,12 @@ class FieldPlayer(Unit):
         self.gold = 0
         self.energy = 0
         self.energy_max = 1
+
+        self.hand = []
+        self.deck = []
+        self.deck_discarded = []
+
         self.rect = Rect2(0, 0, 80, 80)
-        self.card = []
-        self.surface = pygame.surface.Surface([80, 80], pygame.SRCALPHA)
 
     def adventure_start(self):
         self.hp = 120
@@ -119,6 +152,14 @@ class FieldPlayer(Unit):
         self.exp_max = 20
         self.energy = 0
         self.energy_max = 8
+
+    def shoot(self, game, pos):
+        direction = (pos - self.rect.pos).normalized()
+        proj = Projectile()
+        proj.rect.pos.x = self.rect.pos.x
+        proj.rect.pos.y = self.rect.pos.y
+        proj.v_unit = direction
+        game.field.proj.append(proj)
 
     def handle_tick(self, game):
         self.move(game)
@@ -141,6 +182,4 @@ class FieldPlayer(Unit):
         pos.y = self.temp_pos.y
 
     def render(self, game):
-        self.surface.fill(Color.transparent)
-        self.surface.blit(Image.player, [0, 0])
-        Render.render_center_cam(game.surface, self.surface, self.rect, game.field.camera)
+        Render.render_center_cam(game.surface, Image.player, self.rect, game.field.camera)

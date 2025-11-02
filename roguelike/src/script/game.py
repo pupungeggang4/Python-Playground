@@ -17,6 +17,7 @@ class Game():
 
         self.scene = 'title'
         self.state = ''
+        self.state_click = ''
         self.menu = False
         self.lang = 0
         self.locale = Locale.data[Locale.lang_list[self.lang]]

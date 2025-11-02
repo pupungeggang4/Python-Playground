@@ -18,6 +18,7 @@ class Locale():
             'start_battle': 'Start Adventure?',
             'yes': 'Yes',
             'no': 'No',
+            'ok': 'OK',
 
             'select_weapon': 'Select Weapon'
         },
@@ -39,6 +40,7 @@ class Locale():
             'start_battle': '모험을 시작할까요?',
             'yes': '예',
             'no': '아니오',
+            'ok': '확인',
 
             'select_weapon': '무기 선택'
         }

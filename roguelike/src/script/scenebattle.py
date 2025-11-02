@@ -2,6 +2,7 @@ import pygame, sys
 
 from script.ui import *
 from script.res import *
+from script.shape import *
 from script.render import *
 from script.func import *
 
@@ -66,6 +67,10 @@ def mouse_up(game, pos, button):
         if game.menu == False:
             if point_inside_rect_ui(pos, UI.Battle.button_menu):
                 game.menu = True
+            if game.state == 'adventure_start':
+                mouse_up_adventure_start(game, pos, button)
+            elif game.state == '':
+                mouse_up_battle(game, pos, button)
         elif game.menu == True:
             if point_inside_rect_ui(pos, UI.Battle.button_menu) or point_inside_rect_ui(pos, UI.Menu_Battle.button_resume):
                 game.menu = False
@@ -80,3 +85,19 @@ def mouse_up(game, pos, button):
             elif point_inside_rect_ui(pos, UI.Menu_Battle.button_quit):
                 pygame.quit()
                 sys.exit()
+
+def mouse_up_adventure_start(game, pos, button):
+    for i in range(3):
+        if point_inside_rect_ui(pos, UI.Window.button_weapon[i]):
+            game.selected_adventure_start = i
+        if point_inside_rect_ui(pos, UI.Window.button_ok):
+            game.state = ''
+            game.field.player.adventure_start()
+
+def mouse_up_battle(game, pos, button):
+    field = game.field
+    player = game.field.player
+    field_click = Vec2(pos[0] - field.camera.size.x / 2 + field.camera.pos.x, pos[1] - field.camera.size.y / 2 + field.camera.pos.y)
+    #print(f'({field_click.x}, {field_click.y})')
+    if Vec2.distance(player.rect.pos, field_click) > 10:
+        game.field.player.shoot(game, field_click)

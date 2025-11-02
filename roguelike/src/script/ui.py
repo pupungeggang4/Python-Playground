@@ -43,7 +43,7 @@ class UI():
         arrow = [[240, 280], [240, 360], [240, 440]]
 
     class Menu_Battle():
-        rect = [320, 160, 640, 320]
+        rect = [320, 160, 640, 400]
         text_paused = [344, 184]
         button_resume = [320, 240, 640, 80]
         text_resume = [344, 264]
@@ -59,7 +59,9 @@ class UI():
         rect = [320, 200, 640, 240]
         text_title = [344, 224]
         arrow = [[360, 320], [680, 320]]
+        button_yes = [440, 320, 160, 80]
         text_yes = [464, 344]
+        button_no = [760, 320, 160, 80]
         text_no = [784, 344]
 
     class Window():
@@ -69,5 +71,5 @@ class UI():
         text_reward = [[204, 324], [544, 324], [884, 324]]
         button_weapon = [[200, 240, 200, 200], [540, 240, 200, 200], [880, 240, 200, 200]]
         arrow_weapon = [[260, 120], [600, 120], [940, 120]]
-        button_confirm = [560, 160, 580, 80]
-        text_confirm = [584, 184]
+        button_ok = [560, 560, 160, 80]
+        text_ok = [584, 584]
