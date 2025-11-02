@@ -13,3 +13,9 @@ class UI():
         text_erase = [180, 500]
         button_quit = [160, 560, 960, 80]
         text_quit = [180, 580]
+
+    class Battle():
+        button_menu = [1180, 20, 80, 80]
+
+    class Menu():
+        pass

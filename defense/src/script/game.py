@@ -3,18 +3,16 @@ from OpenGL.GL import *
 from script.res import *
 from script.locale import *
 
+from script.adventure import *
+from script.battle import *
+
 import script.scenetitle as scenetitle
+import script.scenebattle as scenebattle
 
 class Game():
     def __init__(self):
         pygame.init()
         self.load_font()
-        self.scene = 'title'
-        self.state = ''
-        self.menu = False
-        self.lang = 0
-        self.locale = Locale.data[Locale.lang_list[self.lang]]
-
         self.monitor = pygame.display.Info()
         self.resolution = [1280, 720]
         self.scale = 1
@@ -24,6 +22,14 @@ class Game():
         self.acceler = True
         self.enable_acceler()
         pygame.display.set_caption('Defense game')
+
+        self.scene = 'title'
+        self.state = ''
+        self.menu = False
+        self.lang = 0
+        self.locale = Locale.data[Locale.lang_list[self.lang]]
+        self.battle = Battle()
+        self.adventure = Adventure()
 
     def load_font(self):
         pygame.font.init()
