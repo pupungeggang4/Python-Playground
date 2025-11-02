@@ -13,8 +13,10 @@ def loop(game):
 
 def render(game):
     game.surface.fill(Color.white)
-
     game.field.render(game)
+
+    game.surface.blit(Image.coin, UI.Field.icon_coin)
+    game.surface.blit(Font.neodgm_32.render(f'{game.player.coin}', False, Color.black), UI.Field.text_coin)
 
     if game.menu == True:
         Render.render_menu(game.surface, game)

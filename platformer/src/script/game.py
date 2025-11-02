@@ -4,6 +4,7 @@ from OpenGL.GL import *
 from script.res import *
 from script.locale import *
 from script.field import *
+from script.player import *
 import script.scenetitle as scenetitle
 import script.scenefield as scenefield
 
@@ -22,6 +23,7 @@ class Game():
         self.key_pressed = {'up': False, 'left': False, 'down': False, 'right': False}
 
         self.field = Field()
+        self.player = Player()
 
         self.monitor = pygame.display.Info()
         self.scale = 1

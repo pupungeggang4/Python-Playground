@@ -14,7 +14,8 @@ class UI():
         arrow = [[80, 160], [80, 240], [80, 320], [80, 400], [80, 480]]
 
     class Field():
-        pass
+        icon_coin = [20, 20]
+        text_coin = [64, 24]
 
     class Menu():
         rect = [320, 200, 640, 320]
