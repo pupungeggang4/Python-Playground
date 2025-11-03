@@ -8,6 +8,7 @@ from script.battle import *
 
 import script.scenetitle as scenetitle
 import script.scenebattle as scenebattle
+import script.scenecollection as scenecollection
 
 class Game():
     def __init__(self):
@@ -77,6 +78,10 @@ class Game():
     def handle_scene(self):
         if self.scene == 'title':
             scenetitle.loop(self)
+        elif self.scene == 'collection':
+            scenecollection.loop(self)
+        elif self.scene == 'battle':
+            scenebattle.loop(self)
 
     def handle_input(self):
         for event in pygame.event.get():

@@ -11,6 +11,9 @@ import script.scenefield as scenefield
 class Game():
     def __init__(self):
         pygame.init()
+        load_image()
+        self.load_font()
+        
         self.hw_acceler = False
         self.scene = 'title'
         self.state = ''
@@ -34,9 +37,6 @@ class Game():
         self.window = pygame.display.set_mode(self.resolution, pygame.SCALED, vsync=1)
         pygame.display.set_caption('Platformer Game')
         self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
-
-        load_image()
-        self.load_font()
 
     def load_font(self):
         pygame.font.init()
