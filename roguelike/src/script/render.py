@@ -6,6 +6,10 @@ from script.shape import *
 
 class Render():
     @staticmethod
+    def find_top_left(rect, cam):
+        return [rect.pos.x - rect.size.x / 2 - cam.pos.x + cam.size.x / 2, rect.pos.y - rect.size.y / 2 - cam.pos.y + cam.size.y / 2]
+
+    @staticmethod
     def render_center_cam(surface, source, rect, cam):
         pos = [
             rect.pos.x - rect.size.x / 2 - cam.pos.x + cam.size.x / 2,

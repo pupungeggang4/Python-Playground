@@ -9,9 +9,9 @@ class Field():
     def __init__(self):
         self.camera = Rect2(0, 0, 1280, 720)
         self.player = FieldPlayer()
-        self.unit = [Unit()]
-        self.proj = [Projectile()]
-        self.drop = [Drop(), Drop(), Drop(), Drop()]
+        self.unit = []
+        self.proj = []
+        self.drop = []
 
     def handle_tick(self, game):
         self.player.handle_tick(game)
@@ -39,8 +39,8 @@ class Field():
 
 class Drop():
     def __init__(self):
-        self.rect = Rect2(random.randint(120, 240), random.randint(-60, 60), 40, 40)
-        self.type = 'coin' if random.randint(1, 2) == 1 else 'exporb'
+        self.rect = Rect2(0, 0, 40, 40)
+        self.type = 'coin'
         self.amount = 10
 
     def set_data(self, type, amount):
@@ -103,7 +103,7 @@ class Projectile():
 
 class Unit():
     def __init__(self):
-        self.rect = Rect2(160, -80, 80, 80)
+        self.rect = Rect2(0, 0, 80, 80)
         self.temp_pos = Vec2(0, 0)
         self.speed = 320.0
         self.hp = 60
@@ -113,6 +113,8 @@ class Unit():
         self.attack_cool = 0
         self.state = 'attack'
         self.attack_target = 0
+        self.gold = 10
+        self.exp = 10
 
         self.frames = 4; self.frame_current = 0; self.frame_interval = 0.2; self.frame_time = 0
         self.frame_coord = [[0, 0], [80, 0], [160, 0], [240, 0]]
@@ -120,6 +122,14 @@ class Unit():
     def handle_tick(self, game):
         field = game.field
         if self.hp <= 0:
+            coin = Drop()
+            exporb = Drop()
+            coin.set_data('coin', self.gold)
+            coin.rect.pos = Vec2(self.rect.pos.x + random.randint(-10, 10), self.rect.pos.y + random.randint(-10, 10))
+            exporb.set_data('exporb', self.exp)
+            exporb.rect.pos = Vec2(self.rect.pos.x  + random.randint(-10, 10), self.rect.pos.y + random.randint(-10, 10))
+            field.drop.append(coin)
+            field.drop.append(exporb)
             field.unit.pop(field.unit.index(self))
 
     def render(self, game):
@@ -127,6 +137,8 @@ class Unit():
         self.frame_current = int(self.frame_time / self.frame_interval) % self.frames
         surface = Image.unit.subsurface(pygame.Rect(self.frame_coord[self.frame_current][0], self.frame_coord[self.frame_current][1], self.rect.size.x, self.rect.size.y))
         Render.render_center_cam(game.surface, surface, self.rect, game.field.camera)
+        tl = Render.find_top_left(self.rect, game.field.camera)
+        pygame.draw.rect(game.surface, Color.green_dark, [tl[0], tl[1], self.hp / self.hp_max * 80, 10])
 
 class FieldPlayer(Unit):
     def __init__(self):

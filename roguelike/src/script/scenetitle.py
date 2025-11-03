@@ -26,10 +26,10 @@ def render(game):
     game.surface.blit(Image.arrow, UI.Title.arrow[game.selected_title])
 
 def key_down(game, key):
-    if key == pygame.K_UP:
+    if key == pygame.K_w:
         game.selected_title = (game.selected_title + 4) % 5
 
-    if key == pygame.K_DOWN:
+    if key == pygame.K_s:
         game.selected_title = (game.selected_title + 1) % 5
 
     if key == pygame.K_RETURN:
