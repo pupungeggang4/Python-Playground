@@ -4,6 +4,7 @@ from script.res import *
 
 from script.shape import *
 from script.render import *
+from script.weapon import *
 
 class Field():
     def __init__(self):
@@ -11,7 +12,18 @@ class Field():
         self.player = FieldPlayer()
         self.unit = []
         self.proj = []
+        self.effect = []
         self.drop = []
+
+    def adventure_start(self, game):
+        self.camera = Rect2(0, 0, 1280, 720)
+        self.player = FieldPlayer()
+        self.unit = []
+        self.unit.append(Unit())
+        self.proj = []
+        self.effect = []
+        self.drop = []
+        self.player.adventure_start(game)
 
     def handle_tick(self, game):
         self.player.handle_tick(game)
@@ -103,16 +115,15 @@ class Projectile():
 
 class Unit():
     def __init__(self):
-        self.rect = Rect2(0, 0, 80, 80)
+        self.rect = Rect2(400, 0, 80, 80)
         self.temp_pos = Vec2(0, 0)
-        self.speed = 320.0
+        self.speed = 160.0
         self.hp = 60
         self.hp_max = 60
-        self.attack = 0
+        self.attack = 120
         self.attack_type = 0
-        self.attack_cool = 0
-        self.state = 'attack'
-        self.attack_target = 0
+        self.attack_cool = 1.0
+        self.state = 'chase'
         self.gold = 10
         self.exp = 10
 
@@ -121,6 +132,35 @@ class Unit():
 
     def handle_tick(self, game):
         field = game.field
+        player = game.field.player
+
+        self.move_and_attack(game)
+        self.handle_death(game)
+
+    def move_and_attack(self, game):
+        field = game.field
+        player = game.field.player
+        diff = player.rect.pos - self.rect.pos
+
+        if self.state == 'chase':
+            if diff.length() < 80:
+                self.state = 'attack'
+                self.attack_cool = 1.0
+            else:
+                diff_n = diff.normalized()
+                self.rect.pos += diff_n * (self.speed / game.fps)
+        elif self.state == 'attack':
+            if self.attack_cool <= 0:
+                if diff.length() < 80:
+                    player.hp -= self.attack
+                    self.attack_cool -= 1.0
+                self.state = 'chase'
+            else:
+                self.attack_cool -= 1 / game.fps
+
+    def handle_death(self, game):
+        field = game.field
+
         if self.hp <= 0:
             coin = Drop()
             exporb = Drop()
@@ -150,13 +190,24 @@ class FieldPlayer(Unit):
         self.energy = 0
         self.energy_max = 1
 
+        self.speed = 320.0
+        self.speed_dash = 1200.0
+        self.dash_time = 0.2
+        self.dash_time_left = 0
+        self.dash_cool = 1.5
+        self.dash_cool_left = 1.5
+        self.attack = 10
+        self.attack_speed = 1.0
+        self.weapon = Weapon()
+
         self.hand = []
         self.deck = []
         self.deck_discarded = []
 
         self.rect = Rect2(0, 0, 80, 80)
 
-    def adventure_start(self):
+    def adventure_start(self, game):
+        self.rect = Rect2(0, 0, 80, 80)
         self.hp = 120
         self.hp_max = 120
         self.level = 1
@@ -164,34 +215,58 @@ class FieldPlayer(Unit):
         self.exp_max = 20
         self.energy = 0
         self.energy_max = 8
+        self.weapon.set_data(1)
 
     def shoot(self, game, pos):
-        direction = (pos - self.rect.pos).normalized()
-        proj = Projectile()
-        proj.rect.pos.x = self.rect.pos.x
-        proj.rect.pos.y = self.rect.pos.y
-        proj.v_unit = direction
-        game.field.proj.append(proj)
+        if self.weapon.attack_cool <= 0:
+            direction = (pos - self.rect.pos).normalized()
+            proj = Projectile()
+            proj.damage = self.attack * self.weapon.attack_mul
+            proj.rect.pos.x = self.rect.pos.x
+            proj.rect.pos.y = self.rect.pos.y
+            proj.v_unit = direction
+            game.field.proj.append(proj)
+            self.weapon.attack_cool = 1 / (self.attack_speed * self.weapon.attack_speed)
+
+    def dash(self, game):
+        if self.dash_cool_left <= 0:
+            self.dash_cool_left = self.dash_cool
+            self.dash_time_left = self.dash_time
 
     def handle_tick(self, game):
         self.move(game)
+        self.handle_weapon(game)
+        if self.hp <= 0:
+            game.state = 'game_over'
 
     def move(self, game):
         pos = self.rect.pos
         self.temp_pos.x = pos.x
         self.temp_pos.y = pos.y
+        speed = self.speed
+
+        if self.dash_time_left >= 0:
+            speed = self.speed_dash
+            self.dash_time_left -= 1 / game.fps
+        else:
+            if self.dash_cool_left >= 0:
+                self.dash_cool_left -= 1 / game.fps
 
         if game.key_pressed['left'] == True:
-            self.temp_pos.x -= self.speed / game.fps
+            self.temp_pos.x -= speed / game.fps
         if game.key_pressed['right'] == True:
-            self.temp_pos.x += self.speed / game.fps
+            self.temp_pos.x += speed / game.fps
         if game.key_pressed['up'] == True:
-            self.temp_pos.y -= self.speed / game.fps
+            self.temp_pos.y -= speed / game.fps
         if game.key_pressed['down'] == True:
-            self.temp_pos.y += self.speed / game.fps
+            self.temp_pos.y += speed / game.fps
 
         pos.x = self.temp_pos.x
         pos.y = self.temp_pos.y
+
+    def handle_weapon(self, game):
+        if self.weapon.attack_cool >= 0:
+            self.weapon.attack_cool -= 1.0 / game.fps
 
     def render(self, game):
         Render.render_center_cam(game.surface, Image.player, self.rect, game.field.camera)

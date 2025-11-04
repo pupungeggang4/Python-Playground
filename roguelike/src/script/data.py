@@ -1,5 +1,7 @@
 class Data():
-    weapon = {}
+    weapon = {
+        1: {'ID': 1, 'name': 'weapon1', 'stat': [1.0, 1.0]},
+    }
     card = {}
     item = {}
     equipment = {}

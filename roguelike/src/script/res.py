@@ -30,6 +30,9 @@ def load_image():
     Image.exporb = pygame.image.load('image/exporb.png').convert_alpha()
     Image.projectile = pygame.image.load('image/projectile.png').convert_alpha()
     Image.unit = pygame.image.load('image/unit.png').convert_alpha()
+    Image.button_menu = pygame.image.load('image/buttonmenu.png').convert_alpha()
+    Image.attack = pygame.image.load('image/attack.png').convert_alpha()
+    Image.dash = pygame.image.load('image/dash.png').convert_alpha()
     #Image.sprite['unit'] = []
     #for i in range(4):
         #Image.sprite['unit'].append(pygame.Surface.subsurface())

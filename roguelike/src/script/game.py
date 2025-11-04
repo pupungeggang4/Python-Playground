@@ -14,6 +14,15 @@ class Game():
     def __init__(self):
         pygame.init()
         pygame.font.init()
+        self.resolution = [1280, 720]
+        self.fps = 60
+        self.scale = 1.0
+        self.hw_acceler = True
+        self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
+        self.clock = pygame.time.Clock()
+        self.enable_hw_acceler()
+        load_image()
+        load_font()
 
         self.scene = 'title'
         self.state = ''
@@ -29,11 +38,13 @@ class Game():
         self.selected_adventure_start = 0
 
         self.field = Field()
+        self.village = Village()
+        self.key_pressed = {
+            'up': False, 'left': False, 'down': False, 'right': False
+        }
 
-        self.resolution = [1280, 720]
-        self.fps = 60
-        self.scale = 1
-
+    def enable_hw_acceler(self):
+        self.hw_acceler = True
         monitor = pygame.display.Info()
         if monitor.current_w > 2560:
             self.scale = 2
@@ -41,17 +52,13 @@ class Game():
             self.scale = 1.5
         self.window = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.OPENGL | pygame.DOUBLEBUF, vsync=1)
         pygame.display.set_caption('Roguelike Game')
-        self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
-        self.clock = pygame.time.Clock()
-
-        load_image()
-        load_font()
         self.GL_init()
 
-        self.village = Village()
-        self.key_pressed = {
-            'up': False, 'left': False, 'down': False, 'right': False
-        }
+    def disable_hw_acceler(self):
+        self.hw_acceler = False
+        self.scale = 1.0
+        self.window = pygame.display.set_mode([self.resolution[0] * self.scale, self.resolution[1] * self.scale], pygame.SCALED, vsync=1)
+        pygame.display.set_caption('Roguelike Game')
 
     def GL_init(self):
         glClearColor(0.0, 0.0, 0.0, 1.0)
@@ -70,7 +77,10 @@ class Game():
             self.clock.tick(self.fps)
             self.handle_input()
             self.handle_scene()
-            self.render_GL()
+            if self.hw_acceler == True:
+                self.render_GL()
+            else:
+                self.window.blit(self.surface)
             pygame.display.flip()
 
     def handle_input(self):

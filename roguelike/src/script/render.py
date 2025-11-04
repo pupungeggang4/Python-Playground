@@ -58,15 +58,39 @@ class Render():
 
         surface.blit(Image.life, UI.Battle.icon_hp)
         hp_rect = [UI.Battle.bar_hp[0], UI.Battle.bar_hp[1], UI.Battle.bar_hp[2] * player.hp / max(player.hp_max, 1), UI.Battle.bar_hp[3]]
+        pygame.draw.rect(surface, Color.white, UI.Battle.bar_hp)
         pygame.draw.rect(surface, Color.green, hp_rect)
         pygame.draw.rect(surface, Color.black, UI.Battle.bar_hp, 2)
         surface.blit(Font.neodgm_24.render(f'{player.hp}/{player.hp_max}', False, Color.black), UI.Battle.text_hp)
 
         energy_rect = [UI.Battle.bar_energy[0], UI.Battle.bar_energy[1], UI.Battle.bar_energy[2] * player.energy / max(player.energy_max, 1), UI.Battle.bar_energy[3]]
-        pygame.draw.rect(surface, Color.cyan, energy_rect)
         surface.blit(Image.energy, UI.Battle.icon_energy)
-        surface.blit(Font.neodgm_24.render(f'{player.energy}/{player.energy_max}', False, Color.black), UI.Battle.text_energy)
+        pygame.draw.rect(surface, Color.white, UI.Battle.bar_energy)
+        pygame.draw.rect(surface, Color.cyan, energy_rect)
         pygame.draw.rect(surface, Color.black, UI.Battle.bar_energy, 2)
+        surface.blit(Font.neodgm_24.render(f'{player.energy}/{player.energy_max}', False, Color.black), UI.Battle.text_energy)
+
+    @staticmethod
+    def render_battle_ui_lower(game):
+        surface = game.surface
+        player = game.field.player
+        surface.blit(Image.attack, UI.Battle.icon_attack)
+        cool_rect = [UI.Battle.icon_attack[0], UI.Battle.icon_attack[1], UI.Battle.icon_attack[2] * player.weapon.attack_cool 
+        * player.attack_speed * player.weapon.attack_speed, UI.Battle.icon_attack[3]]
+        pygame.draw.rect(surface, [127, 127, 127], cool_rect)
+
+        surface.blit(Image.dash, UI.Battle.icon_dash)
+        cool_rect = [UI.Battle.icon_dash[0], UI.Battle.icon_dash[1], UI.Battle.icon_dash[2] * player.dash_cool_left / player.dash_cool, UI.Battle.icon_dash[3]]
+        pygame.draw.rect(surface, [127, 127, 127], cool_rect)
+
+    @staticmethod
+    def render_game_over(game):
+        surface = game.surface
+        pygame.draw.rect(surface, Color.white, UI.Window_Small.rect)
+        pygame.draw.rect(surface, Color.black, UI.Window_Small.rect, 2)
+        surface.blit(Font.neodgm_32.render(game.locale['game_over'], False, Color.black), UI.Window_Small.text_title)
+        pygame.draw.rect(surface, Color.black, UI.Window_Small.button_ok, 2)
+        surface.blit(Font.neodgm_32.render(game.locale['ok'], False, Color.black), UI.Window_Small.text_ok)
 
     @staticmethod
     def render_menu_village(game):

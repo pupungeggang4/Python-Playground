@@ -7,6 +7,8 @@ class Locale():
             'collection': 'Collection',
             'erase_data': 'Erase Data',
             'lang': 'English',
+            'hw_acceler_off': 'HW Acceleration: OFF',
+            'hw_acceler_on': 'HW Acceleration: ON',
             'exit': 'Exit',
 
             'paused': 'Paused',
@@ -19,6 +21,7 @@ class Locale():
             'yes': 'Yes',
             'no': 'No',
             'ok': 'OK',
+            'game_over': 'Game Over!',
 
             'select_weapon': 'Select Weapon'
         },
@@ -29,6 +32,8 @@ class Locale():
             'collection': '수집품',
             'erase_data': '데이터 지우기',
             'lang': '한국어',
+            'hw_acceler_off': '하드웨어 가속: 꺼짐',
+            'hw_acceler_on': '하드웨어 가속: 켜짐',
             'exit': '끝내기',
 
             'paused': '일시정지됨',
@@ -41,6 +46,7 @@ class Locale():
             'yes': '예',
             'no': '아니오',
             'ok': '확인',
+            'game_over': '게임 오버!',
 
             'select_weapon': '무기 선택'
         }

@@ -7,11 +7,13 @@ class UI():
         text_collection = [184, 264]
         button_lang = [160, 320, 960, 80]
         text_lang = [184, 344]
-        button_erase = [160, 400, 960, 80]
-        text_erase = [184, 424]
-        button_exit = [160, 480, 960, 80]
-        text_exit = [184, 504]
-        arrow = [[80, 160], [80, 240], [80, 320], [80, 400], [80, 480]]
+        button_hw_acceler = [160, 400, 960, 80]
+        text_hw_acceler = [184, 424]
+        button_erase = [160, 480, 960, 80]
+        text_erase = [184, 504]
+        button_exit = [160, 560, 960, 80]
+        text_exit = [184, 584]
+        arrow = [[80, 160], [80, 240], [80, 320], [80, 400], [80, 480], [80, 560]]
 
     class Village():
         button_menu = [1180, 20, 80, 80]
@@ -21,7 +23,7 @@ class UI():
         button_menu = [1180, 20, 80, 80]
         icon_exp = [20, 60]
         text_exp = [64, 70]
-        bar_exp = [20, 20, 1240, 20]
+        bar_exp = [20, 20, 1140, 20]
         icon_gold = [20, 100]
         text_gold = [64, 110]
         icon_hp = [20, 140]
@@ -30,6 +32,8 @@ class UI():
         icon_energy = [20, 180]
         text_energy = [88, 190]
         bar_energy = [80, 184, 140, 32]
+        icon_dash = [20, 620, 80, 80]
+        icon_attack = [1180, 620, 80, 80]
 
     class Menu_Village():
         rect = [320, 200, 640, 320]
@@ -56,13 +60,13 @@ class UI():
         arrow = [[240, 240], [240, 320], [240, 400], [240, 480], [240, 560]]
 
     class Window_Battle_Confirm():
-        rect = [320, 200, 640, 240]
-        text_title = [344, 224]
-        arrow = [[360, 320], [680, 320]]
-        button_yes = [440, 320, 160, 80]
-        text_yes = [464, 344]
-        button_no = [760, 320, 160, 80]
-        text_no = [784, 344]
+        rect = [320, 240, 640, 240]
+        text_title = [344, 264]
+        arrow = [[360, 360], [680, 360]]
+        button_yes = [440, 360, 160, 80]
+        text_yes = [464, 384]
+        button_no = [760, 360, 160, 80]
+        text_no = [784, 384]
 
     class Window():
         rect = [160, 40, 960, 640]
@@ -73,3 +77,9 @@ class UI():
         arrow_weapon = [[260, 120], [600, 120], [940, 120]]
         button_ok = [560, 560, 160, 80]
         text_ok = [584, 584]
+
+    class Window_Small():
+        rect = [320, 240, 640, 240]
+        text_title = [344, 264]
+        button_ok = [780, 380, 160, 80]
+        text_ok = [804, 404]

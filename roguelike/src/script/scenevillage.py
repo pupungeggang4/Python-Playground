@@ -15,6 +15,8 @@ def render(game):
     game.surface.fill(Color.white)
     game.village.render(game)
     game.surface.blit(Font.neodgm_32.render(game.locale['control'], False, Color.black), UI.Village.text_control)
+
+    game.surface.blit(Image.button_menu, UI.Village.button_menu)
     
     if game.state == 'battle_confirm':
         Render.render_battle_confirm(game)
@@ -73,6 +75,7 @@ def mouse_up(game, pos, button):
                     game.scene = 'battle'
                     game.state = 'adventure_start'
                     game.selected_adventure_start = 0
+                    game.field.adventure_start(game)
                 elif point_inside_rect_ui(pos, UI.Window_Battle_Confirm.button_no):
                     game.state = ''
         elif game.menu == True:
