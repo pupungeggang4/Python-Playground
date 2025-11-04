@@ -5,6 +5,8 @@ from script.res import *
 from script.render import *
 from script.func import *
 
+from script.field import *
+
 def loop(game):
     if game.menu == False:
         if game.state == '':
@@ -41,6 +43,7 @@ def key_down(game, key):
                     game.scene = 'battle'
                     game.state = 'adventure_start'
                     game.selected_adventure_start = 0
+                    game.field = Field()
                 else:
                     game.state = ''
 
@@ -75,7 +78,7 @@ def mouse_up(game, pos, button):
                     game.scene = 'battle'
                     game.state = 'adventure_start'
                     game.selected_adventure_start = 0
-                    game.field.adventure_start(game)
+                    game.field = Field()
                 elif point_inside_rect_ui(pos, UI.Window_Battle_Confirm.button_no):
                     game.state = ''
         elif game.menu == True:
