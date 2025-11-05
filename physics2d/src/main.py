@@ -1,3 +1,4 @@
+import traceback
 from script.game import *
 
 def main():
@@ -5,4 +6,7 @@ def main():
     game.run()
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except:
+        traceback.print_exc()

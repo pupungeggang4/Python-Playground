@@ -12,6 +12,7 @@ class Game():
         self.resolution = [1280, 720]
         self.window = pygame.display.set_mode(self.resolution, pygame.SCALED, vsync = 1)
         pygame.display.set_caption('platformer')
+        self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
         self.scene = 'main'
 
     def run(self):
@@ -19,6 +20,7 @@ class Game():
             self.clock.tick(self.fps)
             self.handle_input()
             self.handle_scene()
+            self.window.blit(self.surface, [0, 0])
             pygame.display.flip()
 
     def handle_input(self):
