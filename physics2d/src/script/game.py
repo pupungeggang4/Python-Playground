@@ -1,5 +1,7 @@
 import pygame, sys, ctypes
 
+from script.res import *
+from script.field import *
 import script.scenemain as scenemain
 
 class Game():
@@ -14,6 +16,8 @@ class Game():
         pygame.display.set_caption('platformer')
         self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
         self.scene = 'main'
+
+        self.field = Field()
 
     def run(self):
         while True:

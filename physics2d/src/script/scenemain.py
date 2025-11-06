@@ -4,10 +4,10 @@ from script.res import *
 
 def loop(game):
     render(game)
-    game.surface.fill(Color.white)
 
 def render(game):
-    pass
+    game.surface.fill(Color.white)
+    game.field.render(game)
 
 def key_down(game, key):
     pass
