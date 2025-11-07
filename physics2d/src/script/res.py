@@ -8,5 +8,11 @@ class Color():
 class Image():
     sprite = {}
 
+class Font():
+    pass
+
 def load_image():
     Image.sprite['coin'] = pygame.image.load('image/sprite/spritecoin.png')
+
+def load_font():
+    Font.neodgm_32 = pygame.font.Font('font/neodgm.ttf', 32)

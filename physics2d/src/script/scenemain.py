@@ -3,6 +3,7 @@ import pygame, sys
 from script.res import *
 
 def loop(game):
+    game.field.handle_tick(game)
     render(game)
 
 def render(game):

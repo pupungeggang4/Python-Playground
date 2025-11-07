@@ -1,7 +1,9 @@
-import pygame, sys, ctypes
+import pygame, sys, ctypes, json
 
 from script.res import *
 from script.field import *
+
+from script.level import *
 import script.scenemain as scenemain
 
 class Game():
@@ -15,9 +17,16 @@ class Game():
         self.window = pygame.display.set_mode(self.resolution, pygame.SCALED, vsync = 1)
         pygame.display.set_caption('platformer')
         self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
+        load_image()
+        load_font()
+
+        self.key_pressed = {'left': False, 'right': False}
+        self.key_mapping = {'left': pygame.K_a, 'right': pygame.K_d}
         self.scene = 'main'
 
         self.field = Field()
+        self.level_data = json.loads(open('data/level.json', 'r').read())
+        Level.load_level(self, self.level_data["1"])
 
     def run(self):
         while True:
@@ -35,11 +44,17 @@ class Game():
 
             if event.type == pygame.KEYDOWN:
                 key = event.key
+                for k in self.key_pressed:
+                    if key == self.key_mapping[k]:
+                        self.key_pressed[k] = True
                 if self.scene == 'main':
                     scenemain.key_down(self, key)
 
             if event.type == pygame.KEYUP:
                 key = event.key
+                for k in self.key_pressed:
+                    if key == self.key_mapping[k]:
+                        self.key_pressed[k] = False
                 if self.scene == 'main':
                     scenemain.key_up(self, key)
 

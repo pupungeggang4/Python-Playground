@@ -7,7 +7,7 @@ from script.entity import *
 
 class Wall(Entity):
     def __init__(self):
-        self.rect = Rect2(0, 60, 160, 40)
+        self.rect = Rect2(0, 0, 160, 40)
 
     def handle_tick(self, game):
         pass
