@@ -3,6 +3,7 @@ import pygame, sys
 from script.fieldplayer import *
 from script.coin import *
 from script.wall import *
+from script.unit import *
 from script.platform import *
 from script.belt import *
 

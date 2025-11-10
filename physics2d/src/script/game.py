@@ -20,13 +20,13 @@ class Game():
         load_image()
         load_font()
 
-        self.key_pressed = {'left': False, 'right': False}
-        self.key_mapping = {'left': pygame.K_a, 'right': pygame.K_d}
+        self.key_pressed = {'left': False, 'right': False, 'up': False}
+        self.key_mapping = {'left': pygame.K_a, 'right': pygame.K_d, 'up': pygame.K_w}
         self.scene = 'main'
 
         self.field = Field()
         self.level_data = json.loads(open('data/level.json', 'r').read())
-        Level.load_level(self, self.level_data["1"])
+        Level.load_level(self, self.level_data['2'])
 
     def run(self):
         while True:
@@ -47,6 +47,8 @@ class Game():
                 for k in self.key_pressed:
                     if key == self.key_mapping[k]:
                         self.key_pressed[k] = True
+                if key == pygame.K_r:
+                    Level.load_level(self, self.level_data['2'])
                 if self.scene == 'main':
                     scenemain.key_down(self, key)
 

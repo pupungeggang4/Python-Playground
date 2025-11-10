@@ -24,3 +24,7 @@ class Level():
                 coin = Coin()
                 coin.rect.pos = Vec2(e[1][0], e[1][1])
                 field.entity_list.append(coin)
+            if e[0] == 'unit':
+                unit = Unit()
+                unit.rect = Rect2(e[1][0], e[1][1], e[1][2], e[1][3])
+                field.entity_list.append(unit)
