@@ -7,8 +7,6 @@ from script.village import *
 from script.field import *
 
 import script.scenetitle as scenetitle
-import script.scenevillage as scenevillage
-import script.scenebattle as scenebattle
 
 class Game():
     def __init__(self):
@@ -24,7 +22,7 @@ class Game():
         load_image()
         load_font()
 
-        self.scene = 'title'
+        self.scene = scenetitle.SceneTitle()
         self.state = ''
         self.state_click = ''
         self.menu = False
@@ -101,12 +99,7 @@ class Game():
                 if key == pygame.K_d:
                     self.key_pressed['right'] = True
 
-                if self.scene == 'title':
-                    scenetitle.key_down(self, key)
-                elif self.scene == 'village':
-                    scenevillage.key_down(self, key)
-                elif self.scene == 'battle':
-                    scenebattle.key_down(self, key)
+                self.scene.key_down(self, key)
 
             if event.type == pygame.KEYUP:
                 key = event.key
@@ -126,20 +119,10 @@ class Game():
                 pos[1] /= self.scale
                 button = event.button
 
-                if self.scene == 'title':
-                    scenetitle.mouse_up(self, pos, button)
-                elif self.scene == 'village':
-                    scenevillage.mouse_up(self, pos, button)
-                elif self.scene == 'battle':
-                    scenebattle.mouse_up(self, pos, button)
+                self.scene.mouse_up(self, pos, button)
 
     def handle_scene(self):
-        if self.scene == 'title':
-            scenetitle.loop(self)
-        elif self.scene == 'village':
-            scenevillage.loop(self)
-        elif self.scene == 'battle':
-            scenebattle.loop(self)
+        self.scene.loop(self)
 
     def render_GL(self):
         glClear(GL_COLOR_BUFFER_BIT)

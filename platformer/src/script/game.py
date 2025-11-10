@@ -6,7 +6,6 @@ from script.locale import *
 from script.field import *
 from script.player import *
 import script.scenetitle as scenetitle
-import script.scenefield as scenefield
 
 class Game():
     def __init__(self):
@@ -15,7 +14,7 @@ class Game():
         self.load_font()
         
         self.hw_acceler = False
-        self.scene = 'title'
+        self.scene = scenetitle.SceneTitle()
         self.state = ''
         self.menu = False
         self.lang = 'en'
@@ -100,10 +99,7 @@ class Game():
                 if key == pygame.K_RIGHT:
                     self.key_pressed['right'] = True
 
-                if self.scene == 'title':
-                    scenetitle.key_down(self, key)
-                elif self.scene == 'field':
-                    scenefield.key_down(self, key)
+                self.scene.key_down(self, key)
 
             if event.type == pygame.KEYUP:
                 key = event.key
@@ -118,10 +114,7 @@ class Game():
                     self.key_pressed['right'] = False
 
     def handle_scene(self):
-        if self.scene == 'title':
-            scenetitle.loop(self)
-        elif self.scene == 'field':
-            scenefield.loop(self)
+        self.scene.loop(self)
 
     def GL_render(self):
         glClear(GL_COLOR_BUFFER_BIT)
