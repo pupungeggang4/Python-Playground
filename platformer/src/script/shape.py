@@ -5,8 +5,17 @@ class Vec2():
         self.x = x
         self.y = y
 
+    def __add__(self, v):
+        return Vec2(self.x + v.x, self.y + v.y)
+
     def __sub__(self, v):
         return Vec2(self.x - v.x, self.y - v.y)
+
+    def __mul__(self, a):
+        return Vec2(self.x * a, self.y * a)
+
+    def __div__(self, a):
+        return Vec2(self.x / a, self.y / a)
 
     @staticmethod
     def length(v):
