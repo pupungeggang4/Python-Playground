@@ -8,22 +8,17 @@ class Field():
     def __init__(self):
         self.camera = Rect2(0, 0, 1280, 720)
         self.player = FieldPlayer()
-        self.entity_list = [Coin()]
-        self.mech_list = [Wall()]
+        self.entity_list = [Coin(), Wall()]
 
     def handle_tick(self, game):
         self.player.handle_tick(game)
         for i in range(len(self.entity_list) - 1, -1, -1):
             self.entity_list[i].handle_tick(game)
-        for i in range(len(self.mech_list) - 1, -1, -1):
-            self.mech_list[i].handle_tick(game)
 
     def render(self, game):
         self.player.render(game)
         for i in range(len(self.entity_list)):
             self.entity_list[i].render(game)
-        for i in range(len(self.mech_list)):
-            self.mech_list[i].render(game)
 
 class Entity():
     def __init__(self):
@@ -56,6 +51,10 @@ class Coin(Entity):
         self.frame_current = 0
         self.frame_coord = [[0, 0, 40, 40], [40, 0, 40, 40], [80, 0, 40, 40], [120, 0, 40, 40]]
 
+        self.solid = False
+        self.floor = False
+        self.fall = False
+
     def handle_tick(self, game):
         field = game.field
         player = game.player
@@ -78,7 +77,11 @@ class FieldPlayer(Entity):
         self.speed = 200.0
         self.jump_num = 1; self.jump_power = 40.0; self.jump_time = 0; self.jump_time_max = 0.2
         self.gravity = 800.0; self.terminal_speed = 800.0
-        self.stepping = None
+        self.ground = False
+
+        self.solid = False
+        self.floor = False
+        self.fall = True
 
     def handle_tick(self, game):
         if game.key_pressed['left'] == True:
