@@ -1,12 +1,15 @@
 import pygame, sys
 
+from script.scenetitle import *
+
 from script.res import *
 
-def loop(game):
-    render(game)
+class SceneBattle():
+    def loop(self, game):
+        self.render(game)
 
-def render(game):
-    game.surface.fill(Color.white)
+    def render(self, game):
+        game.surface.fill(Color.white)
 
-def mouse_up(game, pos, button):
-    pass
+    def mouse_up(self, game, pos, button):
+        pass

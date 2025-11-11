@@ -7,13 +7,12 @@ from script.adventure import *
 from script.battle import *
 
 import script.scenetitle as scenetitle
-import script.scenebattle as scenebattle
-import script.scenecollection as scenecollection
 
 class Game():
     def __init__(self):
         pygame.init()
-        self.load_font()
+        pygame.font.init()
+        load_font()
         self.monitor = pygame.display.Info()
         self.resolution = [1280, 720]
         self.scale = 1
@@ -23,8 +22,8 @@ class Game():
         self.acceler = True
         self.enable_acceler()
         pygame.display.set_caption('Defense game')
+        load_image()
 
-        self.scene = 'title'
         self.state = ''
         self.menu = False
         self.lang = 0
@@ -32,9 +31,7 @@ class Game():
         self.battle = Battle()
         self.adventure = Adventure()
 
-    def load_font(self):
-        pygame.font.init()
-        Font.neodgm_32 = pygame.font.Font('font/neodgm.ttf', 32)
+        self.scene = scenetitle.SceneTitle()
 
     def enable_acceler(self):
         self.acceler = True
@@ -76,12 +73,7 @@ class Game():
             pygame.display.flip()
 
     def handle_scene(self):
-        if self.scene == 'title':
-            scenetitle.loop(self)
-        elif self.scene == 'collection':
-            scenecollection.loop(self)
-        elif self.scene == 'battle':
-            scenebattle.loop(self)
+        self.scene.loop(self)
 
     def handle_input(self):
         for event in pygame.event.get():
@@ -95,8 +87,7 @@ class Game():
                 pos[1] /= self.scale
                 button = event.button
                 
-                if self.scene == 'title':
-                    scenetitle.mouse_up(self, pos, button)
+                self.scene.mouse_up(self, pos, button)
 
     def render_GL(self):
         glClear(GL_COLOR_BUFFER_BIT)
