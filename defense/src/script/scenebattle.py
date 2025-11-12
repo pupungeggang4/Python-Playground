@@ -10,6 +10,8 @@ class SceneBattle():
     def __init__(self, game):
         self.surface = pygame.surface.Surface(game.resolution, pygame.SRCALPHA)
         self.surface_menu = pygame.surface.Surface(game.resolution, pygame.SRCALPHA)
+        self.surface_window = pygame.surface.Surface(game.resolution, pygame.SRCALPHA)
+
         Render.render_menu(self.surface_menu, game)
         self.render_static()
 

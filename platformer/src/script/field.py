@@ -8,7 +8,7 @@ class Field():
     def __init__(self):
         self.camera = Rect2(0, 0, 1280, 720)
         self.player = FieldPlayer()
-        self.entity_list = [Coin(), Wall()]
+        self.entity_list = []
 
     def handle_tick(self, game):
         self.player.handle_tick(game)

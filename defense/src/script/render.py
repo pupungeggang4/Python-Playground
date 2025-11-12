@@ -5,6 +5,14 @@ from script.res import *
 
 class Render():
     @staticmethod
+    def render_battle_static(surface, game):
+        pass
+
+    @staticmethod
+    def render_window_start(surface, game):
+        pass
+    
+    @staticmethod
     def render_menu(surface, game):
         surface.fill(Color.transparent)
         pygame.draw.rect(surface, Color.white, UI.Menu.rect)
@@ -16,7 +24,3 @@ class Render():
         surface.blit(Font.neodgm_32.render(game.locale['save_and_exit'], False, Color.black), UI.Menu.text_save_and_exit)
         pygame.draw.rect(surface, Color.black, UI.Menu.button_quit, 2)
         surface.blit(Font.neodgm_32.render(game.locale['quit'], False, Color.black), UI.Menu.text_quit)
-
-    @staticmethod
-    def render_window_start(surface, game):
-        pass

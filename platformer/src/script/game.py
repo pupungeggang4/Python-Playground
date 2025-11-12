@@ -1,8 +1,10 @@
-import pygame, sys, ctypes
+import pygame, sys, json, ctypes
 from OpenGL.GL import *
 
 from script.res import *
 from script.locale import *
+from script.data import *
+
 from script.field import *
 from script.player import *
 import script.scenetitle as scenetitle
@@ -10,11 +12,22 @@ import script.scenetitle as scenetitle
 class Game():
     def __init__(self):
         pygame.init()
-        load_image()
-        self.load_font()
+        pygame.font.init()
+        self.monitor = pygame.display.Info()
+        self.scale = 1
+        self.resolution = [1280, 720]
+        self.fps = 60
+        self.clock = pygame.time.Clock()
         
         self.hw_acceler = False
-        self.scene = scenetitle.SceneTitle()
+        self.window = pygame.display.set_mode(self.resolution, pygame.SCALED, vsync=1)
+        pygame.display.set_caption('Platformer Game')
+        self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
+
+        load_image()
+        load_font()
+        load_data()
+
         self.state = ''
         self.menu = False
         self.lang = 'en'
@@ -26,20 +39,7 @@ class Game():
 
         self.field = Field()
         self.player = Player()
-
-        self.monitor = pygame.display.Info()
-        self.scale = 1
-        self.resolution = [1280, 720]
-        self.fps = 60
-        self.clock = pygame.time.Clock()
-
-        self.window = pygame.display.set_mode(self.resolution, pygame.SCALED, vsync=1)
-        pygame.display.set_caption('Platformer Game')
-        self.surface = pygame.surface.Surface(self.resolution, pygame.SRCALPHA)
-
-    def load_font(self):
-        pygame.font.init()
-        Font.neodgm_32 = pygame.font.Font('font/neodgm.ttf', 32)
+        self.scene = scenetitle.SceneTitle(self)
 
     def GL_init(self):
         self.v_coord = [-1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0]

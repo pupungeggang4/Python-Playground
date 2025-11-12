@@ -9,10 +9,12 @@ from script.scenecollection import *
 
 class SceneTitle():
     def __init__(self, game):
-        self.surface = pygame.surface.Surface(game.resolution, pygame.SRCALPHA)
-        self.render_update(game)
+        pass
 
-    def render_update(self, game):
+    def loop(self, game):
+        self.render(game)
+
+    def render(self, game):
         game.surface.fill(Color.white)
         game.surface.blit(Font.neodgm_32.render(game.locale['game_name'], False, Color.black), UI.Title.text_title)
         pygame.draw.rect(game.surface, Color.black, UI.Title.button_start, 2)
@@ -31,25 +33,17 @@ class SceneTitle():
         pygame.draw.rect(game.surface, Color.black, UI.Title.button_quit, 2)
         game.surface.blit(Font.neodgm_32.render(game.locale['quit'], False, Color.black), UI.Title.text_quit)
 
-    def loop(self, game):
-        self.render(game)
-
-    def render(self, game):
-        game.surface.blit(self.surface)
-
     def mouse_up(self, game, pos, button):
         if point_inside_rect_ui(pos, UI.Title.button_start):
             game.scene = SceneBattle(game)
         if point_inside_rect_ui(pos, UI.Title.button_lang):
             game.lang = (game.lang + 1) % len(Locale.lang_list)
             game.locale = Locale.data[Locale.lang_list[game.lang]]
-            self.render_update(game)
         if point_inside_rect_ui(pos, UI.Title.button_hw):
             if game.acceler == True:
                 game.disable_acceler()
             else:
                 game.enable_acceler()
-            self.render_update(game)
         if point_inside_rect_ui(pos, UI.Title.button_quit):
             pygame.quit()
             sys.exit()

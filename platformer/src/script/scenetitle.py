@@ -4,9 +4,13 @@ from script.ui import *
 from script.res import *
 from script.locale import *
 
+from script.levelhandler import *
 from script.scenefield import *
 
 class SceneTitle():
+    def __init__(self, game):
+        pass
+
     def loop(self, game):
         self.render(game)
 
@@ -35,7 +39,8 @@ class SceneTitle():
             game.selected_title = (game.selected_title + 1) % 5
         if key == pygame.K_RETURN:
             if game.selected_title == 0:
-                game.scene = SceneField()
+                game.scene = SceneField(game)
+                LevelHandler.load_level(game, 1)
                 game.state = ''
             elif game.selected_title == 1:
                 if game.lang == 'en':
