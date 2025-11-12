@@ -31,7 +31,7 @@ class Game():
         self.battle = Battle()
         self.adventure = Adventure()
 
-        self.scene = scenetitle.SceneTitle()
+        self.scene = scenetitle.SceneTitle(self)
 
     def enable_acceler(self):
         self.acceler = True

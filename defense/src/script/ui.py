@@ -16,6 +16,21 @@ class UI():
 
     class Battle():
         button_menu = [1180, 20, 80, 80]
-
+        icon_energy = []
+        text_energy = []
+        icon_life = []
+        text_lift = []
+        button_upgrade = []
+        card_start = []
+        card_size = []
+        card_interval = []
+        
     class Menu():
-        pass
+        rect = [320, 200, 640, 320]
+        text_paused = [340, 220]
+        button_resume = [320, 280, 640, 80]
+        text_resume = [340, 300]
+        button_save_and_exit = [320, 360, 640, 80]
+        text_save_and_exit = [340, 380]
+        button_quit = [320, 440, 640, 80]
+        text_quit = [340, 460]
