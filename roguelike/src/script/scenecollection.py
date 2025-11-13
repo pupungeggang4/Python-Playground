@@ -1,4 +1,8 @@
+import pygame, sys
 
+from script.ui import *
+from script.res import *
 
 class SceneCollection():
-    pass
+    def __init__(self, game):
+        pass

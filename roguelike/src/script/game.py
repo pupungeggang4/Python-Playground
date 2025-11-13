@@ -4,7 +4,7 @@ from OpenGL.GL import *
 from script.res import *
 from script.locale import *
 from script.village import *
-from script.field import *
+from script.field.field import *
 
 import script.scenetitle as scenetitle
 
@@ -22,7 +22,6 @@ class Game():
         load_image()
         load_font()
 
-        self.scene = scenetitle.SceneTitle()
         self.state = ''
         self.state_click = ''
         self.menu = False
@@ -40,6 +39,7 @@ class Game():
         self.key_pressed = {
             'up': False, 'left': False, 'down': False, 'right': False
         }
+        self.scene = scenetitle.SceneTitle(self)
 
     def enable_hw_acceler(self):
         self.hw_acceler = True
