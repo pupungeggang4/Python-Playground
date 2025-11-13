@@ -6,7 +6,10 @@ from script.locale import *
 from script.village import *
 from script.field.field import *
 
-import script.scenetitle as scenetitle
+from script.scenetitle import SceneTitle
+from script.scenevillage import SceneVillage
+from script.scenebattle import SceneBattle
+from script.scenecollection import SceneCollection
 
 class Game():
     def __init__(self):
@@ -39,7 +42,7 @@ class Game():
         self.key_pressed = {
             'up': False, 'left': False, 'down': False, 'right': False
         }
-        self.scene = scenetitle.SceneTitle(self)
+        self.scene = SceneTitle(self)
 
     def enable_hw_acceler(self):
         self.hw_acceler = True
@@ -123,6 +126,16 @@ class Game():
 
     def handle_scene(self):
         self.scene.loop(self)
+
+    def set_scene(self, scene):
+        if scene == 'title':
+            self.scene = SceneTitle(self)
+        if scene == 'village':
+            self.scene = SceneVillage(self)
+        if scene == 'battle':
+            self.scene = SceneBattle(self)
+        if scene == 'collection':
+            self.scene = SceneCollection(self)
 
     def render_GL(self):
         glClear(GL_COLOR_BUFFER_BIT)

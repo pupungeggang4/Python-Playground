@@ -7,10 +7,6 @@ from script.func import *
 
 from script.village import *
 
-from script.scenevillage import *
-from script.scenebattle import *
-from script.scenecollection import *
-
 class SceneTitle():
     def __init__(self, game):
         pass
@@ -47,11 +43,11 @@ class SceneTitle():
 
         if key == pygame.K_RETURN:
             if game.selected_title == 0:
-                game.scene = SceneVillage(game)
+                game.set_scene('village')
                 game.state = ''
                 game.village = Village()
             elif game.selected_title == 1:
-                game.scene = SceneCollection(game)
+                game.set_scene('collection')
                 game.state = ''
             elif game.selected_title == 2:
                 game.lang = (game.lang + 1) % len(Locale.lang_list)
@@ -68,11 +64,11 @@ class SceneTitle():
     def mouse_up(self, game, pos, button):
         if button == 1:
             if point_inside_rect_ui(pos, UI.Title.button_start):
-                game.scene = SceneVillage(game)
+                game.set_scene('village')
                 game.state = ''
                 game.village = Village()
             elif point_inside_rect_ui(pos, UI.Title.button_collection):
-                game.scene = SceneCollection(game)
+                game.set_scene('collection')
                 game.state = ''
             elif point_inside_rect_ui(pos, UI.Title.button_lang):
                 game.lang = (game.lang + 1) % len(Locale.lang_list)
