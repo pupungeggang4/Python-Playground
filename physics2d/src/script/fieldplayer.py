@@ -31,13 +31,14 @@ class FieldPlayer(Entity):
         if self.fall == True:
             self.support(game)
         if game.key_pressed['up'] == True:
-            if self.jump_num > 0:
-                self.jump_num -= 1
-                self.jump_store = True
-        if self.jump_store == True:
-            if self.ground == True:
-                self.velocity.y = self.jump
-            self.jump_store = False
+            self.velocity.y = self.jump
+            #if self.jump_num > 0:
+                #self.jump_num -= 1
+                #self.jump_store = True
+        #if self.jump_store == True:
+            #if self.ground == True:
+                #self.velocity.y = self.jump
+            #self.jump_store = False
 
     def support(self, game):
         entity_list = game.field.entity_list
